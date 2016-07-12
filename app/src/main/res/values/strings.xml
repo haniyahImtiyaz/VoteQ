@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">VoteQ</string>
-    <string name="title_activity_add_vote">AddVoteActivity</string>
-    <string name="title_activity_main2">Main2lk</string>
-    <string name="title_activity_result">ResultActivity</string>
+    <string name="title_activity_add_vote">Add Vote</string>
+    <string name="title_activity_main2">Main Activity</string>
+    <string name="title_activity_result">Result</string>
+    <string name="title_activity_home">Home</string>
+    <string name="title_activity_vote">Giving Vote</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

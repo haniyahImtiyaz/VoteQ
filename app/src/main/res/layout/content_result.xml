@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/colorToolbar"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.ceria.pkl.voteq.ResultActivity"
     tools:showIn="@layout/activity_result">
@@ -89,6 +90,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:text="1200 votes"
+                android:textStyle="bold"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/colorPrimaryBlue" />
         </LinearLayout>

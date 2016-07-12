@@ -36,6 +36,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_add_vote" />
+    <include layout="@layout/content_add_vote"/>
 
 </android.support.design.widget.CoordinatorLayout>

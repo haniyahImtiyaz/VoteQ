@@ -10,4 +10,7 @@
     <color name="colorPrimaryTextBlue">#212121</color>
     <color name="colorSecondaryTextBlue">#727272</color>
     <color name="colorDividerBlue">#B6B6B6</color>
+
+    <color name="labelOpen">#4CAF50</color>
+    <color name="labelClosed">#F44336</color>
 </resources>

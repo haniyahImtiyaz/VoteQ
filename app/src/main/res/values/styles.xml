@@ -3,9 +3,12 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/colorToolbar</item>
+        <item name="colorPrimaryDark">@color/colorDividerBlue</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="titleTextColor">@color/colorPrimaryTextBlue</item>
+        <item name="colorControlNormal">@color/colorPrimaryTextBlue</item>
+        <item name="android:actionMenuTextColor">@color/colorPrimaryTextBlue</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -13,8 +16,8 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.AppBarOverlay" parent="AppTheme" />
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.PopupOverlay" parent="AppTheme" />
 
 </resources>
