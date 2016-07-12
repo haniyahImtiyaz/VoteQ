@@ -8,6 +8,8 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/list_vote"/>
+        android:layout_marginTop="100dp"
+        android:id="@+id/list_vote"
+        />
 
 </LinearLayout>
