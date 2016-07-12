@@ -63,7 +63,7 @@ public class HomeAdapter extends BaseAdapter {
         HomeItem homeItem = homeItems.get(position);
 
         holder.textViewTitle.setText(homeItem.getTextTitle());
-        holder.textViewCount.setText(homeItem.getTextCount());
+        holder.textViewCount.setText(homeItem.getTextCount()+" Peoples Voted");
         holder.textViewLabel.setText(homeItem.getLabel());
 
         if(homeItem.getLabel().toString().equals("Closed")){

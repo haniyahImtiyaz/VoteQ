@@ -20,6 +20,9 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.mipmap.logo);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
 
         TabLayout tabLayout = (TabLayout)findViewById(R.id.tabLayoutHome);
         tabLayout.addTab(tabLayout.newTab().setText("Vote List"));

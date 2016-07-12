@@ -1,10 +1,12 @@
 package com.ceria.pkl.voteq;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -23,6 +25,28 @@ public class MyVoteList extends Fragment {
         listViewVote = (ListView)rootView.findViewById(R.id.list_my_vote);
         homeAdapter = new HomeAdapter(getItem(), getContext());
         listViewVote.setAdapter(homeAdapter);
+
+        listViewVote.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                if(getItem().get(position).getLabel().equals("Open")){
+                    Intent intent = new Intent(getContext(), VoteActivity.class);
+                    intent.putExtra("title", getItem().get(position).getTextTitle());
+                    intent.putExtra("count", getItem().get(position).getTextCount());
+                    intent.putExtra("status", getItem().get(position).getLabel());
+                    startActivity(intent);
+                }else{
+                    Intent intent = new Intent(getContext(), ResultActivity.class);
+                    intent.putExtra("title", getItem().get(position).getTextTitle());
+                    intent.putExtra("count", getItem().get(position).getTextCount());
+                    intent.putExtra("status", getItem().get(position).getLabel());
+                    startActivity(intent);
+                }
+
+            }
+        });
+
 
         return rootView;
     }

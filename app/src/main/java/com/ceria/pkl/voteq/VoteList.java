@@ -30,11 +30,21 @@ public class VoteList extends Fragment{
         listViewVote.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getContext(), VoteActivity.class);
-                intent.putExtra("title", getItem().get(position).getTextTitle());
-                intent.putExtra("count", getItem().get(position).getTextCount());
-                intent.putExtra("status", getItem().get(position).getLabel());
-                startActivity(intent);
+
+                if(getItem().get(position).getLabel().equals("Open")){
+                    Intent intent = new Intent(getContext(), VoteActivity.class);
+                    intent.putExtra("title", getItem().get(position).getTextTitle());
+                    intent.putExtra("count", getItem().get(position).getTextCount());
+                    intent.putExtra("status", getItem().get(position).getLabel());
+                    startActivity(intent);
+                }else{
+                    Intent intent = new Intent(getContext(), ResultActivity.class);
+                    intent.putExtra("title", getItem().get(position).getTextTitle());
+                    intent.putExtra("count", getItem().get(position).getTextCount());
+                    intent.putExtra("status", getItem().get(position).getLabel());
+                    startActivity(intent);
+                }
+
             }
         });
 

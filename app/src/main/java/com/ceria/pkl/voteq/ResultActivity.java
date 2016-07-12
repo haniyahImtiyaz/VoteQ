@@ -1,5 +1,6 @@
 package com.ceria.pkl.voteq;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -34,6 +35,8 @@ public class ResultActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
+        Intent intent = getIntent();
 
         textPercentCircle = (TextView) findViewById(R.id.textPercentCircle);
         textResult = (TextView) findViewById(R.id.textResult);

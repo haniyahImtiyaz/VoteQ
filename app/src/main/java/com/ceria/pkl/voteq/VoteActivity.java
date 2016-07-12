@@ -42,7 +42,7 @@ public class VoteActivity extends AppCompatActivity {
         LinearLayout linearLayout = (LinearLayout)findViewById(R.id.layout_label);
 
         titleView.setText(titleText);
-        countView.setText(countText);
+        countView.setText(countText +" Peoples Voted");
         labelView.setText(labelText);
 
         if(labelText.equals("Closed")){
