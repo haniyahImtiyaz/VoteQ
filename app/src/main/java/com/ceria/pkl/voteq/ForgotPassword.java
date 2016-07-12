@@ -19,8 +19,8 @@ public class ForgotPassword extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
 
-        email = (EditText) findViewById(R.id.newPassword);
-        submit = (Button) findViewById(R.id.submit);
+        email = (EditText) findViewById(R.id.txt_email_reset);
+        submit = (Button) findViewById(R.id.btn_reset);
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -29,5 +29,8 @@ public class ForgotPassword extends AppCompatActivity {
 
                 i = new Intent(ForgotPassword.this, SignIn.class);
                 startActivity(i);
+            }
+
+        });
     }
 }

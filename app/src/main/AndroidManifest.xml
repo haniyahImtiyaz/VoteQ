@@ -25,6 +25,14 @@
             </intent-filter>
         </activity>
         <activity
+        android:name=".SignUp"
+        android:label="@string/title_activity_result"
+        android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ForgotPassword"
+            android:label="@string/title_activity_result"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".ResultActivity"
             android:label="@string/title_activity_result"
             android:theme="@style/AppTheme.NoActionBar" />

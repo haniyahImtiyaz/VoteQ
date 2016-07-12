@@ -7,11 +7,10 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class SignUp extends AppCompatActivity {
-
-    EditText username;
-    EditText email;
-    EditText password;
-    Button signUp;
+    EditText edtEmail;
+    EditText edtPassword;
+    EditText edtConfirmPassword;
+    Button btnSignUp;
     Intent i;
 
     @Override
@@ -19,9 +18,9 @@ public class SignUp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        username = (EditText) findViewById(R.id.username);
-        email = (EditText) findViewById(R.id.email);
-        password = (EditText) findViewById(R.id.password);
-        signUp = (Button) findViewById(R.id.butSignUp);
+        edtEmail = (EditText) findViewById(R.id.txt_email);
+        edtPassword = (EditText) findViewById(R.id.txt_password);
+        edtConfirmPassword = (EditText)findViewById(R.id.txt_confirm_passoword);
+        btnSignUp = (Button) findViewById(R.id.butSignUp);
     }
 }
