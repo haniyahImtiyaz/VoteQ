@@ -6,4 +6,5 @@ package com.ceria.pkl.voteq;
 public class ClientCallback {
     void onSucceeded();
     void onFailed();
+
 }
