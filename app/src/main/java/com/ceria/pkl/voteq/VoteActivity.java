@@ -37,7 +37,7 @@ public class VoteActivity extends AppCompatActivity {
         String labelText= intent.getStringExtra("status");
 
         TextView titleView = (TextView)findViewById(R.id.txt_title);
-        TextView countView = (TextView)findViewById(R.id.txt_count_vote);
+        TextView countView = (TextView)findViewById(R.id.txt_vote_count);
         TextView labelView = (TextView)findViewById(R.id.txt_stat);
         LinearLayout linearLayout = (LinearLayout)findViewById(R.id.layout_label);
 
