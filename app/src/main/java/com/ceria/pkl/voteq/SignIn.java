@@ -49,6 +49,7 @@ public class SignIn extends AppCompatActivity {
             public void onClick(View v) {
                 i = new Intent(SignIn.this, HomeActivity.class);
                 startActivity(i);
+                finish();
             }
         });
     }
