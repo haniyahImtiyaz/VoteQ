@@ -3,7 +3,6 @@ package com.ceria.pkl.voteq;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +22,7 @@ public class HomeActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setLogo(R.mipmap.logo);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
+//        getSupportActionBar().setTitle("Material Tab");
 
         TabLayout tabLayout = (TabLayout)findViewById(R.id.tabLayoutHome);
         tabLayout.addTab(tabLayout.newTab().setText("Vote List"));
@@ -59,6 +59,25 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.logout) {
+            Intent i = new Intent(this, SignIn.class);
+            startActivity(i);
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

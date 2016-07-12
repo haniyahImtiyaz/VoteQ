@@ -43,5 +43,13 @@ public class SignIn extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        signIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                i = new Intent(SignIn.this, HomeActivity.class);
+                startActivity(i);
+            }
+        });
     }
 }
