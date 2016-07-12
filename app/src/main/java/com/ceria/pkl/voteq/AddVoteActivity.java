@@ -1,6 +1,8 @@
 package com.ceria.pkl.voteq;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -51,10 +53,20 @@ public class AddVoteActivity extends AppCompatActivity {
         buttonAddOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                optionItemList.add(get("Option "+(listAdapterOption.getCount()+1), editTextOption.getText().toString()));
-                listAdapterOption.notifyDataSetChanged();
-                editTextOption.setText("");
-                editTextOption.setHint("Option "+(listAdapterOption.getCount()+1));
+                if (editTextOption.getText().toString().trim().length() == 0) {
+                    new AlertDialog.Builder(AddVoteActivity.this)
+                            .setMessage("please, fill this option value!")
+                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            })
+                            .show();
+                } else {
+                    optionItemList.add(get("Option " + (listAdapterOption.getCount() + 1), editTextOption.getText().toString()));
+                    listAdapterOption.notifyDataSetChanged();
+                    editTextOption.setText("");
+                    editTextOption.setHint("Option " + (listAdapterOption.getCount() + 1));
+                }
             }
         });
 

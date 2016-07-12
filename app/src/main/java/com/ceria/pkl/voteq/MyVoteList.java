@@ -20,22 +20,22 @@ public class MyVoteList extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.page_my_vote_list, container, false);
-//        listViewVote = (ListView)rootView.findViewById(R.id.list_vote);
-//        homeAdapter = new HomeAdapter(getItem(), getContext());
-//        listViewVote.setAdapter(homeAdapter);
+        listViewVote = (ListView)rootView.findViewById(R.id.list_my_vote);
+        homeAdapter = new HomeAdapter(getItem(), getContext());
+        listViewVote.setAdapter(homeAdapter);
 
         return rootView;
     }
-//    private HomeItem get(String title, String count,String label, int image){
-//        return new HomeItem(title,count,label,image);
-//    }
-//    private List<HomeItem> getItem(){
-//        List<HomeItem> list = new ArrayList<HomeItem>();
-//        list.add(get("Judul 1","1200","Open",R.mipmap.ic_launcher));
-//        list.add(get("Judul 2","1200","Open",R.mipmap.ic_edit_pencil));
-//        list.add(get("Judul 3","1200","Closed",R.mipmap.ic_launcher));
-//        list.add(get("Judul 4","1200","Open",R.mipmap.ic_edit_pencil));
-//        list.add(get("Judul 5","1200","Closed",R.mipmap.ic_launcher));
-//        return list;
-//    }
+    private HomeItem get(String title, String count,String label, int image){
+        return new HomeItem(title,count,label,image);
+    }
+    private List<HomeItem> getItem(){
+        List<HomeItem> list = new ArrayList<HomeItem>();
+        list.add(get("Judul 1","1200","Open",R.mipmap.ic_launcher));
+        list.add(get("Judul 2","1200","Open",R.mipmap.ic_edit_pencil));
+        list.add(get("Judul 3","1200","Closed",R.mipmap.ic_launcher));
+        list.add(get("Judul 4","1200","Open",R.mipmap.ic_edit_pencil));
+        list.add(get("Judul 5","1200","Closed",R.mipmap.ic_launcher));
+        return list;
+    }
 }
