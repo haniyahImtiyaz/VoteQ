@@ -12,7 +12,7 @@
         <activity
             android:name=".AddVoteActivity"
             android:label="@string/title_activity_add_vote"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ResultActivity"
             android:label="@string/title_activity_result"
@@ -36,7 +36,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.ceria.pkl.voteq.HomeActivity" />
         </activity>
-        <activity android:name=".SignIn"></activity>
+        <activity android:name=".SignIn" />
+        <activity android:name=".SignUp" />
+        <activity android:name=".ForgotPassword"></activity>
     </application>
 
 </manifest>
