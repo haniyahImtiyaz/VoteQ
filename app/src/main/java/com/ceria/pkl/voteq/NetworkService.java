@@ -17,8 +17,5 @@ public class NetworkService {
         this.requestQueue = Volley. newRequestQueue(context);
     }
 
-    public void login(final String email, final String password, final ClientCallback clientCallback){
-        String url= context.getResources().getString(R.)
-    }
-
+    
 }

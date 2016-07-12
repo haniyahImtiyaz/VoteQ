@@ -1,5 +1,6 @@
 package com.ceria.pkl.voteq;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,6 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.RequestQueue;
 
 public class SignIn extends AppCompatActivity {
 
@@ -16,6 +20,8 @@ public class SignIn extends AppCompatActivity {
     TextView account;
     TextView forgotPassword;
     Intent i;
+    RequestQueue requestQueue;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,5 +58,18 @@ public class SignIn extends AppCompatActivity {
                 finish();
             }
         });
+
+
+        @Override
+        public void onSucceedeed() {
+            Toast.makeText(SignIn.this, "Berhasil Login", Toast.LENGTH_SHORT).show();
+            progressDialog.dismiss();
+        }
+
+        @Override
+        public void onFailed() {
+            Toast.makeText(SignIn.this, "Password/NIM salah", Toast.LENGTH_SHORT).show();
+            progressDialog.dismiss();
+        }
     }
 }
