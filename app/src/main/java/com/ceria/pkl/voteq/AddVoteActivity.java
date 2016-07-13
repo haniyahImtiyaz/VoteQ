@@ -26,7 +26,8 @@ public class AddVoteActivity extends AppCompatActivity implements ClientCallback
     private ListAdapterOption listAdapterOption;
     private ExpandableHeightListView expandableListView;
     List<OptionItem> optionItemList;
-    List<String> listOption;
+    ArrayList<String> listOption = new ArrayList<String>();
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -68,8 +69,9 @@ public class AddVoteActivity extends AppCompatActivity implements ClientCallback
                             })
                             .show();
                 } else {
-                    listOption.add(editTextOption.getText().toString());
-                    optionItemList.add(get("Option " + (listAdapterOption.getCount() + 1), editTextOption.getText().toString()));
+                    String option = editTextOption.getText().toString();
+                    optionItemList.add(get("Option " + (listAdapterOption.getCount() + 1), option));
+                    listOption.add(option);
                     listAdapterOption.notifyDataSetChanged();
                     editTextOption.setText("");
                     editTextOption.setHint("Option " + (listAdapterOption.getCount() + 1));
@@ -78,7 +80,7 @@ public class AddVoteActivity extends AppCompatActivity implements ClientCallback
         });
 
         final NetworkService networkService = new NetworkService(this);
-        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please Wait...");
 
         buttonDone.setOnClickListener(new View.OnClickListener() {
@@ -105,13 +107,16 @@ public class AddVoteActivity extends AppCompatActivity implements ClientCallback
 
     @Override
     public void onSucceded() {
+        progressDialog.dismiss();
         Toast.makeText(AddVoteActivity.this, "Create Vote Success", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
+
     }
 
     @Override
     public void onFailed() {
+        progressDialog.dismiss();
         Toast.makeText(AddVoteActivity.this, "Create Vote Failure", Toast.LENGTH_SHORT).show();
     }
 }

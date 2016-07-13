@@ -15,8 +15,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -139,7 +139,7 @@ public class NetworkService {
         return auth_token;
     }
 
-    public void createVote(final String token, final String title, final List<String> option, final String is_open, final ClientCallbackSignIn clientCallback){
+    public void createVote(final String token, final String title, final ArrayList<String> option, final String is_open, final ClientCallbackSignIn clientCallback){
         String url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.create_vote);
         StringRequest signUpRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
@@ -180,7 +180,7 @@ public class NetworkService {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 params.put("title", title);
-                for(int i = 0; i <= option.size(); i++){
+                for(int i = 0; i < option.size(); i++){
                     params.put("option[]", option.get(i));
                 }
                 params.put("is_open", is_open);
