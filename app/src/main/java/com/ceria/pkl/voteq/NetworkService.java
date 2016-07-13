@@ -101,7 +101,8 @@ public class NetworkService {
                     //ada apa dengan cinta
 
                     if (status.equals("success")){
-                        clientCallback.onSucceeded(); //memberitahu ke LoginActivity bahwa login sukses, agan LoginActivity menjalankan onSucceedeed
+                        clientCallback.onSucceeded();
+                        //memberitahu ke LoginActivity bahwa login sukses, agan LoginActivity menjalankan onSucceedeed
                     }else{
                         clientCallback.onFailed();
                     }
@@ -133,3 +134,4 @@ public class NetworkService {
         requestQueue.add(loginRequest);
     }
 }
+
