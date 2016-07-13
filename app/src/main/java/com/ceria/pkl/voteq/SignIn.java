@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
 
 
 public class SignIn extends AppCompatActivity implements ClientCallbackSignIn{
@@ -32,6 +33,7 @@ public class SignIn extends AppCompatActivity implements ClientCallbackSignIn{
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please Wait");
 
+        requestQueue = Volley.newRequestQueue(this);
         username = (EditText) findViewById(R.id.username);
         password = (EditText) findViewById(R.id.password);
         signIn = (Button) findViewById(R.id.butSignIn);
