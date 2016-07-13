@@ -118,7 +118,7 @@ public class NetworkService {
                 clientCallback.onFailed();
             }
         }) {
-            public Map<String, String> getHeader() throws AuthFailureError{
+            public Map<String, String> getHeaders() throws AuthFailureError{
                 Map<String, String> header = new HashMap<>();
                 header.put("Context-Type", "application/x-www-form-urlencoded");
                 return header;
