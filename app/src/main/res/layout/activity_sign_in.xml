@@ -40,7 +40,7 @@
         android:hint="Password"
         android:inputType="textPassword"
         android:layout_marginTop="5dp"
-        android:id="@+id/password"
+        android:id="@+id/txt_password"
         android:layout_below="@+id/username" />
 
     <Button

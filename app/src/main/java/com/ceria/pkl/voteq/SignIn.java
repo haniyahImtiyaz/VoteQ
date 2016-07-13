@@ -15,8 +15,8 @@ import com.android.volley.RequestQueue;
 
 public class SignIn extends AppCompatActivity implements ClientCallbackSignIn{
 
-    EditText username;
-    EditText password;
+    EditText edtEmail;
+    EditText edtPassword;
     Button signIn;
     TextView account;
     TextView forgotPassword;
@@ -32,8 +32,8 @@ public class SignIn extends AppCompatActivity implements ClientCallbackSignIn{
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please Wait");
 
-        username = (EditText) findViewById(R.id.username);
-        password = (EditText) findViewById(R.id.password);
+        edtEmail = (EditText) findViewById(R.id.txt_email);
+        edtPassword = (EditText) findViewById(R.id.txt_password);
         signIn = (Button) findViewById(R.id.butSignIn);
         account = (TextView) findViewById(R.id.newAccount);
         forgotPassword = (TextView) findViewById(R.id.forgotPassword);
@@ -57,7 +57,7 @@ public class SignIn extends AppCompatActivity implements ClientCallbackSignIn{
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                networkService.login(username.getText().toString(), password.getText().toString(), (ClientCallback) SignIn.this);
+                networkService.login(edtEmail.getText().toString(), edtPassword.getText().toString(), (ClientCallback) SignIn.this);
                 progressDialog.show();
             }
         });}
