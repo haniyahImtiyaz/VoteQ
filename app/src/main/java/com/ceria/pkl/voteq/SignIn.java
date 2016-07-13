@@ -24,7 +24,7 @@ public class SignIn extends AppCompatActivity implements ClientCallbackSignIn{
     RequestQueue requestQueue;
     ProgressDialog progressDialog;
     String token;
-    final NetworkService networkService = new NetworkService(this);
+    NetworkService networkService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +32,7 @@ public class SignIn extends AppCompatActivity implements ClientCallbackSignIn{
         setContentView(R.layout.activity_sign_in);
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please Wait");
-
+        networkService = new NetworkService(this);
         edtEmail = (EditText) findViewById(R.id.txt_email);
         edtPassword = (EditText) findViewById(R.id.txt_password);
         signIn = (Button) findViewById(R.id.butSignIn);
