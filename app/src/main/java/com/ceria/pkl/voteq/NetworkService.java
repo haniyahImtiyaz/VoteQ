@@ -41,34 +41,23 @@ public class NetworkService {
             @Override
             public void onResponse(String response) {
                 try {
-
                     JSONObject logResponse = new JSONObject(response);
                     Log.d("signUpPost", "response " + logResponse.toString(2));
                     String status = logResponse.getString("status");
-<<<<<<< HEAD
-                    if(status.equals("error")){
+                    if(status.equals("error")) {
                         JSONObject dataResponse = logResponse.getJSONObject("data");
                         JSONArray arrayResponseEmail = dataResponse.getJSONArray("email");
                         JSONArray arrayResponsePassword = dataResponse.getJSONArray("password");
                         JSONArray arrayResponsePasswordConfirm = dataResponse.getJSONArray("password_confirmation");
                         String responseEmail = arrayResponseEmail.getString(0);
                         String responsePwd = arrayResponseEmail.getString(0);
-                        if(responseEmail.equals("has already been taken")){
+                        if (responseEmail.equals("has already been taken")) {
                             clientCallback.onEmailSame();
-                        }else if(responsePwd.equals("is too short (minimum is 6 characters)")){
+                        } else if (responsePwd.equals("is too short (minimum is 6 characters)")) {
                             clientCallback.onLessPassword();
-                        }else{
+                        } else {
                             clientCallback.onFailed();
                         }
-
-                    }else{
-=======
-                    if (status.equals("success")){
->>>>>>> 06d0e3face69bdd5306e70a39d6a36da7c22ffa2
-                        clientCallback.onSucceeded();
-                    }
-                    else {
-                        clientCallback.onFailed();
                     }
                 } catch (JSONException e) {
                     Log.d("signUpPost", "response "+response);
