@@ -87,4 +87,14 @@ public class SignIn extends AppCompatActivity {
         }
 >>>>>>> 06d0e3face69bdd5306e70a39d6a36da7c22ffa2
     }
+
+    @Override
+    public void onEmailSame() {
+
+    }
+
+    @Override
+    public void onLessPassword() {
+
+    }
 }
