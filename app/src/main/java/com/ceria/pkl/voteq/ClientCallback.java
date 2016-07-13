@@ -7,5 +7,4 @@ public interface ClientCallback {
     void onSucceeded();
     void onFailed();
     void onEmailSame();
-    void onLessPassword();
 }

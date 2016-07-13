@@ -48,9 +48,7 @@ public class NetworkService {
                         String responsePwd = arrayResponseEmail.getString(0);
                         if (responseEmail.equals("has already been taken")) {
                             clientCallback.onEmailSame();
-                        } else if (responsePwd.equals("is too short (minimum is 6 characters)")) {
-                            clientCallback.onLessPassword();
-                        } else {
+                        }else {
                             clientCallback.onFailed();
                         }
                     }

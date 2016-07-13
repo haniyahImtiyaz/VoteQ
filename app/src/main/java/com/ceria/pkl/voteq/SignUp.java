@@ -60,12 +60,6 @@ public class SignUp extends AppCompatActivity implements ClientCallback {
         Toast.makeText(this, "Email has already been taken", Toast.LENGTH_SHORT).show();
         progressDialog.dismiss();
     }
-
-    @Override
-    public void onLessPassword() {
-        Toast.makeText(this, "Password need 6 characters or more", Toast.LENGTH_SHORT).show();
-        progressDialog.dismiss();
-    }
 }
 
 
