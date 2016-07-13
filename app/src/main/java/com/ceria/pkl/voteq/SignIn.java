@@ -12,11 +12,8 @@ import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 
-<<<<<<< HEAD
+
 public class SignIn extends AppCompatActivity implements ClientCallbackSignIn{
-=======
-public class SignIn extends AppCompatActivity {
->>>>>>> 06d0e3face69bdd5306e70a39d6a36da7c22ffa2
 
     EditText username;
     EditText password;
@@ -61,40 +58,16 @@ public class SignIn extends AppCompatActivity {
                 startActivity(i);
                 finish();
             }
-        });
+        });}
 
 
-<<<<<<< HEAD
-    @Override
-    public void onSucceded() {
-
-    }
-
-    @Override
-    public void onFailed() {
-
-=======
-        @Override
-        public void onSucceedeed() {
+        public void onSucceded() {
             Toast.makeText(SignIn.this, "Berhasil Login", Toast.LENGTH_SHORT).show();
             progressDialog.dismiss();
         }
 
-        @Override
         public void onFailed() {
             Toast.makeText(SignIn.this, "Password/NIM salah", Toast.LENGTH_SHORT).show();
             progressDialog.dismiss();
         }
->>>>>>> 06d0e3face69bdd5306e70a39d6a36da7c22ffa2
-    }
-
-    @Override
-    public void onEmailSame() {
-
-    }
-
-    @Override
-    public void onLessPassword() {
-
-    }
 }
