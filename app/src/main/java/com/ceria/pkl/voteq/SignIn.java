@@ -77,7 +77,6 @@ public class SignIn extends AppCompatActivity implements ClientCallbackSignIn{
 
 
     public void onSucceded() {
-        Toast.makeText(SignIn.this, "Sign in success", Toast.LENGTH_SHORT).show();
         progressDialog.dismiss();
         i = new Intent(SignIn.this, HomeActivity.class);
         token = networkService.getAuth_token();
