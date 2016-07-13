@@ -43,13 +43,25 @@ public class NetworkService {
 
                     JSONObject logResponse = new JSONObject(response);
                     Log.d("signUpPost", "response " + logResponse.toString(2));
+
                     String status = logResponse.getString("status");
-                    if (status.equals("success")){
+
+                    if(status.equals("error")){
+                        JSONObject dataResponse = logResponse.getJSONObject("data");
+                        String responseEmail = dataResponse.getString("email");
+                        String responsePwd = dataResponse.getString("password");
+                        if(responseEmail.equals("has already been taken")){
+                            clientCallback.onEmailSame();
+                        }else if(responsePwd.equals("is too short (minimum is 6 characters)")){
+                            clientCallback.onLessPassword();
+                        }else{
+                            clientCallback.onFailed();
+                        }
+
+                    }else{
                         clientCallback.onSucceeded();
                     }
-                    else {
-                        clientCallback.onFailed();
-                    }
+
                 } catch (JSONException e) {
                     Log.d("signUpPost", "response "+response);
                     e.printStackTrace();
@@ -62,7 +74,6 @@ public class NetworkService {
             public void onErrorResponse(VolleyError error) {
                 Log.d("signUpPost", "error signUp "+error.toString());
                 clientCallback.onFailed();
-
             }
         }){
             @Override
