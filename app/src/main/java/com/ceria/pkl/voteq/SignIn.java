@@ -1,9 +1,11 @@
 package com.ceria.pkl.voteq;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,6 +27,7 @@ public class SignIn extends AppCompatActivity implements ClientCallbackSignIn{
     ProgressDialog progressDialog;
     String token;
     NetworkService networkService;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,7 @@ public class SignIn extends AppCompatActivity implements ClientCallbackSignIn{
         signIn = (Button) findViewById(R.id.butSignIn);
         account = (TextView) findViewById(R.id.newAccount);
         forgotPassword = (TextView) findViewById(R.id.forgotPassword);
+
 
         account.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,7 +65,15 @@ public class SignIn extends AppCompatActivity implements ClientCallbackSignIn{
                 networkService.login(edtEmail.getText().toString(), edtPassword.getText().toString(), SignIn.this);
                 progressDialog.show();
             }
-        });}
+        });
+
+        sharedPreferences = getSharedPreferences(token, Context.MODE_PRIVATE);
+        String auth_token = sharedPreferences.getString("token","");
+        if (!auth_token.isEmpty()){
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
+        }
+    }
 
 
     public void onSucceded() {
@@ -69,7 +81,9 @@ public class SignIn extends AppCompatActivity implements ClientCallbackSignIn{
         progressDialog.dismiss();
         i = new Intent(SignIn.this, HomeActivity.class);
         token = networkService.getAuth_token();
-        i.putExtra("token",token);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("token", token);
+        editor.commit();
         startActivity(i);
     }
 
