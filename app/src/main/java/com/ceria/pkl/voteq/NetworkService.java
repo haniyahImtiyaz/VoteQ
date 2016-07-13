@@ -44,7 +44,7 @@ public class NetworkService {
                     JSONObject logResponse = new JSONObject(response);
                     Log.d("signUpPost", "response " + logResponse.toString(2));
                     String status = logResponse.getString("status");
-                    if (status.equals("failed")){
+                    if (status.equals("success")){
                         clientCallback.onSucceeded();
                     }
                     else {
