@@ -12,7 +12,11 @@ import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 
+<<<<<<< HEAD
+public class SignIn extends AppCompatActivity implements ClientCallbackSignIn{
+=======
 public class SignIn extends AppCompatActivity {
+>>>>>>> 06d0e3face69bdd5306e70a39d6a36da7c22ffa2
 
     EditText username;
     EditText password;
@@ -27,9 +31,6 @@ public class SignIn extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
-        final NetworkService networkService = new NetworkService(this);
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Please Wait");
 
         username = (EditText) findViewById(R.id.username);
         password = (EditText) findViewById(R.id.password);
@@ -56,24 +57,34 @@ public class SignIn extends AppCompatActivity {
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                networkService.login(username.getText().toString(), password.getText().toString(), (ClientCallback) SignIn.this);
-                progressDialog.show();
                 i = new Intent(SignIn.this, HomeActivity.class);
                 startActivity(i);
                 finish();
             }
         });
+
+
+<<<<<<< HEAD
+    @Override
+    public void onSucceded() {
+
     }
 
-
-    public void onSucceeded() {
-        Toast.makeText(SignIn.this, "Berhasil Login", Toast.LENGTH_SHORT).show();
-        progressDialog.dismiss();
-    }
-
+    @Override
     public void onFailed() {
-        Toast.makeText(SignIn.this, "Password/NIM salah", Toast.LENGTH_SHORT).show();
-        progressDialog.dismiss();
-    }
 
+=======
+        @Override
+        public void onSucceedeed() {
+            Toast.makeText(SignIn.this, "Berhasil Login", Toast.LENGTH_SHORT).show();
+            progressDialog.dismiss();
+        }
+
+        @Override
+        public void onFailed() {
+            Toast.makeText(SignIn.this, "Password/NIM salah", Toast.LENGTH_SHORT).show();
+            progressDialog.dismiss();
+        }
+>>>>>>> 06d0e3face69bdd5306e70a39d6a36da7c22ffa2
+    }
 }
