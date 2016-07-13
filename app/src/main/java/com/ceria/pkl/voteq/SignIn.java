@@ -63,15 +63,15 @@ public class SignIn extends AppCompatActivity implements ClientCallbackSignIn{
         });}
 
 
-        public void onSucceded() {
-            Toast.makeText(SignIn.this, "Berhasil Login", Toast.LENGTH_SHORT).show();
-            progressDialog.dismiss();
-            i = new Intent(SignIn.this, HomeActivity.class);
-            startActivity(i);
-        }
+    public void onSucceded() {
+        Toast.makeText(SignIn.this, "Berhasil Login", Toast.LENGTH_SHORT).show();
+        progressDialog.dismiss();
+        i = new Intent(SignIn.this, HomeActivity.class);
+        startActivity(i);
+    }
 
-        public void onFailed() {
-            Toast.makeText(SignIn.this, "Password/NIM salah", Toast.LENGTH_SHORT).show();
-            progressDialog.dismiss();
-        }
+    public void onFailed() {
+        Toast.makeText(SignIn.this, "Password/NIM salah", Toast.LENGTH_SHORT).show();
+        progressDialog.dismiss();
+    }
 }
