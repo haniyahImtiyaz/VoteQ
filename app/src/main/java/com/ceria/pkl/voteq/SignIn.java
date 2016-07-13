@@ -23,12 +23,13 @@ public class SignIn extends AppCompatActivity implements ClientCallbackSignIn{
     Intent i;
     RequestQueue requestQueue;
     ProgressDialog progressDialog;
+    String token;
+    final NetworkService networkService = new NetworkService(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
-        final NetworkService networkService = new NetworkService(this);
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please Wait");
 
@@ -67,6 +68,8 @@ public class SignIn extends AppCompatActivity implements ClientCallbackSignIn{
         Toast.makeText(SignIn.this, "Sign in success", Toast.LENGTH_SHORT).show();
         progressDialog.dismiss();
         i = new Intent(SignIn.this, HomeActivity.class);
+        token = networkService.getAuth_token();
+        i.putExtra("token",token);
         startActivity(i);
     }
 

@@ -24,6 +24,7 @@ import java.util.Map;
 public class NetworkService {
     private final RequestQueue requestQueue;
     private final Context context;
+    String auth_token;
 
     public NetworkService(Context context) {
         this.context = context;
@@ -96,6 +97,8 @@ public class NetworkService {
                     Log.d("response", logResponse.toString(2));
                     JSONObject jsonObject = new JSONObject(response); //untuk menampung semua hasil JSON
                     String  status = jsonObject.getString("status");
+                    JSONObject dataResponse = logResponse.getJSONObject("data");
+                    auth_token = dataResponse.getString("auth_token");
                     //ada apa dengan cinta
 
                     if (status.equals("success")){
@@ -130,6 +133,9 @@ public class NetworkService {
             }
         };
         requestQueue.add(loginRequest);
+    }
+    public String getAuth_token(){
+        return auth_token;
     }
 }
 
