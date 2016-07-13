@@ -25,7 +25,7 @@ public class SignIn extends AppCompatActivity implements ClientCallbackSignIn{
     Intent i;
     RequestQueue requestQueue;
     ProgressDialog progressDialog;
-    String token;
+    public static String token ;
     NetworkService networkService;
     SharedPreferences sharedPreferences;
 

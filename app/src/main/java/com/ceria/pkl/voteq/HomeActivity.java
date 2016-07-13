@@ -1,6 +1,8 @@
 package com.ceria.pkl.voteq;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -78,6 +80,10 @@ public class HomeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.logout) {
+            SharedPreferences sharedPreferences = getSharedPreferences(SignIn.token, Context.MODE_PRIVATE );
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("token", "");
+            editor.commit();
             Intent i = new Intent(this, SignIn.class);
             startActivity(i);
             finish();
