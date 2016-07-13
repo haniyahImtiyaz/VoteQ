@@ -126,8 +126,8 @@ public class NetworkService {
 
             public Map<String, String> getParams() throws AuthFailureError{
                 Map<String, String> params = new HashMap<>();
-                params.put("email", email);
-                params.put("passwors", password);
+                params.put("session[email]", email);
+                params.put("session[password]", password);
                 return params;
             }
         };
