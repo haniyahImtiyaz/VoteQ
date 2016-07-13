@@ -34,8 +34,17 @@ public class SignUp extends AppCompatActivity implements ClientCallback {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                networkService.signUp(edtEmail.getText().toString(), edtPassword.getText().toString(),edtConfirmPassword.getText().toString(), SignUp.this);
-                progressDialog.show();
+                if (edtPassword.getText().toString().equals(edtConfirmPassword.getText().toString())){
+                    Toast.makeText(SignUp.this, "Sorry, password and confirmartion didn't match", Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
+                }else if(edtPassword.length() < 6){
+                    Toast.makeText(SignUp.this, "Sorry, password must have at least 6 characters", Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
+                }else{
+
+                    networkService.signUp(edtEmail.getText().toString(), edtPassword.getText().toString(),edtConfirmPassword.getText().toString(), SignUp.this);
+                    progressDialog.show();
+                }
             }
         });
     }
@@ -57,7 +66,7 @@ public class SignUp extends AppCompatActivity implements ClientCallback {
 
     @Override
     public void onEmailSame() {
-        Toast.makeText(this, "Email has already been taken", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Sorry, Email has already been taken", Toast.LENGTH_SHORT).show();
         progressDialog.dismiss();
     }
 }
