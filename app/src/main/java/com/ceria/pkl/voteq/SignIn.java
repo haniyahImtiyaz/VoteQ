@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 
-public class SignIn extends AppCompatActivity implements ClientCallback{
+public class SignIn extends AppCompatActivity implements ClientCallbackSignIn{
 
     EditText username;
     EditText password;
@@ -62,15 +62,12 @@ public class SignIn extends AppCompatActivity implements ClientCallback{
     }
 
     @Override
-    public void onSucceeded() {
+    public void onSucceded() {
 
-        Toast.makeText(SignIn.this, "Berhasil Login", Toast.LENGTH_SHORT).show();
-        progressDialog.dismiss();
     }
 
     @Override
     public void onFailed() {
-        Toast.makeText(SignIn.this, "Email/Password salah", Toast.LENGTH_SHORT).show();
-        progressDialog.dismiss();
+
     }
 }

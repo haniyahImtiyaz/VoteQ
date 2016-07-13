@@ -11,6 +11,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -43,13 +44,14 @@ public class NetworkService {
 
                     JSONObject logResponse = new JSONObject(response);
                     Log.d("signUpPost", "response " + logResponse.toString(2));
-
                     String status = logResponse.getString("status");
-
                     if(status.equals("error")){
                         JSONObject dataResponse = logResponse.getJSONObject("data");
-                        String responseEmail = dataResponse.getString("email");
-                        String responsePwd = dataResponse.getString("password");
+                        JSONArray arrayResponseEmail = dataResponse.getJSONArray("email");
+                        JSONArray arrayResponsePassword = dataResponse.getJSONArray("password");
+                        JSONArray arrayResponsePasswordConfirm = dataResponse.getJSONArray("password_confirmation");
+                        String responseEmail = arrayResponseEmail.getString(0);
+                        String responsePwd = arrayResponseEmail.getString(0);
                         if(responseEmail.equals("has already been taken")){
                             clientCallback.onEmailSame();
                         }else if(responsePwd.equals("is too short (minimum is 6 characters)")){
