@@ -34,8 +34,8 @@ public class SignUp extends AppCompatActivity implements ClientCallback {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (edtPassword.getText().toString().equals(edtConfirmPassword.getText().toString())){
-                    Toast.makeText(SignUp.this, "Sorry, password and confirmartion didn't match", Toast.LENGTH_SHORT).show();
+                if (!edtPassword.getText().toString().equals(edtConfirmPassword.getText().toString())){
+                    Toast.makeText(SignUp.this, "Sorry, password didn't match", Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
                 }else if(edtPassword.length() < 6){
                     Toast.makeText(SignUp.this, "Sorry, password must have at least 6 characters", Toast.LENGTH_SHORT).show();
