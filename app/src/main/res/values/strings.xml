@@ -11,4 +11,5 @@
     <string name="base_url">https://voteq.herokuapp.com</string>
     <string name="sign_up">/user/users</string>
     <string name="sign_in">/user/session</string>
+    <string name="create_vote">/user/votes</string>
 </resources>
