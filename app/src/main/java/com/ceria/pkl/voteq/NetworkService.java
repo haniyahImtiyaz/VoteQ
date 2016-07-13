@@ -98,6 +98,7 @@ public class NetworkService {
                     Log.d("response", logResponse.toString(2));
                     JSONObject jsonObject = new JSONObject(response); //untuk menampung semua hasil JSON
                     String  status = jsonObject.getString("status");
+                    //ada apa dengan cinta
 
                     if (status.equals("success")){
                         clientCallback.onSucceeded(); //memberitahu ke LoginActivity bahwa login sukses, agan LoginActivity menjalankan onSucceedeed
