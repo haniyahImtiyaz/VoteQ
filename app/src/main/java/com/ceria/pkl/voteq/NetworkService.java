@@ -45,6 +45,7 @@ public class NetworkService {
                     JSONObject logResponse = new JSONObject(response);
                     Log.d("signUpPost", "response " + logResponse.toString(2));
                     String status = logResponse.getString("status");
+<<<<<<< HEAD
                     if(status.equals("error")){
                         JSONObject dataResponse = logResponse.getJSONObject("data");
                         JSONArray arrayResponseEmail = dataResponse.getJSONArray("email");
@@ -61,9 +62,14 @@ public class NetworkService {
                         }
 
                     }else{
+=======
+                    if (status.equals("success")){
+>>>>>>> 06d0e3face69bdd5306e70a39d6a36da7c22ffa2
                         clientCallback.onSucceeded();
                     }
-
+                    else {
+                        clientCallback.onFailed();
+                    }
                 } catch (JSONException e) {
                     Log.d("signUpPost", "response "+response);
                     e.printStackTrace();
@@ -76,6 +82,7 @@ public class NetworkService {
             public void onErrorResponse(VolleyError error) {
                 Log.d("signUpPost", "error signUp "+error.toString());
                 clientCallback.onFailed();
+
             }
         }){
             @Override
