@@ -11,7 +11,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
 
 public class SignIn extends AppCompatActivity {
 
@@ -28,10 +27,6 @@ public class SignIn extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Please Wait");
-
-        requestQueue = Volley.newRequestQueue(this);
 
         username = (EditText) findViewById(R.id.username);
         password = (EditText) findViewById(R.id.password);
@@ -63,15 +58,18 @@ public class SignIn extends AppCompatActivity {
                 finish();
             }
         });
-    }
 
-    public void onSucceedeed() {
-        Toast.makeText(SignIn.this, "Berhasil Login", Toast.LENGTH_SHORT).show();
-        progressDialog.dismiss();
-    }
 
-    public void onFailed() {
-        Toast.makeText(SignIn.this, "Password/NIM salah", Toast.LENGTH_SHORT).show();
-        progressDialog.dismiss();
+        @Override
+        public void onSucceedeed() {
+            Toast.makeText(SignIn.this, "Berhasil Login", Toast.LENGTH_SHORT).show();
+            progressDialog.dismiss();
+        }
+
+        @Override
+        public void onFailed() {
+            Toast.makeText(SignIn.this, "Password/NIM salah", Toast.LENGTH_SHORT).show();
+            progressDialog.dismiss();
+        }
     }
 }
