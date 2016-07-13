@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
 
 
 public class SignIn extends AppCompatActivity implements ClientCallbackSignIn{
@@ -32,6 +33,7 @@ public class SignIn extends AppCompatActivity implements ClientCallbackSignIn{
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please Wait");
 
+        requestQueue = Volley.newRequestQueue(this);
         username = (EditText) findViewById(R.id.username);
         password = (EditText) findViewById(R.id.password);
         signIn = (Button) findViewById(R.id.butSignIn);
@@ -59,9 +61,6 @@ public class SignIn extends AppCompatActivity implements ClientCallbackSignIn{
             public void onClick(View v) {
                 networkService.login(username.getText().toString(), password.getText().toString(), (ClientCallback) SignIn.this);
                 progressDialog.show();
-                i = new Intent(SignIn.this, HomeActivity.class);
-                startActivity(i);
-                finish();
             }
         });}
 
@@ -69,6 +68,8 @@ public class SignIn extends AppCompatActivity implements ClientCallbackSignIn{
         public void onSucceded() {
             Toast.makeText(SignIn.this, "Berhasil Login", Toast.LENGTH_SHORT).show();
             progressDialog.dismiss();
+            i = new Intent(SignIn.this, HomeActivity.class);
+            startActivity(i);
         }
 
         public void onFailed() {
