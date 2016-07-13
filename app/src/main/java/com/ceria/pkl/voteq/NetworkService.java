@@ -88,7 +88,7 @@ public class NetworkService {
         requestQueue.add(signUpRequest);
     }
 
-    public void login (final String email, final String password, final ClientCallback clientCallback){
+    public void login (final String email, final String password, final ClientCallbackSignIn clientCallback){
         String url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.sign_in);
         StringRequest loginRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
@@ -101,7 +101,7 @@ public class NetworkService {
                     //ada apa dengan cinta
 
                     if (status.equals("success")){
-                        clientCallback.onSucceeded();
+                        clientCallback.onSucceded();
                         //memberitahu ke LoginActivity bahwa login sukses, agan LoginActivity menjalankan onSucceedeed
                     }else{
                         clientCallback.onFailed();

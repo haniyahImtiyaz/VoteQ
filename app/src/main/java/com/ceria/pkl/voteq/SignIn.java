@@ -57,21 +57,21 @@ public class SignIn extends AppCompatActivity implements ClientCallbackSignIn{
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                networkService.login(edtEmail.getText().toString(), edtPassword.getText().toString(), (ClientCallback) SignIn.this);
+                networkService.login(edtEmail.getText().toString(), edtPassword.getText().toString(), SignIn.this);
                 progressDialog.show();
             }
         });}
 
 
     public void onSucceded() {
-        Toast.makeText(SignIn.this, "Berhasil Login", Toast.LENGTH_SHORT).show();
+        Toast.makeText(SignIn.this, "Sign in success", Toast.LENGTH_SHORT).show();
         progressDialog.dismiss();
         i = new Intent(SignIn.this, HomeActivity.class);
         startActivity(i);
     }
 
     public void onFailed() {
-        Toast.makeText(SignIn.this, "Password/NIM salah", Toast.LENGTH_SHORT).show();
+        Toast.makeText(SignIn.this, "Sign in failure", Toast.LENGTH_SHORT).show();
         progressDialog.dismiss();
     }
 }
