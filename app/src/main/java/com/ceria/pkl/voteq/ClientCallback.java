@@ -6,5 +6,7 @@ package com.ceria.pkl.voteq;
 public interface ClientCallback {
     void onSucceeded();
     void onFailed();
+    void onEmailSame();
+    void onLessPassword();
 
 }
