@@ -89,8 +89,7 @@ public class NetworkService {
     }
 
     public void login (final String email, final String password, final ClientCallback clientCallback){
-        String url = "http://crysdip.herokuapp.com/api/";
-        Log.d("URL", url);
+        String url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.sign_in);
         StringRequest loginRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
