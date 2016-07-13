@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -23,6 +24,11 @@ public class HomeActivity extends AppCompatActivity {
         getSupportActionBar().setLogo(R.mipmap.logo);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
 //        getSupportActionBar().setTitle("Material Tab");
+
+        Intent intent = getIntent();
+        String token = intent.getStringExtra("token");
+
+        Toast.makeText(HomeActivity.this,token,Toast.LENGTH_SHORT).show();
 
         TabLayout tabLayout = (TabLayout)findViewById(R.id.tabLayoutHome);
         tabLayout.addTab(tabLayout.newTab().setText("Vote List"));

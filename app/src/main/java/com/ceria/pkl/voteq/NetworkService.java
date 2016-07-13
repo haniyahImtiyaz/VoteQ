@@ -24,6 +24,7 @@ import java.util.Map;
 public class NetworkService {
     private final RequestQueue requestQueue;
     private final Context context;
+    String auth_token;
 
     public NetworkService(Context context) {
         this.context = context;
@@ -48,9 +49,7 @@ public class NetworkService {
                         String responsePwd = arrayResponseEmail.getString(0);
                         if (responseEmail.equals("has already been taken")) {
                             clientCallback.onEmailSame();
-                        } else if (responsePwd.equals("is too short (minimum is 6 characters)")) {
-                            clientCallback.onLessPassword();
-                        } else {
+                        }else {
                             clientCallback.onFailed();
                         }
                     }
@@ -88,7 +87,7 @@ public class NetworkService {
         requestQueue.add(signUpRequest);
     }
 
-    public void login (final String email, final String password, final ClientCallback clientCallback){
+    public void login (final String email, final String password, final ClientCallbackSignIn clientCallback){
         String url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.sign_in);
         StringRequest loginRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
@@ -98,10 +97,12 @@ public class NetworkService {
                     Log.d("response", logResponse.toString(2));
                     JSONObject jsonObject = new JSONObject(response); //untuk menampung semua hasil JSON
                     String  status = jsonObject.getString("status");
+                    JSONObject dataResponse = logResponse.getJSONObject("data");
+                    auth_token = dataResponse.getString("auth_token");
                     //ada apa dengan cinta
 
                     if (status.equals("success")){
-                        clientCallback.onSucceeded();
+                        clientCallback.onSucceded();
                         //memberitahu ke LoginActivity bahwa login sukses, agan LoginActivity menjalankan onSucceedeed
                     }else{
                         clientCallback.onFailed();
@@ -118,7 +119,7 @@ public class NetworkService {
                 clientCallback.onFailed();
             }
         }) {
-            public Map<String, String> getHeader() throws AuthFailureError{
+            public Map<String, String> getHeaders() throws AuthFailureError{
                 Map<String, String> header = new HashMap<>();
                 header.put("Context-Type", "application/x-www-form-urlencoded");
                 return header;
@@ -126,12 +127,15 @@ public class NetworkService {
 
             public Map<String, String> getParams() throws AuthFailureError{
                 Map<String, String> params = new HashMap<>();
-                params.put("email", email);
-                params.put("passwors", password);
+                params.put("session[email]", email);
+                params.put("session[password]", password);
                 return params;
             }
         };
         requestQueue.add(loginRequest);
+    }
+    public String getAuth_token(){
+        return auth_token;
     }
 }
 
