@@ -22,12 +22,22 @@
         app:civ_border_width="1dp"
         android:id="@+id/image_circle"
         app:civ_border_color="@color/colorDividerBlue"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sign up to VoteQ"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:layout_marginBottom="20dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:hint="Email"
+        android:drawableLeft="@mipmap/mail"
+        android:drawablePadding="10dp"
         android:id="@+id/txt_email"
         android:inputType="textEmailAddress"
         android:layout_centerVertical="true" />
@@ -35,7 +45,9 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:drawableLeft="@mipmap/key"
         android:layout_marginTop="5dp"
+        android:drawablePadding="10dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:hint="Password"
         android:inputType="textPassword"
@@ -47,6 +59,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:inputType="textPassword"
+        android:drawablePadding="10dp"
+        android:drawableLeft="@mipmap/key"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:hint="Confirm Password"
         android:id="@+id/txt_confirm_passoword"
