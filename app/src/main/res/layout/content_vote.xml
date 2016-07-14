@@ -46,7 +46,6 @@
             android:paddingTop="2dp"
             android:paddingBottom="2dp"
             android:id="@+id/layout_label"
-            android:background="#46bd43"
             android:layout_gravity="center_vertical|right">
 
             <TextView
@@ -57,6 +56,21 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textStyle="bold"
                 android:textColor="@android:color/white"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:id="@+id/layout_seekbar"
+            android:layout_gravity="center_vertical|right">
+            <SeekBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/seekBar" />
         </LinearLayout>
     </FrameLayout>
     <View
@@ -168,5 +182,7 @@
         android:textColor="@android:color/white"
         android:layout_alignParentBottom="true"
         android:id="@+id/btn_submit_vote"/>
+
+
 
 </RelativeLayout>
