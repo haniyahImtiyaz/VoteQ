@@ -17,6 +17,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -25,7 +26,8 @@ import java.util.Map;
 public class NetworkService {
     private final RequestQueue requestQueue;
     private final Context context;
-    String auth_token;
+    private String auth_token;
+    List<HomeItem> homeItemList;
 
     public NetworkService(Context context) {
         this.context = context;
@@ -139,7 +141,7 @@ public class NetworkService {
         return auth_token;
     }
 
-    public void createVote(final String token, final String title, final ArrayList<String> option, final String is_open, final ClientCallbackSignIn clientCallback){
+    public void createVote(final String token, final String title, final ArrayList<String> option, final boolean is_open, final ClientCallbackSignIn clientCallback){
         String url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.create_vote);
         StringRequest createVoteRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
@@ -148,11 +150,11 @@ public class NetworkService {
                     JSONObject logResponse = new JSONObject(response);
                     Log.d("createVote", "response " + logResponse.toString(2));
                     String status = logResponse.getString("status");
-                    if(status.equals("success")) {
+              //     if(status.equals("success")) {
                         clientCallback.onSucceded();
-                    }else {
-                        clientCallback.onFailed();
-                    }
+              //      }else {
+              //          clientCallback.onFailed();
+              //      }
                 } catch (JSONException e) {
                     Log.d("createVote", "response "+response);
                     e.printStackTrace();
@@ -171,7 +173,7 @@ public class NetworkService {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> header = new HashMap<>();
-                header.put("Authorization", "WyzFWEgiMbqaseXytzXt");
+                header.put("Authorization", token);
                 header.put("Content-Type", "application/x-www-form-urlencoded");
                 return header;
             }
@@ -183,13 +185,14 @@ public class NetworkService {
                 for(int i = 0; i < option.size(); i++){
                     params.put("option[]", option.get(i));
                 }
-                params.put("is_open", is_open);
+                params.put("is_open", String.valueOf(is_open));
                 return params;
             }
         };
         requestQueue.add(createVoteRequest);
     }
     public void getAllVote(final String token, final ClientCallbackSignIn clientCallback){
+      homeItemList = new ArrayList<HomeItem>();;
         String url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.create_vote);
         StringRequest getAllVoteRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
@@ -198,13 +201,28 @@ public class NetworkService {
                     JSONObject logResponse = new JSONObject(response);
                     Log.d("getAllVote", "response " + logResponse.toString(2));
                     String status = logResponse.getString("status");
+                    JSONObject data = logResponse.getJSONObject("data");
+                    JSONArray vote = data.getJSONArray("vote");
+                    for (int i=0; i < vote.length(); i++){
+                        JSONObject dataVote = vote.getJSONObject(i);
+                        String title = dataVote.getString("title");
+                        String voter = dataVote.getString("voter_count");
+                        String label ;
+                        if(dataVote.getBoolean("status") == true){
+                            label = "open";
+                        }else{
+                            label = "closed";
+                        }
+                        homeItemList.add(new HomeItem(title, voter, label, R.mipmap.ic_launcher));
+                    }
                     if(status.equals("OK")) {
                         clientCallback.onSucceded();
                     }else {
                         clientCallback.onFailed();
-                    }
+                   }
+                  //  Log.d("yeyeye1", homeItemList.toString());
+
                 } catch (JSONException e) {
-                    Log.d("createVote", "response "+response);
                     e.printStackTrace();
                     clientCallback.onFailed();
                 }
@@ -221,13 +239,18 @@ public class NetworkService {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> header = new HashMap<>();
-                header.put("Authorization", "WyzFWEgiMbqaseXytzXt");
+                header.put("Authorization", token);
                 header.put("Content-Type", "application/x-www-form-urlencoded");
                 return header;
             }
 
         };
         requestQueue.add(getAllVoteRequest);
+        Log.d("yeyeye", homeItemList.toString());
+    }
+
+    public List<HomeItem> getHomeItemList() {
+        return homeItemList;
     }
 }
 

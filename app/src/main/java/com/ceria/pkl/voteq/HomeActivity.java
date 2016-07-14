@@ -14,7 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 public class HomeActivity extends AppCompatActivity {
-
+static String token;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +52,9 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        SharedPreferences sharedPrefernces = getSharedPreferences(SignIn.token, Context.MODE_PRIVATE);
+        token = sharedPrefernces.getString("token", "");
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_create_vote);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,6 +63,7 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
     }
 
     @Override
