@@ -192,7 +192,6 @@ public class NetworkService {
         requestQueue.add(createVoteRequest);
     }
     public void getAllVote(final String token, final ClientCallbackSignIn clientCallback){
-      homeItemList = new ArrayList<HomeItem>();;
         String url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.create_vote);
         StringRequest getAllVoteRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
@@ -246,7 +245,6 @@ public class NetworkService {
 
         };
         requestQueue.add(getAllVoteRequest);
-        Log.d("yeyeye", homeItemList.toString());
     }
 
     public List<HomeItem> getHomeItemList() {
