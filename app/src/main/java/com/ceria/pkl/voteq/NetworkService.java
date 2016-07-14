@@ -141,7 +141,7 @@ public class NetworkService {
 
     public void createVote(final String token, final String title, final ArrayList<String> option, final String is_open, final ClientCallbackSignIn clientCallback){
         String url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.create_vote);
-        StringRequest signUpRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+        StringRequest createVoteRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -171,8 +171,8 @@ public class NetworkService {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> header = new HashMap<>();
+                header.put("Authorization", "WyzFWEgiMbqaseXytzXt");
                 header.put("Content-Type", "application/x-www-form-urlencoded");
-                header.put("Authorization", token);
                 return header;
             }
 
@@ -187,8 +187,47 @@ public class NetworkService {
                 return params;
             }
         };
-        requestQueue.add(signUpRequest);
+        requestQueue.add(createVoteRequest);
     }
+    public void getAllVote(final String token, final ClientCallbackSignIn clientCallback){
+        String url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.create_vote);
+        StringRequest getAllVoteRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject logResponse = new JSONObject(response);
+                    Log.d("getAllVote", "response " + logResponse.toString(2));
+                    String status = logResponse.getString("status");
+                    if(status.equals("OK")) {
+                        clientCallback.onSucceded();
+                    }else {
+                        clientCallback.onFailed();
+                    }
+                } catch (JSONException e) {
+                    Log.d("createVote", "response "+response);
+                    e.printStackTrace();
+                    clientCallback.onFailed();
+                }
 
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("getAllVote", "error get all vote "+error.toString());
+                clientCallback.onFailed();
+
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> header = new HashMap<>();
+                header.put("Authorization", "WyzFWEgiMbqaseXytzXt");
+                header.put("Content-Type", "application/x-www-form-urlencoded");
+                return header;
+            }
+
+        };
+        requestQueue.add(getAllVoteRequest);
+    }
 }
 

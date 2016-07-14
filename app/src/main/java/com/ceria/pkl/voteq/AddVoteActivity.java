@@ -28,6 +28,7 @@ public class AddVoteActivity extends AppCompatActivity implements ClientCallback
     List<OptionItem> optionItemList;
     ArrayList<String> listOption = new ArrayList<String>();
     ProgressDialog progressDialog;
+    NetworkService networkService;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -79,7 +80,7 @@ public class AddVoteActivity extends AppCompatActivity implements ClientCallback
             }
         });
 
-        final NetworkService networkService = new NetworkService(this);
+        networkService = new NetworkService(this);
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please Wait...");
 
