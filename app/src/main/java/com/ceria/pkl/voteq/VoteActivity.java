@@ -1,23 +1,22 @@
 package com.ceria.pkl.voteq;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class VoteActivity extends AppCompatActivity {
+public class VoteActivity extends AppCompatActivity implements ClientCallbackSignIn{
 
     GridView gridView;
     private ListAdapterResult listAdapterResult;
@@ -56,6 +55,15 @@ public class VoteActivity extends AppCompatActivity {
 
         resultItemList = new ArrayList<ResultItem>();
 
+        NetworkService networkService = new NetworkService(this);
+       ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Please Wait...");
+
+        SharedPreferences sharedPreferences = getSharedPreferences(SignIn.token, Context.MODE_PRIVATE);
+        String token = sharedPreferences.getString("token","");
+        networkService.getAllVote(token, VoteActivity.this);
+        progressDialog.show();
+
         resultItemList.add(get("Merah Muda", "1200 Votes", "55%"));
         resultItemList.add(get("Merah Muda", "1200 Votes", "55%"));
         resultItemList.add(get("Merah Muda", "1200 Votes", "55%"));
@@ -71,4 +79,13 @@ public class VoteActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onSucceded() {
+        Toast.makeText(VoteActivity.this, "success", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onFailed() {
+        Toast.makeText(VoteActivity.this, "failure", Toast.LENGTH_SHORT).show();
+    }
 }
