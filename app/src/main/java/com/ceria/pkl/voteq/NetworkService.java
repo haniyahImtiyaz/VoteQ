@@ -15,6 +15,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -137,5 +138,57 @@ public class NetworkService {
     public String getAuth_token(){
         return auth_token;
     }
+
+    public void createVote(final String token, final String title, final ArrayList<String> option, final String is_open, final ClientCallbackSignIn clientCallback){
+        String url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.create_vote);
+        StringRequest signUpRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject logResponse = new JSONObject(response);
+                    Log.d("createVote", "response " + logResponse.toString(2));
+                    String status = logResponse.getString("status");
+                    if(status.equals("success")) {
+                        clientCallback.onSucceded();
+                    }else {
+                        clientCallback.onFailed();
+                    }
+                } catch (JSONException e) {
+                    Log.d("createVote", "response "+response);
+                    e.printStackTrace();
+                    clientCallback.onFailed();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("createVote", "error create vote "+error.toString());
+                clientCallback.onFailed();
+
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> header = new HashMap<>();
+                header.put("Content-Type", "application/x-www-form-urlencoded");
+                header.put("Authorization", token);
+                return header;
+            }
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("title", title);
+                for(int i = 0; i < option.size(); i++){
+                    params.put("option[]", option.get(i));
+                }
+                params.put("is_open", is_open);
+                return params;
+            }
+        };
+        requestQueue.add(signUpRequest);
+    }
+
 }
 

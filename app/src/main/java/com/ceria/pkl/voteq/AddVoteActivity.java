@@ -1,6 +1,10 @@
 package com.ceria.pkl.voteq;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -8,22 +12,25 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddVoteActivity extends AppCompatActivity {
+public class AddVoteActivity extends AppCompatActivity implements ClientCallbackSignIn {
 
     private EditText editTextTitle, editTextOption;
     private Button buttonAddOption, buttonDone;
     private ListAdapterOption listAdapterOption;
     private ExpandableHeightListView expandableListView;
     List<OptionItem> optionItemList;
+    ArrayList<String> listOption = new ArrayList<String>();
+    ProgressDialog progressDialog;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_vote);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -62,7 +69,9 @@ public class AddVoteActivity extends AppCompatActivity {
                             })
                             .show();
                 } else {
-                    optionItemList.add(get("Option " + (listAdapterOption.getCount() + 1), editTextOption.getText().toString()));
+                    String option = editTextOption.getText().toString();
+                    optionItemList.add(get("Option " + (listAdapterOption.getCount() + 1), option));
+                    listOption.add(option);
                     listAdapterOption.notifyDataSetChanged();
                     editTextOption.setText("");
                     editTextOption.setHint("Option " + (listAdapterOption.getCount() + 1));
@@ -70,10 +79,17 @@ public class AddVoteActivity extends AppCompatActivity {
             }
         });
 
+        final NetworkService networkService = new NetworkService(this);
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Please Wait...");
+
         buttonDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                SharedPreferences sharedPreferences = getSharedPreferences(SignIn.token, Context.MODE_PRIVATE);
+                String token = sharedPreferences.getString("token","");
+               networkService.createVote(token, editTextTitle.getText().toString(), listOption, "true", AddVoteActivity.this);
+                progressDialog.show();
             }
         });
 
@@ -87,5 +103,20 @@ public class AddVoteActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+    }
+
+    @Override
+    public void onSucceded() {
+        progressDialog.dismiss();
+        Toast.makeText(AddVoteActivity.this, "Create Vote Success", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
+
+    }
+
+    @Override
+    public void onFailed() {
+        progressDialog.dismiss();
+        Toast.makeText(AddVoteActivity.this, "Create Vote Failure", Toast.LENGTH_SHORT).show();
     }
 }
