@@ -212,7 +212,9 @@ public class NetworkService {
                         }else{
                             label = "closed";
                         }
-                        homeItemList.add(get(title, voter, label, R.mipmap.ic_launcher));
+                        setHomeItemList(title,voter, label, R.mipmap.ic_launcher);
+
+//                        homeItemList.add(get(title, voter, label, R.mipmap.ic_launcher));
                     }
                     if(status.equals("OK")) {
                         clientCallback.onSucceded();
@@ -247,7 +249,9 @@ public class NetworkService {
         requestQueue.add(getAllVoteRequest);
         Log.d("yeyeye2", homeItemList.toString());
     }
-
+    public void setHomeItemList(String title, String count, String label, int image){
+        homeItemList.add(get(title, count, label, image));
+    }
     public List<HomeItem> getHomeItemList() {
         Log.d("yeyeye3", homeItemList.toString());
         return homeItemList;
