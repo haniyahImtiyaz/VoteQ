@@ -214,7 +214,6 @@ public class NetworkService {
                         }
                         setHomeItemList(title,voter, label, R.mipmap.ic_launcher);
 
-//                        homeItemList.add(get(title, voter, label, R.mipmap.ic_launcher));
                     }
                     if(status.equals("OK")) {
                         clientCallback.onSucceded();
@@ -227,8 +226,8 @@ public class NetworkService {
                     e.printStackTrace();
                     clientCallback.onFailed();
                 }
-
             }
+
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
@@ -248,17 +247,21 @@ public class NetworkService {
 
         requestQueue.add(getAllVoteRequest);
         Log.d("yeyeye2", homeItemList.toString());
-    }
-    public void setHomeItemList(String title, String count, String label, int image){
-        homeItemList.add(get(title, count, label, image));
+
     }
     public List<HomeItem> getHomeItemList() {
-        Log.d("yeyeye3", homeItemList.toString());
+     //   Log.d("yeyeye3", getHomeItemList().toString());
         return homeItemList;
     }
+    public void setHomeItemList(String title, String count, String label, int image){
+        Log.d("cekData", title + count + label );
+        homeItemList.add(get(title, count, label, image));
+    }
+
 
     private HomeItem get(String title, String count,String label, int image){
         return new HomeItem(title,count,label,image);
     }
+
 }
 

@@ -21,7 +21,7 @@ public class VoteList extends Fragment implements ClientCallbackSignIn{
 
     private ListView listViewVote;
     private HomeAdapter homeAdapter;
-    List<HomeItem> list;
+    static List<HomeItem> list;
     ProgressDialog progressDialog;
 
     @Override
@@ -32,12 +32,11 @@ public class VoteList extends Fragment implements ClientCallbackSignIn{
         NetworkService networkService = new NetworkService(getContext());
         networkService.getAllVote(HomeActivity.token, VoteList.this);
 
-
         progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("Please Wait...");
         progressDialog.show();
 
-        homeAdapter = new HomeAdapter(networkService.getHomeItemList(), getContext());
+        homeAdapter = new HomeAdapter(networkService.getHomeItemList(),getContext());
         listViewVote.setAdapter(homeAdapter);
 
         listViewVote.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -76,8 +75,8 @@ public class VoteList extends Fragment implements ClientCallbackSignIn{
         return list;
     }
 
-    public void setItem(String title, String count,String label, int image){
-        list.add(get(title, count, label, image));
+    public static void setItem(String title, String count, String label, int image){
+        list.add(new HomeItem(title, count, label, image));
     }
     @Override
     public void onSucceded() {
