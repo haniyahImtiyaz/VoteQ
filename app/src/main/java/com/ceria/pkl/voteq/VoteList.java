@@ -11,7 +11,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,6 +20,7 @@ public class VoteList extends Fragment implements ClientCallbackSignIn{
 
     private ListView listViewVote;
     private HomeAdapter homeAdapter;
+    static List<HomeItem> list;
     ProgressDialog progressDialog;
 
     @Override
@@ -31,11 +31,12 @@ public class VoteList extends Fragment implements ClientCallbackSignIn{
         NetworkService networkService = new NetworkService(getContext());
         networkService.getAllVote(HomeActivity.token, VoteList.this);
 
+
         progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("Please Wait...");
         progressDialog.show();
 
-        homeAdapter = new HomeAdapter(networkService.getHomeItemList(), getContext());
+        homeAdapter = new HomeAdapter(getItem(), getContext());
         listViewVote.setAdapter(homeAdapter);
 
         listViewVote.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -61,19 +62,22 @@ public class VoteList extends Fragment implements ClientCallbackSignIn{
 
         return rootView;
     }
-    private HomeItem get(String title, String count,String label, int image){
+    private static HomeItem get(String title, String count, String label, int image){
         return new HomeItem(title,count,label,image);
     }
     private List<HomeItem> getItem(){
-        List<HomeItem> list = new ArrayList<HomeItem>();
-        list.add(get("Judul 1","1200","Open",R.mipmap.ic_launcher));
-        list.add(get("Judul 2","1200","Open",R.mipmap.ic_edit_pencil));
-        list.add(get("Judul 3","1200","Closed",R.mipmap.ic_launcher));
-        list.add(get("Judul 4","1200","Open",R.mipmap.ic_edit_pencil));
-        list.add(get("Judul 5","1200","Closed",R.mipmap.ic_launcher));
+//        List<HomeItem> list = new ArrayList<HomeItem>();
+//        list.add(get("Judul 1","1200","Open",R.mipmap.ic_launcher));
+//        list.add(get("Judul 2","1200","Open",R.mipmap.ic_edit_pencil));
+//        list.add(get("Judul 3","1200","Closed",R.mipmap.ic_launcher));
+//        list.add(get("Judul 4","1200","Open",R.mipmap.ic_edit_pencil));
+//        list.add(get("Judul 5","1200","Closed",R.mipmap.ic_launcher));
         return list;
     }
 
+    public static void setItem(String title, String count, String label, int image){
+        list.add(get(title, count, label, image));
+    }
     @Override
     public void onSucceded() {
         progressDialog.dismiss();

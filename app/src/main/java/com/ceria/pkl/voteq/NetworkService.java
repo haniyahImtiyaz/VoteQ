@@ -27,7 +27,7 @@ public class NetworkService {
     private final RequestQueue requestQueue;
     private final Context context;
     private String auth_token;
-    List<HomeItem> homeItemList;
+    List<HomeItem> homeItemList = new ArrayList<HomeItem>();
 
     public NetworkService(Context context) {
         this.context = context;
@@ -212,14 +212,14 @@ public class NetworkService {
                         }else{
                             label = "closed";
                         }
-                        homeItemList.add(new HomeItem(title, voter, label, R.mipmap.ic_launcher));
+                        VoteList.setItem(title, voter, label, R.mipmap.ic_launcher);
                     }
                     if(status.equals("OK")) {
                         clientCallback.onSucceded();
                     }else {
                         clientCallback.onFailed();
                    }
-                  //  Log.d("yeyeye1", homeItemList.toString());
+                    Log.d("yeyeye1", homeItemList.toString());
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -243,11 +243,18 @@ public class NetworkService {
             }
 
         };
+
         requestQueue.add(getAllVoteRequest);
+        Log.d("yeyeye2", homeItemList.toString());
     }
 
     public List<HomeItem> getHomeItemList() {
+        Log.d("yeyeye3", homeItemList.toString());
         return homeItemList;
+    }
+
+    private HomeItem get(String title, String count,String label, int image){
+        return new HomeItem(title,count,label,image);
     }
 }
 
