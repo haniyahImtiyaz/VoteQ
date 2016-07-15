@@ -27,7 +27,7 @@ public class NetworkService {
     private final RequestQueue requestQueue;
     private final Context context;
     private String auth_token;
-    List<HomeItem> homeItemList = new ArrayList<HomeItem>();
+    private final List<HomeItem> homeItemList = new ArrayList<HomeItem>();
 
     public NetworkService(Context context) {
         this.context = context;
@@ -250,7 +250,7 @@ public class NetworkService {
 
     }
     public List<HomeItem> getHomeItemList() {
-     //   Log.d("yeyeye3", getHomeItemList().toString());
+        Log.d("yeyeye3", String.valueOf(homeItemList.size()));
         return homeItemList;
     }
     public void setHomeItemList(String title, String count, String label, int image){
@@ -264,4 +264,5 @@ public class NetworkService {
     }
 
 }
+
 
