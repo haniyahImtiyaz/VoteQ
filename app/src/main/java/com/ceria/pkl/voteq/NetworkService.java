@@ -239,7 +239,6 @@ public class NetworkService {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> header = new HashMap<>();
                 header.put("Authorization", token);
-                header.put("Content-Type", "application/x-www-form-urlencoded");
                 return header;
             }
 
