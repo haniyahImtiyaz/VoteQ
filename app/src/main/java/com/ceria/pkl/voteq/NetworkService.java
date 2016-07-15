@@ -212,7 +212,7 @@ public class NetworkService {
                         }else{
                             label = "closed";
                         }
-                        VoteList.setItem(title, voter, label, R.mipmap.ic_launcher);
+                        homeItemList.add(get(title, voter, label, R.mipmap.ic_launcher));
                     }
                     if(status.equals("OK")) {
                         clientCallback.onSucceded();
