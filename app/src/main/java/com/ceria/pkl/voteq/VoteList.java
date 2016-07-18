@@ -22,7 +22,7 @@ public class VoteList extends Fragment implements ClientCallbackSignIn{
 
     private ListView listViewVote;
     private HomeAdapter homeAdapter;
-    List<HomeItem> listItem;
+    List<HomeItem> listItem = new ArrayList<HomeItem>();
     ProgressDialog progressDialog;
     NetworkService networkService;
 
@@ -31,9 +31,9 @@ public class VoteList extends Fragment implements ClientCallbackSignIn{
         Log.d("voteList", "voteListCreate");
         View rootView = inflater.inflate(R.layout.page_vote_list, container, false);
         listViewVote = (ListView)rootView.findViewById(R.id.list_vote);
-
-        becameVisible();
-//
+        if (listItem.isEmpty()) {
+            becameVisible();
+        }
 //        homeAdapter = new HomeAdapter(listItem,getContext());
 //        listViewVote.setAdapter(homeAdapter);
 
