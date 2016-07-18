@@ -88,7 +88,6 @@ public class VoteList extends Fragment implements ClientCallbackSignIn{
         homeAdapter = new HomeAdapter(listItem,getContext());
         listViewVote.setAdapter(homeAdapter);
         progressDialog.dismiss();
-        Toast.makeText(getContext(), "vote succes", Toast.LENGTH_SHORT).show();
     }
 
     @Override
