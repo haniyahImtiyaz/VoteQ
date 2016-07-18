@@ -216,6 +216,7 @@ public class NetworkService {
                         JSONObject dataVote = vote.getJSONObject(i);
                         String title = dataVote.getString("title");
                         String voter = dataVote.getString("voter_count");
+                        String vote_id = dataVote.getString("id");
                         String label ;
                         if(dataVote.getBoolean("status") == true){
                             label = "open";
@@ -223,7 +224,7 @@ public class NetworkService {
                             label = "closed";
                         }
 
-                            setHomeItemList(title, voter, label, R.mipmap.ic_launcher);
+                            setHomeItemList(vote_id,title, voter, label, R.mipmap.ic_launcher);
 
                     }
                     if(status.equals("OK")) {
@@ -265,20 +266,20 @@ public class NetworkService {
         Log.d("yeyeye3", String.valueOf(homeItemList.size()));
         return homeItemList;
     }
-    public void setHomeItemList(String title, String count, String label, int image){
+    public void setHomeItemList(String id, String title, String count, String label, int image){
         Log.d("cekData", title + count + label );
-        homeItemList.add(get(title, count, label, image));
+        homeItemList.add(get(id,title, count, label, image));
     }
-
-    public void setMyHomeItemList(String title, String count, String label, int image){
-        myHomeItemList.add(get(title, count, label, image));
-    }
+//
+//    public void setMyHomeItemList(String id, String title, String count, String label, int image){
+//        myHomeItemList.add(get(id, title, count, label, image));
+//    }
     public List<HomeItem> getMyHomeItemList() {
         return myHomeItemList;
     }
 
-    private HomeItem get(String title, String count, String label, int image){
-        return new HomeItem(title,count,label,image);
+    private HomeItem get(String id, String title, String count, String label, int image){
+        return new HomeItem(id,title,count,label,image);
 
     }
 
