@@ -89,13 +89,12 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         Log.d("resultItemList", String.valueOf(networkService.getResultItemList().size()));
         listAdapterResult = new ListAdapterResult(resultItemList, VoteActivity.this);
         gridView.setAdapter(listAdapterResult);
-        Toast.makeText(VoteActivity.this, "yuyu", Toast.LENGTH_SHORT).show();
         progressDialog.dismiss();
     }
 
     @Override
     public void onFailed() {
-        Toast.makeText(VoteActivity.this, "yiyi", Toast.LENGTH_SHORT).show();
+        Toast.makeText(VoteActivity.this, "Failure", Toast.LENGTH_SHORT).show();
         progressDialog.dismiss();
     }
 }
