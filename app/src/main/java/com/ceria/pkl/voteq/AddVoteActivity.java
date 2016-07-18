@@ -61,7 +61,14 @@ public class AddVoteActivity extends AppCompatActivity implements ClientCallback
         buttonAddOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (editTextOption.getText().toString().trim().length() == 0) {
+                if (editTextTitle.getText().toString().length() == 0){
+                    new AlertDialog.Builder(AddVoteActivity.this).setMessage("Please fill title to continue!")
+                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            })
+                            .show();
+                }else if (editTextOption.getText().toString().trim().length() == 0) {
                     new AlertDialog.Builder(AddVoteActivity.this)
                             .setMessage("please, fill this option value!")
                             .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
