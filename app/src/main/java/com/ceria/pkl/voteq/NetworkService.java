@@ -251,7 +251,7 @@ public class NetworkService {
 
     }
     public List<HomeItem> getHomeItemList() {
-     //   Log.d("yeyeye3", getHomeItemList().toString());
+        Log.d("yeyeye3", String.valueOf(homeItemList.size()));
         return homeItemList;
     }
     public void setHomeItemList(String title, String count, String label, int image){
@@ -266,4 +266,5 @@ public class NetworkService {
     }
 
 }
+
 
