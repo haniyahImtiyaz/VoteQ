@@ -262,7 +262,8 @@ public class NetworkService {
 
 
     private HomeItem get(String title, String count,String label, int image){
-        return new HomeItem(title,count,label,image);new HomeItem(title,count,label,image);new HomeItem(title,count,label,image);
+        return new HomeItem(title,count,label,image);
+
     }
 
 }

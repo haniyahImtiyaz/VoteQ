@@ -82,6 +82,9 @@ public class VoteList extends Fragment implements ClientCallbackSignIn{
 //    }
     @Override
     public void onSucceded() {
+        networkService.getAllVote(HomeActivity.token, VoteList.this);
+        homeAdapter = new HomeAdapter(listItem,getContext());
+        listViewVote.setAdapter(homeAdapter);
         progressDialog.dismiss();
         Toast.makeText(getContext(), "vote succes", Toast.LENGTH_SHORT).show();
         listItem = networkService.getHomeItemList();
