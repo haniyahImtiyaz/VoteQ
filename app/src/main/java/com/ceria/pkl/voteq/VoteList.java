@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Created by pandhu on 11/07/16.
  */
-public class VoteList extends Fragment implements ClientCallbackSignIn, FragmentHome{
+public class VoteList extends Fragment implements ClientCallbackSignIn{
 
     private ListView listViewVote;
     private HomeAdapter homeAdapter;
@@ -93,35 +93,6 @@ public class VoteList extends Fragment implements ClientCallbackSignIn, Fragment
         Toast.makeText(getContext(), "failure", Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.d("voteList", "voteListResume");
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.d("voteList", "voteListPause");
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.d("voteList", "voteListDestroy");
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        Log.d("voteList", "voteListStart");
-    }
-
-    public void refreshView(){
-        Toast.makeText(getContext(), "refresh VoteLIst", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
     public void becameVisible() {
         networkService = new NetworkService(getContext());
         networkService.getAllVote(HomeActivity.token, "false", VoteList.this);

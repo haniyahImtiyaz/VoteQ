@@ -18,10 +18,10 @@ import java.util.List;
 /**
  * Created by pandhu on 11/07/16.
  */
-public class MyVoteList extends Fragment implements ClientCallbackSignIn, FragmentHome {
+public class MyVoteList extends Fragment implements ClientCallbackSignIn {
     private ListView listViewVote;
     private HomeAdapter homeAdapter;
-    List<HomeItem> listItem;
+    List<HomeItem> listItem = new ArrayList<HomeItem>();
     ProgressDialog progressDialog;
     NetworkService networkService;
 
@@ -30,9 +30,9 @@ public class MyVoteList extends Fragment implements ClientCallbackSignIn, Fragme
         Log.d("voteList", "myVoteList create");
         View rootView = inflater.inflate(R.layout.page_my_vote_list, container, false);
         listViewVote = (ListView)rootView.findViewById(R.id.list_my_vote);
-   //     homeAdapter = new HomeAdapter(getItem(), getContext());
-   //     listViewVote.setAdapter(homeAdapter);
-
+        if (listItem.isEmpty()){
+            visible();
+        }
         listViewVote.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -85,33 +85,7 @@ public class MyVoteList extends Fragment implements ClientCallbackSignIn, Fragme
         Toast.makeText(getContext(), "failure myvotelist", Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.d("voteList", "myVoteist Resume");
-
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.d("voteList", "myVoteListPause");
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.d("voteList", "myVoteListDestroy");
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        Log.d("voteList", "myVoteListStart");
-    }
-
-    @Override
-    public void becameVisible() {
+    public void visible() {
         networkService = new NetworkService(getContext());
         networkService.getAllVote(HomeActivity.token, "true", MyVoteList.this);
 
