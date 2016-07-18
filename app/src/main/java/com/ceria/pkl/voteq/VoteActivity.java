@@ -77,6 +77,9 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         countView.setText(countText +" Peoples Voted");
         labelView.setText(labelText);
 
+        
+
+
     }
 
     private ResultItem get(String title, String value, String percent) {
