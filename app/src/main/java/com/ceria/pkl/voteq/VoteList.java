@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +31,7 @@ public class VoteList extends Fragment implements ClientCallbackSignIn{
         listViewVote = (ListView)rootView.findViewById(R.id.list_vote);
 
         networkService = new NetworkService(getContext());
-        networkService.getAllVote(HomeActivity.token, VoteList.this);
+        networkService.getAllVote(HomeActivity.token, "false", VoteList.this);
 
         progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("Please Wait...");
@@ -93,7 +92,7 @@ public class VoteList extends Fragment implements ClientCallbackSignIn{
     @Override
     public void onFailed() {
         progressDialog.dismiss();
-        Toast.makeText(getContext(), "filure", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "failure", Toast.LENGTH_SHORT).show();
     }
 
 }
