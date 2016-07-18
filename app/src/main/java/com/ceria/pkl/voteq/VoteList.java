@@ -42,7 +42,7 @@ public class VoteList extends Fragment implements ClientCallbackSignIn{
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
 
-                if(listItem.get(position).getLabel().equals("Open")){
+                if(listItem.get(position).getLabel().equals("open")){
                     Intent intent = new Intent(getContext(), VoteActivity.class);
                     intent.putExtra("id", listItem.get(position).getId());
                     startActivity(intent);
