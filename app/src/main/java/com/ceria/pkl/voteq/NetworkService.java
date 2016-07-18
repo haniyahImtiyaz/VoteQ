@@ -28,6 +28,7 @@ public class NetworkService {
     private final Context context;
     private String auth_token;
     private final List<HomeItem> homeItemList = new ArrayList<HomeItem>();
+    private final List<HomeItem> myHomeItemList = new ArrayList<HomeItem>();
 
     public NetworkService(Context context) {
         this.context = context;
@@ -191,7 +192,7 @@ public class NetworkService {
         };
         requestQueue.add(createVoteRequest);
     }
-    public void getAllVote(final String token, final ClientCallbackSignIn clientCallback){
+    public void getAllVote(final String token, final String current_user, final ClientCallbackSignIn clientCallback){
         String url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.create_vote);
         StringRequest getAllVoteRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
@@ -212,8 +213,12 @@ public class NetworkService {
                         }else{
                             label = "closed";
                         }
-                        setHomeItemList(title,voter, label, R.mipmap.ic_launcher);
 
+                        if (current_user.equals("true")){
+                            setMyHomeItemList(title, voter, label, R.mipmap.ic_launcher);
+                        } else {
+                            setHomeItemList(title, voter, label, R.mipmap.ic_launcher);
+                        }
 
                     }
                     if(status.equals("OK")) {
@@ -243,6 +248,12 @@ public class NetworkService {
                 header.put("Authorization", token);
                 return header;
             }
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("current_user", current_user);
+                return params;
+            }
 
         };
 
@@ -255,13 +266,18 @@ public class NetworkService {
         return homeItemList;
     }
     public void setHomeItemList(String title, String count, String label, int image){
-        //   Log.d("yeyeye3", getHomeItemList().toString());
         Log.d("cekData", title + count + label );
         homeItemList.add(get(title, count, label, image));
     }
 
+    public void setMyHomeItemList(String title, String count, String label, int image){
+        myHomeItemList.add(get(title, count, label, image));
+    }
+    public List<HomeItem> getMyHomeItemList() {
+        return myHomeItemList;
+    }
 
-    private HomeItem get(String title, String count,String label, int image){
+    private HomeItem get(String title, String count, String label, int image){
         return new HomeItem(title,count,label,image);
 
     }
