@@ -72,7 +72,6 @@ public class AddVoteActivity extends AppCompatActivity implements ClientCallback
                 } else {
                     String option = editTextOption.getText().toString();
                     optionItemList.add(get("Option " + (listAdapterOption.getCount() + 1), option));
-                    listOption.add(option);
                     listAdapterOption.notifyDataSetChanged();
                     editTextOption.setText("");
                     editTextOption.setHint("Option " + (listAdapterOption.getCount() + 1));
@@ -89,7 +88,7 @@ public class AddVoteActivity extends AppCompatActivity implements ClientCallback
             public void onClick(View v) {
                 SharedPreferences sharedPreferences = getSharedPreferences(SignIn.token, Context.MODE_PRIVATE);
                 String token = sharedPreferences.getString("token","");
-               networkService.createVote(token, editTextTitle.getText().toString(), listOption, true, AddVoteActivity.this);
+                networkService.createVote(token, editTextTitle.getText().toString(), listOption, true, AddVoteActivity.this);
                 progressDialog.show();
             }
         });
@@ -97,6 +96,7 @@ public class AddVoteActivity extends AppCompatActivity implements ClientCallback
     }
 
     private OptionItem get(String option, String optionValue) {
+        listOption.add(optionValue);
         return new OptionItem(option, optionValue);
     }
 

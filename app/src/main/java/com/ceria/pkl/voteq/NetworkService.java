@@ -185,6 +185,7 @@ public class NetworkService {
                 params.put("title", title);
                 for(int i = 0; i < option.size(); i++){
                     params.put("option[]", option.get(i));
+                    Log.d("Vote Option",option.get(i));
                 }
                 params.put("is_open", String.valueOf(is_open));
                 return params;
