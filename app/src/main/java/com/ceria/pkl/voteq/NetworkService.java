@@ -227,6 +227,7 @@ public class NetworkService {
                         clientCallback.onFailed();
                    }
                     Log.d("yeyeye1", homeItemList.toString());
+                    Log.d("yeyeye1", String.valueOf(myHomeItemList.size()));
 
                 } catch (JSONException e) {
                     e.printStackTrace();

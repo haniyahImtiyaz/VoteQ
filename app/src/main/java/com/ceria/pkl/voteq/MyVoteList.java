@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,18 +27,11 @@ public class MyVoteList extends Fragment implements ClientCallbackSignIn {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
+        Log.d("voteList", "myVoteList create");
         View rootView = inflater.inflate(R.layout.page_my_vote_list, container, false);
         listViewVote = (ListView)rootView.findViewById(R.id.list_my_vote);
    //     homeAdapter = new HomeAdapter(getItem(), getContext());
    //     listViewVote.setAdapter(homeAdapter);
-
-        networkService = new NetworkService(getContext());
-        networkService.getAllVote(HomeActivity.token, "true", MyVoteList.this);
-
-        progressDialog = new ProgressDialog(getContext());
-        progressDialog.setMessage("Please Wait...");
-        progressDialog.show();
 
         listViewVote.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -88,6 +82,37 @@ public class MyVoteList extends Fragment implements ClientCallbackSignIn {
     @Override
     public void onFailed() {
         progressDialog.dismiss();
-        Toast.makeText(getContext(), "failure", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "failure myvotelist", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("voteList", "myVoteist Resume");
+        networkService = new NetworkService(getContext());
+        networkService.getAllVote(HomeActivity.token, "true", MyVoteList.this);
+
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setMessage("Please Wait...");
+        progressDialog.show();
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d("voteList", "myVoteListPause");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d("voteList", "myVoteListDestroy");
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d("voteList", "myVoteListStart");
     }
 }
