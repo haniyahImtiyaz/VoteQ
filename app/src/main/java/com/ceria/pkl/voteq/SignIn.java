@@ -72,6 +72,7 @@ public class SignIn extends AppCompatActivity implements ClientCallbackSignIn{
         if (!auth_token.isEmpty()){
             Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);
+            finish();
         }
     }
 
@@ -84,6 +85,7 @@ public class SignIn extends AppCompatActivity implements ClientCallbackSignIn{
         editor.putString("token", token);
         editor.commit();
         startActivity(i);
+        finish();
     }
 
     public void onFailed() {

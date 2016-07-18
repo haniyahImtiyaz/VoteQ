@@ -173,10 +173,10 @@ public class NetworkService {
         }){
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> header = new HashMap<>();
-                header.put("Authorization", token);
-                header.put("Content-Type", "application/x-www-form-urlencoded");
-                return header;
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization",token);
+                headers.put("Content-Type", "application/x-www-form-urlencoded");
+                return headers;
             }
 
             @Override
@@ -184,7 +184,7 @@ public class NetworkService {
                 Map<String, String> params = new HashMap<>();
                 params.put("title", title);
                 for(int i = 0; i < option.size(); i++){
-                    params.put("option[]", option.get(i));
+                    params.put("options[]", option.get(i));
                     Log.d("Vote Option",option.get(i));
                 }
                 params.put("is_open", String.valueOf(is_open));
