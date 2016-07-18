@@ -45,10 +45,16 @@ public class VoteList extends Fragment implements ClientCallbackSignIn{
                 if(listItem.get(position).getLabel().equals("open")){
                     Intent intent = new Intent(getContext(), VoteActivity.class);
                     intent.putExtra("id", listItem.get(position).getId());
+                    intent.putExtra("title", listItem.get(position).getTextTitle());
+                    intent.putExtra("count",listItem.get(position).getTextCount() );
+                    intent.putExtra("status", listItem.get(position).getLabel());
                     startActivity(intent);
                 }else{
                     Intent intent = new Intent(getContext(), ResultActivity.class);
                     intent.putExtra("id", listItem.get(position).getId());
+                    intent.putExtra("title", listItem.get(position).getTextTitle());
+                    intent.putExtra("count",listItem.get(position).getTextCount() );
+                    intent.putExtra("status", listItem.get(position).getLabel());
                     startActivity(intent);
                 }
 
