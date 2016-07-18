@@ -20,8 +20,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.xml.transform.Result;
-
 /**
  * Created by pandhu on 12/07/16.
  */
@@ -219,9 +217,9 @@ public class NetworkService {
                         String vote_id = dataVote.getString("id");
                         String label ;
                         if(dataVote.getBoolean("status") == true){
-                            label = "open";
+                            label = "Open";
                         }else{
-                            label = "closed";
+                            label = "Closed";
                         }
 
                             setHomeItemList(vote_id,title, voter, label, R.mipmap.ic_launcher);
@@ -232,8 +230,6 @@ public class NetworkService {
                     }else {
                         clientCallback.onFailed();
                    }
-                    Log.d("yeyeye1", String.valueOf(homeItemList.size()));
-                    Log.d("yeyeye1", String.valueOf(myHomeItemList.size()));
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -295,7 +291,7 @@ public class NetworkService {
                     JSONObject data = logResponse.getJSONObject("data");
                     JSONObject vote = data.getJSONObject("vote");
                     Boolean label = vote.getBoolean("status");
-                    JSONArray options = logResponse.getJSONArray("options");
+                    JSONArray options = vote.getJSONArray("options");
                     for (int i=0; i<options.length(); i++){
                         JSONObject dataOptions = options.getJSONObject(i);
                         String title = dataOptions.getString("title");

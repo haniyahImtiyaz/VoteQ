@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -33,6 +34,7 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
+        String id = intent.getStringExtra("id");
         String titleText= intent.getStringExtra("title");
         String countText= intent.getStringExtra("count");
         String labelText= intent.getStringExtra("status");
@@ -42,15 +44,11 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         TextView labelView = (TextView)findViewById(R.id.txt_stat);
         LinearLayout linearLayout = (LinearLayout)findViewById(R.id.layout_label);
 
-        titleView.setText(titleText);
-        countView.setText(countText +" Peoples Voted");
-        labelView.setText(labelText);
-
         SharedPreferences sharedPrefernces = getSharedPreferences(SignIn.token, Context.MODE_PRIVATE);
         String token = sharedPrefernces.getString("token", "");
 
         networkService = new NetworkService(VoteActivity.this);
-        networkService.specificVote(token, "2", VoteActivity.this);
+        networkService.specificVote(token, id, VoteActivity.this);
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please Wait...");
@@ -71,9 +69,13 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         resultItemList.add(get("Merah Muda", "1200 Votes", "55%"));
         resultItemList.add(get("Merah Muda", "1200 Votes", "55%"));
         resultItemList.add(get("Merah Muda", "1200 Votes", "55%"));
-        listAdapterResult = new ListAdapterResult(resultItemList, getApplicationContext());
+  //      listAdapterResult = new ListAdapterResult(resultItemList, getApplicationContext());
 
-        gridView.setAdapter(listAdapterResult);
+  //      gridView.setAdapter(listAdapterResult);
+
+        titleView.setText(titleText);
+        countView.setText(countText +" Peoples Voted");
+        labelView.setText(labelText);
 
     }
 
@@ -83,6 +85,10 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
 
     @Override
     public void onSucceded() {
+        resultItemList = networkService.getResultItemList();
+        Log.d("resultItemList", String.valueOf(networkService.getResultItemList().size()));
+        listAdapterResult = new ListAdapterResult(resultItemList, VoteActivity.this);
+        gridView.setAdapter(listAdapterResult);
         Toast.makeText(VoteActivity.this, "yuyu", Toast.LENGTH_SHORT).show();
         progressDialog.dismiss();
     }
