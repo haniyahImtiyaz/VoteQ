@@ -20,6 +20,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.xml.transform.Result;
+
 /**
  * Created by pandhu on 12/07/16.
  */
@@ -29,6 +31,7 @@ public class NetworkService {
     private String auth_token;
     private final List<HomeItem> homeItemList = new ArrayList<HomeItem>();
     private final List<HomeItem> myHomeItemList = new ArrayList<HomeItem>();
+    private final List<ResultItem> resultItemList = new ArrayList<ResultItem>();
 
     public NetworkService(Context context) {
         this.context = context;
@@ -279,6 +282,65 @@ public class NetworkService {
 
     }
 
+    public void specificVote(final String token, final String id, final ClientCallbackSignIn clientCallback){
+        String url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.create_vote) + "/" + id;
+        StringRequest specificVote = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject logResponse = new JSONObject(response);
+                    Log.d("specificVote", "response " + logResponse.toString(2));
+                    String status = logResponse.getString("status");
+                    JSONObject data = logResponse.getJSONObject("data");
+                    JSONObject vote = logResponse.getJSONObject("vote");
+                    Boolean label = logResponse.getBoolean("status");
+                    JSONArray options = logResponse.getJSONArray("options");
+                    for (int i=0; i<options.length(); i++){
+                        JSONObject dataOptions = options.getJSONObject(i);
+                        String title = dataOptions.getString("title");
+                        String count = dataOptions.getString("count");
+                        String percentage = dataOptions.getString("percentage");
+                        setResultItemList(title, count, percentage);
+                    }
+
+                    if(status.equals("OK")) {
+                        clientCallback.onSucceded();
+                    }else {
+                        clientCallback.onFailed();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    clientCallback.onFailed();
+                }
+            }
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("specificVote", "specific vote"+error.toString());
+                clientCallback.onFailed();
+
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> header = new HashMap<>();
+                header.put("Authorization", token);
+                return header;
+            }
+        };
+
+        requestQueue.add(specificVote);
+    }
+
+    public List<ResultItem> getResultItemList() {
+        return resultItemList;
+    }
+
+    public void setResultItemList(String title, String count, String percentage){
+        resultItemList.add(new ResultItem(title, count, percentage));
+    }
 }
 
 

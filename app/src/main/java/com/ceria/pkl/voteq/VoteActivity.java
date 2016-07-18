@@ -1,6 +1,9 @@
 package com.ceria.pkl.voteq;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,15 +11,18 @@ import android.support.v7.widget.Toolbar;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class VoteActivity extends AppCompatActivity {
+public class VoteActivity extends AppCompatActivity implements ClientCallbackSignIn {
 
     GridView gridView;
     private ListAdapterResult listAdapterResult;
     List<ResultItem> resultItemList;
+    NetworkService networkService;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +45,16 @@ public class VoteActivity extends AppCompatActivity {
         titleView.setText(titleText);
         countView.setText(countText +" Peoples Voted");
         labelView.setText(labelText);
+
+        SharedPreferences sharedPrefernces = getSharedPreferences(SignIn.token, Context.MODE_PRIVATE);
+        String token = sharedPrefernces.getString("token", "");
+
+        networkService = new NetworkService(VoteActivity.this);
+        networkService.specificVote(token, "2", VoteActivity.this);
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Please Wait...");
+        progressDialog.show();
 
         if(labelText.equals("Closed")){
             linearLayout.setBackgroundColor(Color.parseColor("#F44336"));
@@ -65,4 +81,15 @@ public class VoteActivity extends AppCompatActivity {
         return new ResultItem(title, value, percent);
     }
 
+    @Override
+    public void onSucceded() {
+        Toast.makeText(VoteActivity.this, "yuyu", Toast.LENGTH_SHORT).show();
+        progressDialog.dismiss();
+    }
+
+    @Override
+    public void onFailed() {
+        Toast.makeText(VoteActivity.this, "yiyi", Toast.LENGTH_SHORT).show();
+        progressDialog.dismiss();
+    }
 }
