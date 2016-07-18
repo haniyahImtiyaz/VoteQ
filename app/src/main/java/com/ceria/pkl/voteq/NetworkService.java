@@ -293,8 +293,8 @@ public class NetworkService {
                     Log.d("specificVote", "response " + logResponse.toString(2));
                     String status = logResponse.getString("status");
                     JSONObject data = logResponse.getJSONObject("data");
-                    JSONObject vote = logResponse.getJSONObject("vote");
-                    Boolean label = logResponse.getBoolean("status");
+                    JSONObject vote = data.getJSONObject("vote");
+                    Boolean label = vote.getBoolean("status");
                     JSONArray options = logResponse.getJSONArray("options");
                     for (int i=0; i<options.length(); i++){
                         JSONObject dataOptions = options.getJSONObject(i);
