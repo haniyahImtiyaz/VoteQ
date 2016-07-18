@@ -12,4 +12,5 @@
     <string name="sign_up">/user/users</string>
     <string name="sign_in">/user/session</string>
     <string name="create_vote">/user/votes</string>
+    <string name="get_myvote">/user/votes/?current_user=true</string>
 </resources>

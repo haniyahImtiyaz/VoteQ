@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Created by pandhu on 11/07/16.
  */
-public class MyVoteList extends Fragment implements ClientCallbackSignIn {
+public class MyVoteList extends Fragment implements ClientCallbackSignIn, FragmentHome {
     private ListView listViewVote;
     private HomeAdapter homeAdapter;
     List<HomeItem> listItem;
@@ -72,11 +72,11 @@ public class MyVoteList extends Fragment implements ClientCallbackSignIn {
 
     @Override
     public void onSucceded() {
-        listItem = networkService.getMyHomeItemList();
+        listItem = networkService.getHomeItemList();
         homeAdapter = new HomeAdapter(listItem,getContext());
         listViewVote.setAdapter(homeAdapter);
         progressDialog.dismiss();
-        Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Success myvote", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -89,12 +89,6 @@ public class MyVoteList extends Fragment implements ClientCallbackSignIn {
     public void onResume() {
         super.onResume();
         Log.d("voteList", "myVoteist Resume");
-        networkService = new NetworkService(getContext());
-        networkService.getAllVote(HomeActivity.token, "true", MyVoteList.this);
-
-        progressDialog = new ProgressDialog(getContext());
-        progressDialog.setMessage("Please Wait...");
-        progressDialog.show();
 
     }
 
@@ -114,5 +108,15 @@ public class MyVoteList extends Fragment implements ClientCallbackSignIn {
     public void onStart() {
         super.onStart();
         Log.d("voteList", "myVoteListStart");
+    }
+
+    @Override
+    public void becameVisible() {
+        networkService = new NetworkService(getContext());
+        networkService.getAllVote(HomeActivity.token, "true", MyVoteList.this);
+
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setMessage("Please Wait...");
+        progressDialog.show();
     }
 }
