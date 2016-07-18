@@ -194,7 +194,12 @@ public class NetworkService {
         requestQueue.add(createVoteRequest);
     }
     public void getAllVote(final String token, final String current_user, final ClientCallbackSignIn clientCallback){
-        String url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.create_vote);
+        String url;
+        if (current_user.equals("true")) {
+            url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.get_myvote);
+        }else {
+            url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.create_vote);
+        }
         StringRequest getAllVoteRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -215,11 +220,7 @@ public class NetworkService {
                             label = "closed";
                         }
 
-                        if (current_user.equals("true")){
-                            setMyHomeItemList(title, voter, label, R.mipmap.ic_launcher);
-                        } else {
                             setHomeItemList(title, voter, label, R.mipmap.ic_launcher);
-                        }
 
                     }
                     if(status.equals("OK")) {
@@ -227,7 +228,7 @@ public class NetworkService {
                     }else {
                         clientCallback.onFailed();
                    }
-                    Log.d("yeyeye1", homeItemList.toString());
+                    Log.d("yeyeye1", String.valueOf(homeItemList.size()));
                     Log.d("yeyeye1", String.valueOf(myHomeItemList.size()));
 
                 } catch (JSONException e) {
@@ -249,12 +250,6 @@ public class NetworkService {
                 Map<String, String> header = new HashMap<>();
                 header.put("Authorization", token);
                 return header;
-            }
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("current_user", current_user);
-                return params;
             }
 
         };

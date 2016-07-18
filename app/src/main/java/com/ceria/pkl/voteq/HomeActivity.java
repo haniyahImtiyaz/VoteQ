@@ -25,7 +25,7 @@ static String token;
         getSupportActionBar().setLogo(R.mipmap.logo);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
 
-        TabLayout tabLayout = (TabLayout)findViewById(R.id.tabLayoutHome);
+        final TabLayout tabLayout = (TabLayout)findViewById(R.id.tabLayoutHome);
         tabLayout.addTab(tabLayout.newTab().setText("Vote List"));
         tabLayout.addTab(tabLayout.newTab().setText("My Vote List"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -34,7 +34,24 @@ static String token;
 
         final PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(pagerAdapter);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                FragmentHome fragment = (FragmentHome) pagerAdapter.instantiateItem(viewPager, position);
+                if (fragment != null) {
+                    fragment.becameVisible();
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -43,7 +60,6 @@ static String token;
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
             }
 
             @Override

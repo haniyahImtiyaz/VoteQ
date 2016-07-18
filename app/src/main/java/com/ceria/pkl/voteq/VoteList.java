@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Created by pandhu on 11/07/16.
  */
-public class VoteList extends Fragment implements ClientCallbackSignIn{
+public class VoteList extends Fragment implements ClientCallbackSignIn, FragmentHome{
 
     private ListView listViewVote;
     private HomeAdapter homeAdapter;
@@ -32,12 +32,7 @@ public class VoteList extends Fragment implements ClientCallbackSignIn{
         View rootView = inflater.inflate(R.layout.page_vote_list, container, false);
         listViewVote = (ListView)rootView.findViewById(R.id.list_vote);
 
-        networkService = new NetworkService(getContext());
-        networkService.getAllVote(HomeActivity.token, "false", VoteList.this);
-
-        progressDialog = new ProgressDialog(getContext());
-        progressDialog.setMessage("Please Wait...");
-        progressDialog.show();
+        becameVisible();
 //
 //        homeAdapter = new HomeAdapter(listItem,getContext());
 //        listViewVote.setAdapter(homeAdapter);
@@ -89,6 +84,7 @@ public class VoteList extends Fragment implements ClientCallbackSignIn{
         homeAdapter = new HomeAdapter(listItem,getContext());
         listViewVote.setAdapter(homeAdapter);
         progressDialog.dismiss();
+        Toast.makeText(getContext(), "success votelist", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -123,5 +119,15 @@ public class VoteList extends Fragment implements ClientCallbackSignIn{
 
     public void refreshView(){
         Toast.makeText(getContext(), "refresh VoteLIst", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void becameVisible() {
+        networkService = new NetworkService(getContext());
+        networkService.getAllVote(HomeActivity.token, "false", VoteList.this);
+
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setMessage("Please Wait...");
+        progressDialog.show();
     }
 }
