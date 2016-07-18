@@ -28,15 +28,14 @@ public class NetworkService {
     private final Context context;
     private String auth_token;
     private final List<HomeItem> homeItemList = new ArrayList<HomeItem>();
-    private final List<HomeItem> myHomeItemList = new ArrayList<HomeItem>();
     private final List<ResultItem> resultItemList = new ArrayList<ResultItem>();
 
     public NetworkService(Context context) {
         this.context = context;
-        this.requestQueue = Volley. newRequestQueue(context);
+        this.requestQueue = Volley.newRequestQueue(context);
     }
 
-    public void signUp(final String email, final String pwd, final String pwdConfirm, final ClientCallback clientCallback){
+    public void signUp(final String email, final String pwd, final String pwdConfirm, final ClientCallback clientCallback) {
         String url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.sign_up);
         StringRequest signUpRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
@@ -45,7 +44,7 @@ public class NetworkService {
                     JSONObject logResponse = new JSONObject(response);
                     Log.d("signUpPost", "response " + logResponse.toString(2));
                     String status = logResponse.getString("status");
-                    if(status.equals("error")) {
+                    if (status.equals("error")) {
                         JSONObject dataResponse = logResponse.getJSONObject("data");
                         JSONArray arrayResponseEmail = dataResponse.getJSONArray("email");
                         JSONArray arrayResponsePassword = dataResponse.getJSONArray("password");
@@ -54,12 +53,12 @@ public class NetworkService {
                         String responsePwd = arrayResponseEmail.getString(0);
                         if (responseEmail.equals("has already been taken")) {
                             clientCallback.onEmailSame();
-                        }else {
+                        } else {
                             clientCallback.onFailed();
                         }
                     }
                 } catch (JSONException e) {
-                    Log.d("signUpPost", "response "+response);
+                    Log.d("signUpPost", "response " + response);
                     e.printStackTrace();
                     clientCallback.onFailed();
                 }
@@ -68,11 +67,11 @@ public class NetworkService {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("signUpPost", "error signUp "+error.toString());
+                Log.d("signUpPost", "error signUp " + error.toString());
                 clientCallback.onFailed();
 
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> header = new HashMap<>();
@@ -92,7 +91,7 @@ public class NetworkService {
         requestQueue.add(signUpRequest);
     }
 
-    public void login (final String email, final String password, final ClientCallbackSignIn clientCallback){
+    public void login(final String email, final String password, final ClientCallbackSignIn clientCallback) {
         String url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.sign_in);
         StringRequest loginRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
@@ -100,37 +99,35 @@ public class NetworkService {
                 try {
                     JSONObject logResponse = new JSONObject(response);
                     Log.d("response", logResponse.toString(2));
-                    JSONObject jsonObject = new JSONObject(response); //untuk menampung semua hasil JSON
-                    String  status = jsonObject.getString("status");
+                    JSONObject jsonObject = new JSONObject(response);
+                    String status = jsonObject.getString("status");
                     JSONObject dataResponse = logResponse.getJSONObject("data");
                     auth_token = dataResponse.getString("auth_token");
-                    //ada apa dengan cinta
 
-                    if (status.equals("success")){
+                    if (status.equals("success")) {
                         clientCallback.onSucceded();
-                        //memberitahu ke LoginActivity bahwa login sukses, agan LoginActivity menjalankan onSucceedeed
-                    }else{
+                    } else {
                         clientCallback.onFailed();
                     }
-                }catch (JSONException e){
+                } catch (JSONException e) {
                     e.printStackTrace();
                     Log.d("Response", response);
                     clientCallback.onFailed();
                 }
             }
-        }, new Response.ErrorListener(){
-            public void onErrorResponse(VolleyError error){
+        }, new Response.ErrorListener() {
+            public void onErrorResponse(VolleyError error) {
                 Log.d("Error", error.toString());
                 clientCallback.onFailed();
             }
         }) {
-            public Map<String, String> getHeaders() throws AuthFailureError{
+            public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> header = new HashMap<>();
                 header.put("Context-Type", "application/x-www-form-urlencoded");
                 return header;
             }
 
-            public Map<String, String> getParams() throws AuthFailureError{
+            public Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 params.put("session[email]", email);
                 params.put("session[password]", password);
@@ -139,11 +136,12 @@ public class NetworkService {
         };
         requestQueue.add(loginRequest);
     }
-    public String getAuth_token(){
+
+    public String getAuth_token() {
         return auth_token;
     }
 
-    public void createVote(final String token, final String title, final ArrayList<String> option, final boolean is_open, final ClientCallbackSignIn clientCallback){
+    public void createVote(final String token, final String title, final ArrayList<String> option, final boolean is_open, final ClientCallbackSignIn clientCallback) {
         String url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.create_vote);
         StringRequest createVoteRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
@@ -152,13 +150,13 @@ public class NetworkService {
                     JSONObject logResponse = new JSONObject(response);
                     Log.d("createVote", "response " + logResponse.toString(2));
                     String status = logResponse.getString("status");
-              //     if(status.equals("success")) {
+                    if (status.equals("success")) {
                         clientCallback.onSucceded();
-              //      }else {
-              //          clientCallback.onFailed();
-              //      }
+                    } else {
+                        clientCallback.onFailed();
+                    }
                 } catch (JSONException e) {
-                    Log.d("createVote", "response "+response);
+                    Log.d("createVote", "response " + response);
                     e.printStackTrace();
                     clientCallback.onFailed();
                 }
@@ -167,15 +165,15 @@ public class NetworkService {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("createVote", "error create vote "+error.toString());
+                Log.d("createVote", "error create vote " + error.toString());
                 clientCallback.onFailed();
 
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> headers = new HashMap<>();
-                headers.put("Authorization",token);
+                headers.put("Authorization", token);
                 headers.put("Content-Type", "application/x-www-form-urlencoded");
                 return headers;
             }
@@ -184,9 +182,8 @@ public class NetworkService {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 params.put("title", title);
-                for(int i = 0; i < option.size(); i++){
+                for (int i = 0; i < option.size(); i++) {
                     params.put("options[]", option.get(i));
-                    Log.d("Vote Option",option.get(i));
                 }
                 params.put("is_open", String.valueOf(is_open));
                 return params;
@@ -194,11 +191,12 @@ public class NetworkService {
         };
         requestQueue.add(createVoteRequest);
     }
-    public void getAllVote(final String token, final String current_user, final ClientCallbackSignIn clientCallback){
+
+    public void getAllVote(final String token, final String current_user, final ClientCallbackSignIn clientCallback) {
         String url;
         if (current_user.equals("true")) {
             url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.get_myvote);
-        }else {
+        } else {
             url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.create_vote);
         }
         StringRequest getAllVoteRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
@@ -210,26 +208,26 @@ public class NetworkService {
                     String status = logResponse.getString("status");
                     JSONObject data = logResponse.getJSONObject("data");
                     JSONArray vote = data.getJSONArray("vote");
-                    for (int i=0; i < vote.length(); i++){
+                    for (int i = 0; i < vote.length(); i++) {
                         JSONObject dataVote = vote.getJSONObject(i);
                         String title = dataVote.getString("title");
                         String voter = dataVote.getString("voter_count");
                         String vote_id = dataVote.getString("id");
-                        String label ;
-                        if(dataVote.getBoolean("status") == true){
+                        String label;
+                        if (dataVote.getBoolean("status") == true) {
                             label = "Open";
-                        }else{
+                        } else {
                             label = "Closed";
                         }
 
-                            setHomeItemList(vote_id,title, voter, label, R.mipmap.ic_launcher);
+                        setHomeItemList(vote_id, title, voter, label, R.mipmap.ic_launcher);
 
                     }
-                    if(status.equals("OK")) {
+                    if (status.equals("OK")) {
                         clientCallback.onSucceded();
-                    }else {
+                    } else {
                         clientCallback.onFailed();
-                   }
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -240,11 +238,11 @@ public class NetworkService {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("getAllVote", "error get all vote "+error.toString());
+                Log.d("getAllVote", "error get all vote " + error.toString());
                 clientCallback.onFailed();
 
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> header = new HashMap<>();
@@ -255,31 +253,23 @@ public class NetworkService {
         };
 
         requestQueue.add(getAllVoteRequest);
-        Log.d("yeyeye2", homeItemList.toString());
 
     }
+
     public List<HomeItem> getHomeItemList() {
-        Log.d("yeyeye3", String.valueOf(homeItemList.size()));
         return homeItemList;
     }
-    public void setHomeItemList(String id, String title, String count, String label, int image){
-        Log.d("cekData", title + count + label );
-        homeItemList.add(get(id,title, count, label, image));
-    }
-//
-//    public void setMyHomeItemList(String id, String title, String count, String label, int image){
-//        myHomeItemList.add(get(id, title, count, label, image));
-//    }
-    public List<HomeItem> getMyHomeItemList() {
-        return myHomeItemList;
+
+    public void setHomeItemList(String id, String title, String count, String label, int image) {
+        homeItemList.add(get(id, title, count, label, image));
     }
 
-    private HomeItem get(String id, String title, String count, String label, int image){
-        return new HomeItem(id,title,count,label,image);
+    private HomeItem get(String id, String title, String count, String label, int image) {
+        return new HomeItem(id, title, count, label, image);
 
     }
 
-    public void specificVote(final String token, final String id, final ClientCallbackSignIn clientCallback){
+    public void specificVote(final String token, final String id, final ClientCallbackSignIn clientCallback) {
         String url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.create_vote) + "/" + id;
         StringRequest specificVote = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
@@ -292,7 +282,7 @@ public class NetworkService {
                     JSONObject vote = data.getJSONObject("vote");
                     Boolean label = vote.getBoolean("status");
                     JSONArray options = vote.getJSONArray("options");
-                    for (int i=0; i<options.length(); i++){
+                    for (int i = 0; i < options.length(); i++) {
                         JSONObject dataOptions = options.getJSONObject(i);
                         String title = dataOptions.getString("title");
                         String count = dataOptions.getString("count");
@@ -300,9 +290,9 @@ public class NetworkService {
                         setResultItemList(title, count, percentage);
                     }
 
-                    if(status.equals("OK")) {
+                    if (status.equals("OK")) {
                         clientCallback.onSucceded();
-                    }else {
+                    } else {
                         clientCallback.onFailed();
                     }
 
@@ -315,11 +305,11 @@ public class NetworkService {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("specificVote", "specific vote"+error.toString());
+                Log.d("specificVote", "specific vote" + error.toString());
                 clientCallback.onFailed();
 
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> header = new HashMap<>();
@@ -335,7 +325,7 @@ public class NetworkService {
         return resultItemList;
     }
 
-    public void setResultItemList(String title, String count, String percentage){
+    public void setResultItemList(String title, String count, String percentage) {
         resultItemList.add(new ResultItem(title, count, percentage));
     }
 }
