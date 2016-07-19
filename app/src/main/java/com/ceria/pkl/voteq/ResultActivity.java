@@ -44,10 +44,11 @@ public class ResultActivity extends AppCompatActivity {
 
         resultItemList = new ArrayList<ResultItem>();
 
-        resultItemList.add(get("Merah Muda", "1200 Votes", "55%"));
-        resultItemList.add(get("Merah Muda", "1200 Votes", "55%"));
-        resultItemList.add(get("Merah Muda", "1200 Votes", "55%"));
-        resultItemList.add(get("Merah Muda", "1200 Votes", "55%"));
+
+        resultItemList.add(get("1","Merah Muda", "1200 Votes", "55%"));
+        resultItemList.add(get("2","Merah Muda", "1200 Votes", "55%"));
+        resultItemList.add(get("3","Merah Muda", "1200 Votes", "55%"));
+        resultItemList.add(get("4","Merah Muda", "1200 Votes", "55%"));
 
         listAdapterResult = new ListAdapterResult(resultItemList, this);
         expandableListView.setAdapter(listAdapterResult);
@@ -56,7 +57,7 @@ public class ResultActivity extends AppCompatActivity {
 
     }
 
-    private ResultItem get(String title, String value, String percent) {
-        return new ResultItem(title, value, percent);
+    private ResultItem get(String id, String title, String value, String percent) {
+        return new ResultItem(id,title, value, percent);
     }
 }

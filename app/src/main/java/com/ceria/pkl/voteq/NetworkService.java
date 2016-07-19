@@ -52,8 +52,8 @@ public class NetworkService {
         return resultItemList;
     }
 
-    public void setResultItemList(String title, String count, String percentage) {
-        resultItemList.add(new ResultItem(title, count, percentage));
+    public void setResultItemList(String id, String title, String count, String percentage) {
+        resultItemList.add(new ResultItem(id, title, count, percentage));
     }
 
     public void signUp(final String email, final String pwd, final String pwdConfirm, final ClientCallback clientCallback) {
@@ -292,10 +292,11 @@ public class NetworkService {
                     JSONArray options = vote.getJSONArray("options");
                     for (int i = 0; i < options.length(); i++) {
                         JSONObject dataOptions = options.getJSONObject(i);
+                        String id = dataOptions.getString("id");
                         String title = dataOptions.getString("title");
                         String count = dataOptions.getString("count");
                         String percentage = dataOptions.getString("percentage");
-                        setResultItemList(title, count, percentage);
+                        setResultItemList(id,title, count, percentage);
                     }
 
                     if (status.equals("OK")) {

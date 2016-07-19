@@ -26,6 +26,8 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
     List<ResultItem> resultItemList;
     NetworkService networkService;
     ProgressDialog progressDialog;
+    RadioGroup radioGroupVote;
+    int countRadioVote;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +48,9 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         TextView labelView = (TextView)findViewById(R.id.txt_stat);
         LinearLayout linearLayout = (LinearLayout)findViewById(R.id.layout_label);
         LinearLayout layoutRadioVote = (LinearLayout)findViewById(R.id.layout_radio_vote);
-        RadioGroup radioGroupVote = (RadioGroup)findViewById(R.id.radio_group_vote);
+        radioGroupVote = (RadioGroup)findViewById(R.id.radio_group_vote);
 
-        int countRadioVote = Integer.parseInt(countText);
+        countRadioVote = Integer.parseInt(countText);
 
         SharedPreferences sharedPrefernces = getSharedPreferences(SignIn.token, Context.MODE_PRIVATE);
         String token = sharedPrefernces.getString("token", "");
@@ -71,35 +73,33 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
 
         resultItemList = new ArrayList<ResultItem>();
 
-        resultItemList.add(get("Merah Muda", "1200 Votes", "55%"));
-        resultItemList.add(get("Merah Muda", "1200 Votes", "55%"));
-        resultItemList.add(get("Merah Muda", "1200 Votes", "55%"));
-        resultItemList.add(get("Merah Muda", "1200 Votes", "55%"));
+        resultItemList.add(get("1","Merah Muda", "1200 Votes", "55%"));
+        resultItemList.add(get("2","Merah Muda", "1200 Votes", "55%"));
+        resultItemList.add(get("3","Merah Muda", "1200 Votes", "55%"));
+        resultItemList.add(get("4","Merah Muda", "1200 Votes", "55%"));
 
         titleView.setText(titleText);
         countView.setText(countText +" Peoples Voted");
         labelView.setText(labelText);
-
-        //Create Radio Button to populate vote options
-        for (int i=0;i<countRadioVote;i++){
-            RadioButton radioButtonVote = new RadioButton(this);
-            radioButtonVote.setId(i);
-            radioButtonVote.setText("Pilihan "+ i);
-            radioGroupVote.addView(radioButtonVote);
-        }
-
     }
 
-    private ResultItem get(String title, String value, String percent) {
-        return new ResultItem(title, value, percent);
+    private ResultItem get(String id, String title, String value, String percent) {
+        return new ResultItem(id, title, value, percent);
     }
 
     @Override
     public void onSucceded() {
         resultItemList = networkService.getResultItemList();
-        Log.d("resultItemList", String.valueOf(networkService.getResultItemList().size()));
+//        Log.d("resultItemList", String.valueOf(networkService.getResultItemList().size()));
         listAdapterResult = new ListAdapterResult(resultItemList, VoteActivity.this);
         gridView.setAdapter(listAdapterResult);
+        //Create Radio Button to populate vote options
+        for (int i=0;i<resultItemList.size();i++){
+            RadioButton radioButtonVote = new RadioButton(this);
+            radioButtonVote.setId(Integer.parseInt(resultItemList.get(i).getTextId()));
+            radioButtonVote.setText(resultItemList.get(i).getTextTitle());
+            radioGroupVote.addView(radioButtonVote);
+        }
         progressDialog.dismiss();
     }
 
