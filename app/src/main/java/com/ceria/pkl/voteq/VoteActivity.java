@@ -29,6 +29,7 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
     ProgressDialog progressDialog;
     RadioGroup radioGroupVote;
     int countRadioVote;
+    TextView textDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +56,7 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         TextView countView = (TextView)findViewById(R.id.txt_vote_count);
         TextView labelView = (TextView)findViewById(R.id.txt_stat);
         LinearLayout linearLayout = (LinearLayout)findViewById(R.id.layout_label);
-        LinearLayout layoutRadioVote = (LinearLayout)findViewById(R.id.layout_radio_vote);
         radioGroupVote = (RadioGroup)findViewById(R.id.radio_group_vote);
-
         countRadioVote = Integer.parseInt(countText);
 
         SharedPreferences sharedPrefernces = getSharedPreferences(SignIn.token, Context.MODE_PRIVATE);
@@ -98,9 +97,13 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
     @Override
     public void onSucceded() {
         resultItemList = networkService.getResultItemList();
-//        Log.d("resultItemList", String.valueOf(networkService.getResultItemList().size()));
         listAdapterResult = new ListAdapterResult(resultItemList, VoteActivity.this);
         gridView.setAdapter(listAdapterResult);
+        textDate = (TextView)findViewById(R.id.txt_vote_date);
+
+        //getDateFormat from network Service
+        textDate.setText(networkService.getDate());
+
         //Create Radio Button to populate vote options
         for (int i=0;i<resultItemList.size();i++){
             RadioButton radioButtonVote = new RadioButton(this);

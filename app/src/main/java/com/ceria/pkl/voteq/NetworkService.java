@@ -15,7 +15,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +33,7 @@ public class NetworkService {
     private String auth_token;
     private final List<HomeItem> homeItemList = new ArrayList<HomeItem>();
     private final List<ResultItem> resultItemList = new ArrayList<ResultItem>();
+    private String date;
 
     public NetworkService(Context context) {
         this.context = context;
@@ -288,6 +293,7 @@ public class NetworkService {
                     String status = logResponse.getString("status");
                     JSONObject data = logResponse.getJSONObject("data");
                     JSONObject vote = data.getJSONObject("vote");
+                    date = vote.getString("created_at");
                     Boolean label = vote.getBoolean("status");
                     JSONArray options = vote.getJSONArray("options");
                     for (int i = 0; i < options.length(); i++) {
@@ -329,7 +335,9 @@ public class NetworkService {
 
         requestQueue.add(specificVote);
     }
-
+    public String getDate(){
+        return date;
+    }
     public void givingVote(final String token, final int vote_id, final int option_id, final ClientCallbackSignIn clientCallback) {
         String url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.giving_vote);
         StringRequest givingVoteRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {

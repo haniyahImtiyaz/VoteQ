@@ -43,7 +43,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/txt_date_vote"
                         android:text="Since February, 21 2016"
-                        android:layout_below="@+id/txt_vote_count"/>
+                        android:layout_below="@+id/txt_vote_date"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"
