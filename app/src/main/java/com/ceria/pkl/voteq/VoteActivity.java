@@ -134,7 +134,6 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
             radioGroupVote.addView(radioButtonVote);
         }
 
-
         progressDialog.dismiss();
     }
 
