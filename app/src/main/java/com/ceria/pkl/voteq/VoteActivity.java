@@ -11,6 +11,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.GridView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +45,10 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         TextView countView = (TextView)findViewById(R.id.txt_vote_count);
         TextView labelView = (TextView)findViewById(R.id.txt_stat);
         LinearLayout linearLayout = (LinearLayout)findViewById(R.id.layout_label);
+        LinearLayout layoutRadioVote = (LinearLayout)findViewById(R.id.layout_radio_vote);
+        RadioGroup radioGroupVote = (RadioGroup)findViewById(R.id.radio_group_vote);
+
+        int countRadioVote = Integer.parseInt(countText);
 
         SharedPreferences sharedPrefernces = getSharedPreferences(SignIn.token, Context.MODE_PRIVATE);
         String token = sharedPrefernces.getString("token", "");
@@ -69,16 +75,18 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         resultItemList.add(get("Merah Muda", "1200 Votes", "55%"));
         resultItemList.add(get("Merah Muda", "1200 Votes", "55%"));
         resultItemList.add(get("Merah Muda", "1200 Votes", "55%"));
-  //      listAdapterResult = new ListAdapterResult(resultItemList, getApplicationContext());
-
-  //      gridView.setAdapter(listAdapterResult);
 
         titleView.setText(titleText);
         countView.setText(countText +" Peoples Voted");
         labelView.setText(labelText);
 
-        
-
+        //Create Radio Button to populate vote options
+        for (int i=0;i<countRadioVote;i++){
+            RadioButton radioButtonVote = new RadioButton(this);
+            radioButtonVote.setId(i);
+            radioButtonVote.setText("Pilihan "+ i);
+            radioGroupVote.addView(radioButtonVote);
+        }
 
     }
 
