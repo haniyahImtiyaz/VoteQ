@@ -34,9 +34,6 @@ public class VoteList extends Fragment implements ClientCallbackSignIn{
         if (listItem.size() == 0) {
             visible();
         }
-//        homeAdapter = new HomeAdapter(listItem,getContext());
-//        listViewVote.setAdapter(homeAdapter);
-
         listViewVote.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -76,14 +73,9 @@ public class VoteList extends Fragment implements ClientCallbackSignIn{
         return list;
     }
 
-//    public static void setItem(String title, String count, String label, int image){
-//        list.add(new HomeItem(title, count, label, image));
-//    }
     @Override
     public void onSucceded() {
         listItem = networkService.getHomeItemList();
-//        Log.d("yayaya", String.valueOf(listItem.size()));
-//        networkService.getAllVote(HomeActivity.token, VoteList.this);
         homeAdapter = new HomeAdapter(listItem,getContext());
         listViewVote.setAdapter(homeAdapter);
         progressDialog.dismiss();

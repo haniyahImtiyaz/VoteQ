@@ -82,9 +82,6 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         labelView.setText(labelText);
     }
 
-    private ResultItem get(String id, String title, String value, String percent) {
-        return new ResultItem(id, title, value, percent);
-    }
 
     @Override
     public void onSucceded() {
