@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +26,6 @@ public class MyVoteList extends Fragment implements ClientCallbackSignIn {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.d("voteList", "myVoteList create");
         View rootView = inflater.inflate(R.layout.page_my_vote_list, container, false);
         listViewVote = (ListView)rootView.findViewById(R.id.list_my_vote);
         if (listItem.isEmpty()){
@@ -37,20 +35,21 @@ public class MyVoteList extends Fragment implements ClientCallbackSignIn {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                if(getItem().get(position).getLabel().equals("Open")){
+                if(listItem.get(position).getLabel().equals("Open")){
                     Intent intent = new Intent(getContext(), VoteActivity.class);
-                    intent.putExtra("title", getItem().get(position).getTextTitle());
-                    intent.putExtra("count", getItem().get(position).getTextCount());
-                    intent.putExtra("status", getItem().get(position).getLabel());
+                    intent.putExtra("id", listItem.get(position).getId());
+                    intent.putExtra("title", listItem.get(position).getTextTitle());
+                    intent.putExtra("count",listItem.get(position).getTextCount() );
+                    intent.putExtra("status", listItem.get(position).getLabel());
                     startActivity(intent);
                 }else{
                     Intent intent = new Intent(getContext(), ResultActivity.class);
-                    intent.putExtra("title", getItem().get(position).getTextTitle());
-                    intent.putExtra("count", getItem().get(position).getTextCount());
-                    intent.putExtra("status", getItem().get(position).getLabel());
+                    intent.putExtra("id", listItem.get(position).getId());
+                    intent.putExtra("title", listItem.get(position).getTextTitle());
+                    intent.putExtra("count",listItem.get(position).getTextCount() );
+                    intent.putExtra("status", listItem.get(position).getLabel());
                     startActivity(intent);
                 }
-
             }
         });
 
