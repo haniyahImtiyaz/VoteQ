@@ -209,6 +209,7 @@ public class NetworkService {
                 params.put("title", title);
                 for (int i = 0; i < option.size(); i++) {
                     params.put("options[]", option.get(i));
+                    Log.d("Options", option.get(i).toString());
                 }
                 int size = option.size();
                 Log.d("optionSize", String.valueOf(size));
