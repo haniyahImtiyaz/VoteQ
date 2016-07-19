@@ -19,6 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class VoteActivity extends AppCompatActivity implements ClientCallbackSignIn {
@@ -47,6 +49,7 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
             }
         });
 
+
         Intent intent = getIntent();
         final String id = intent.getStringExtra("id");
         String titleText= intent.getStringExtra("title");
@@ -69,6 +72,7 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         networkService = new NetworkService(VoteActivity.this);
         networkService.specificVote(token, id, VoteActivity.this);
 
+
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please Wait...");
         progressDialog.show();
@@ -88,6 +92,7 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         btnVote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                filterPercentage();
                 networkService.givingVote(token, id, radioGroupVote.getCheckedRadioButtonId(), VoteActivity.this);
                 VoteList.listItem = new ArrayList<HomeItem>();
                 MyVoteList.listItem = new ArrayList<HomeItem>();
@@ -125,5 +130,23 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
     public void onFailed() {
         Toast.makeText(VoteActivity.this, "Failure", Toast.LENGTH_SHORT).show();
         progressDialog.dismiss();
+    }
+
+    public void filterPercentage(){
+
+        resultItemList = networkService.getResultItemList();
+        for (int i=0; i < resultItemList.size(); i++){
+            List<Double> listPercent = new ArrayList<Double>();
+            listPercent.add(Double.valueOf(resultItemList.get(i).getTextPercent()));
+            //listPercent
+            Collections.sort(resultItemList, new Comparator<ResultItem>() {
+                @Override
+                public int compare(ResultItem lhs, ResultItem rhs) {
+                    return lhs.getTextPercent().compareTo(rhs.getTextPercent());
+                }
+            });
+            Log.d("listPercent", resultItemList.get(i).getTextPercent());
+        }
+
     }
 }
