@@ -347,7 +347,7 @@ public class NetworkService {
         Log.d("getDate", dateNew.toString());
         return dateNew;
     }
-    public void givingVote(final String token, final int vote_id, final int option_id, final ClientCallbackSignIn clientCallback) {
+    public void givingVote(final String token, final String vote_id, final int option_id, final ClientCallbackSignIn clientCallback) {
         String url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.giving_vote);
         StringRequest givingVoteRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
@@ -385,7 +385,7 @@ public class NetworkService {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("vote_id", String.valueOf(vote_id));
+                params.put("vote_id", vote_id);
                 params.put("vote_option_id", String.valueOf(option_id));
                 return params;
             }

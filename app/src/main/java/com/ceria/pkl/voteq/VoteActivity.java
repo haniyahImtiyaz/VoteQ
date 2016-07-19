@@ -8,7 +8,9 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -29,6 +31,7 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
     RadioGroup radioGroupVote;
     int countRadioVote;
     TextView textDate;
+    Button btnVote;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +48,7 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         });
 
         Intent intent = getIntent();
-        String id = intent.getStringExtra("id");
+        final String id = intent.getStringExtra("id");
         String titleText= intent.getStringExtra("title");
         String countText= intent.getStringExtra("count");
         String labelText= intent.getStringExtra("status");
@@ -56,11 +59,12 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         LinearLayout linearLayout = (LinearLayout)findViewById(R.id.layout_label);
         radioGroupVote = (RadioGroup)findViewById(R.id.radio_group_vote);
         textDate = (TextView)findViewById(R.id.txt_date_vote);
+        btnVote = (Button)findViewById(R.id.btn_submit_vote);
 
         countRadioVote = Integer.parseInt(countText);
 
         SharedPreferences sharedPrefernces = getSharedPreferences(SignIn.token, Context.MODE_PRIVATE);
-        String token = sharedPrefernces.getString("token", "");
+        final String token = sharedPrefernces.getString("token", "");
 
         networkService = new NetworkService(VoteActivity.this);
         networkService.specificVote(token, id, VoteActivity.this);
@@ -80,6 +84,18 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         titleView.setText(titleText);
         countView.setText(countText +" Peoples Voted");
         labelView.setText(labelText);
+
+        btnVote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                networkService.givingVote(token, id, radioGroupVote.getCheckedRadioButtonId(), VoteActivity.this);
+                VoteList.listItem = new ArrayList<HomeItem>();
+                MyVoteList.listItem = new ArrayList<HomeItem>();
+                Log.d("voteList", String.valueOf(VoteList.listItem.size()));
+                Intent i = new Intent(VoteActivity.this, HomeActivity.class);
+                startActivity(i);
+            }
+        });
     }
 
 
