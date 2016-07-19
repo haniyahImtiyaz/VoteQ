@@ -210,6 +210,8 @@ public class NetworkService {
                 for (int i = 0; i < option.size(); i++) {
                     params.put("options[]", option.get(i));
                 }
+                int size = option.size();
+                Log.d("optionSize", String.valueOf(size));
                 params.put("is_open", String.valueOf(is_open));
                 return params;
             }
