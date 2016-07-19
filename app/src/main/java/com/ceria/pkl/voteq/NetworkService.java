@@ -15,11 +15,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -336,6 +332,7 @@ public class NetworkService {
         requestQueue.add(specificVote);
     }
     public String getDate(){
+        Log.d("getDate", date.toString());
         return date;
     }
     public void givingVote(final String token, final int vote_id, final int option_id, final ClientCallbackSignIn clientCallback) {
@@ -372,7 +369,6 @@ public class NetworkService {
                 header.put("Authorization", token);
                 return header;
             }
-
 
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {

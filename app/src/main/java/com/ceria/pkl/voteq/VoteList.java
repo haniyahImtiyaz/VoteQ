@@ -22,7 +22,7 @@ public class VoteList extends Fragment implements ClientCallbackSignIn{
 
     private ListView listViewVote;
     private HomeAdapter homeAdapter;
-    List<HomeItem> listItem = new ArrayList<HomeItem>();
+    static List<HomeItem> listItem = new ArrayList<HomeItem>();
     ProgressDialog progressDialog;
     NetworkService networkService;
 
@@ -32,7 +32,7 @@ public class VoteList extends Fragment implements ClientCallbackSignIn{
         View rootView = inflater.inflate(R.layout.page_vote_list, container, false);
         listViewVote = (ListView)rootView.findViewById(R.id.list_vote);
         if (listItem.size() == 0) {
-            becameVisible();
+            visible();
         }
 //        homeAdapter = new HomeAdapter(listItem,getContext());
 //        listViewVote.setAdapter(homeAdapter);
@@ -95,7 +95,7 @@ public class VoteList extends Fragment implements ClientCallbackSignIn{
         Toast.makeText(getContext(), "failure", Toast.LENGTH_SHORT).show();
     }
 
-    public void becameVisible() {
+    public void visible() {
         networkService = new NetworkService(getContext());
         networkService.getAllVote(HomeActivity.token, "false", VoteList.this);
 

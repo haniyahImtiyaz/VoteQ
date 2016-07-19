@@ -20,7 +20,7 @@ import java.util.List;
 public class MyVoteList extends Fragment implements ClientCallbackSignIn {
     private ListView listViewVote;
     private HomeAdapter homeAdapter;
-    List<HomeItem> listItem = new ArrayList<HomeItem>();
+    static List<HomeItem> listItem = new ArrayList<HomeItem>();
     ProgressDialog progressDialog;
     NetworkService networkService;
 

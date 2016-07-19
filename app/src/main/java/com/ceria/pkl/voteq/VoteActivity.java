@@ -8,7 +8,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.LinearLayout;
@@ -56,7 +55,10 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         TextView countView = (TextView)findViewById(R.id.txt_vote_count);
         TextView labelView = (TextView)findViewById(R.id.txt_stat);
         LinearLayout linearLayout = (LinearLayout)findViewById(R.id.layout_label);
+        LinearLayout layoutRadioVote = (LinearLayout)findViewById(R.id.layout_radio_vote);
         radioGroupVote = (RadioGroup)findViewById(R.id.radio_group_vote);
+        textDate = (TextView)findViewById(R.id.txt_date_vote);
+
         countRadioVote = Integer.parseInt(countText);
 
         SharedPreferences sharedPrefernces = getSharedPreferences(SignIn.token, Context.MODE_PRIVATE);
@@ -99,7 +101,6 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         resultItemList = networkService.getResultItemList();
         listAdapterResult = new ListAdapterResult(resultItemList, VoteActivity.this);
         gridView.setAdapter(listAdapterResult);
-        textDate = (TextView)findViewById(R.id.txt_vote_date);
 
         //getDateFormat from network Service
         textDate.setText(networkService.getDate());
