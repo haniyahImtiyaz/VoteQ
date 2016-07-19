@@ -334,16 +334,18 @@ public class NetworkService {
 
         requestQueue.add(specificVote);
     }
-    public Date getDate(){
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM,dd,yyyy");
+    public String getDate(){
+        SimpleDateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy hh:mm:ss Z");
         Date dateText = new Date();
         try {
-            dateText = dateFormat.parse(date);
+            dateText = format.parse(date);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        Log.d("getDate", dateText.toString());
-        return dateText;
+        format = new SimpleDateFormat("MMMM dd, yyyy");
+        String dateNew = format.format(dateText);
+        Log.d("getDate", dateNew.toString());
+        return dateNew;
     }
     public void givingVote(final String token, final int vote_id, final int option_id, final ClientCallbackSignIn clientCallback) {
         String url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.giving_vote);

@@ -93,7 +93,7 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         gridView.setAdapter(listAdapterResult);
 
         //getDateFormat from network Service
-        textDate.setText(networkService.getDate().toString());
+        textDate.setText("Since " + networkService.getDate());
 
         //Create Radio Button to populate vote options
         for (int i=0;i<resultItemList.size();i++){
