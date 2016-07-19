@@ -52,8 +52,8 @@ public class ListAdapterResult extends BaseAdapter {
         ResultItem resultItem = resultItemList.get(position);
 
         holder.textViewTitle.setText(resultItem.getTextTitle());
-        holder.textViewValue.setText(resultItem.getTextValue());
-        holder.textViewPercent.setText(resultItem.getTextPercent());
+        holder.textViewValue.setText(resultItem.getTextValue() + " Peoples Voted");
+        holder.textViewPercent.setText(resultItem.getTextPercent() + " %");
 
         return convertView;
     }

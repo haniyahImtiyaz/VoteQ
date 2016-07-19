@@ -116,7 +116,6 @@ public class AddVoteActivity extends AppCompatActivity implements ClientCallback
     @Override
     public void onSucceded() {
         progressDialog.dismiss();
-        Toast.makeText(AddVoteActivity.this, "Create Vote Success", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
 
