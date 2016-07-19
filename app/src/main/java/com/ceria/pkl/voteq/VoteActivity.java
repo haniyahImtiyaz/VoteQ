@@ -36,7 +36,6 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         setContentView(R.layout.activity_vote);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,7 +54,6 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         TextView countView = (TextView)findViewById(R.id.txt_vote_count);
         TextView labelView = (TextView)findViewById(R.id.txt_stat);
         LinearLayout linearLayout = (LinearLayout)findViewById(R.id.layout_label);
-        LinearLayout layoutRadioVote = (LinearLayout)findViewById(R.id.layout_radio_vote);
         radioGroupVote = (RadioGroup)findViewById(R.id.radio_group_vote);
         textDate = (TextView)findViewById(R.id.txt_date_vote);
 
@@ -79,14 +77,6 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         }
 
         gridView= (GridView)findViewById(R.id.grid_sementara_count);
-
-        resultItemList = new ArrayList<ResultItem>();
-
-        resultItemList.add(get("1","Merah Muda", "1200 Votes", "55%"));
-        resultItemList.add(get("2","Merah Muda", "1200 Votes", "55%"));
-        resultItemList.add(get("3","Merah Muda", "1200 Votes", "55%"));
-        resultItemList.add(get("4","Merah Muda", "1200 Votes", "55%"));
-
         titleView.setText(titleText);
         countView.setText(countText +" Peoples Voted");
         labelView.setText(labelText);
@@ -103,7 +93,7 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         gridView.setAdapter(listAdapterResult);
 
         //getDateFormat from network Service
-        textDate.setText(networkService.getDate());
+        textDate.setText(networkService.getDate().toString());
 
         //Create Radio Button to populate vote options
         for (int i=0;i<resultItemList.size();i++){

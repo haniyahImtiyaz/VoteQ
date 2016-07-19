@@ -15,7 +15,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -331,9 +334,16 @@ public class NetworkService {
 
         requestQueue.add(specificVote);
     }
-    public String getDate(){
-        Log.d("getDate", date.toString());
-        return date;
+    public Date getDate(){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM,dd,yyyy");
+        Date dateText = new Date();
+        try {
+            dateText = dateFormat.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Log.d("getDate", dateText.toString());
+        return dateText;
     }
     public void givingVote(final String token, final int vote_id, final int option_id, final ClientCallbackSignIn clientCallback) {
         String url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.giving_vote);
