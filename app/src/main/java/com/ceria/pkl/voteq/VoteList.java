@@ -45,6 +45,7 @@ public class VoteList extends Fragment implements ClientCallbackSignIn{
                     intent.putExtra("title", listItem.get(position).getTextTitle());
                     intent.putExtra("count",listItem.get(position).getTextCount() );
                     intent.putExtra("status", listItem.get(position).getLabel());
+                    intent.putExtra("creator_id", listItem.get(position).getIdCreator());
                     startActivity(intent);
                 }else{
                     Intent intent = new Intent(getContext(), ResultActivity.class);
@@ -59,18 +60,6 @@ public class VoteList extends Fragment implements ClientCallbackSignIn{
         });
 
         return rootView;
-    }
-    private HomeItem get(String id, String title, String count,String label, int image){
-        return new HomeItem(id,title,count,label,image);
-    }
-    private List<HomeItem> getItem(){
-        List<HomeItem> list = new ArrayList<HomeItem>();
-        list.add(get("1","Judul 1","1200","Open",R.mipmap.ic_launcher));
-        list.add(get("2","Judul 2","1200","Open",R.mipmap.ic_edit_pencil));
-        list.add(get("3","Judul 3","1200","Closed",R.mipmap.ic_launcher));
-        list.add(get("4","Judul 4","1200","Open",R.mipmap.ic_edit_pencil));
-        list.add(get("5","Judul 5","1200","Closed",R.mipmap.ic_launcher));
-        return list;
     }
 
     @Override

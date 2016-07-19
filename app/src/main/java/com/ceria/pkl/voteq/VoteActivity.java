@@ -36,6 +36,7 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
     TextView textDate;
     Button btnVote;
     SeekBar seekBarStatus;
+    TextView seekStatusText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +58,7 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         String titleText= intent.getStringExtra("title");
         String countText= intent.getStringExtra("count");
         String labelText= intent.getStringExtra("status");
+        String creator_id= intent.getStringExtra("creator_id");
 
         TextView titleView = (TextView)findViewById(R.id.txt_title);
         TextView countView = (TextView)findViewById(R.id.txt_vote_count);
@@ -66,6 +68,7 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         radioGroupVote = (RadioGroup)findViewById(R.id.radio_group_vote);
         textDate = (TextView)findViewById(R.id.txt_date_vote);
         btnVote = (Button)findViewById(R.id.btn_submit_vote);
+        seekStatusText = (TextView)findViewById(R.id.seek_status_text);
 
         countRadioVote = Integer.parseInt(countText);
 
@@ -79,7 +82,6 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please Wait...");
         progressDialog.show();
-        seekBarStatus.setVisibility(View.INVISIBLE);
 
         if(labelText.equals("Closed")){
             linearLayout.setBackgroundColor(Color.parseColor("#F44336"));
@@ -88,6 +90,13 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
             linearLayout.setBackgroundColor(Color.parseColor("#4CAF50"));
         }
 
+        if (creator_id.equals(token)){
+            seekBarStatus.setVisibility(View.VISIBLE);
+            linearLayout.setVisibility(View.INVISIBLE);
+        }else{
+            seekBarStatus.setVisibility(View.INVISIBLE);
+            linearLayout.setVisibility(View.VISIBLE);
+        }
         gridView= (GridView)findViewById(R.id.grid_sementara_count);
         titleView.setText(titleText);
         countView.setText(countText +" Peoples Voted");

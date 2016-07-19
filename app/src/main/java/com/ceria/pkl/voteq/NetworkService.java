@@ -44,12 +44,12 @@ public class NetworkService {
         return homeItemList;
     }
 
-    public void setHomeItemList(String id, String title, String count, String label, int image) {
-        homeItemList.add(get(id, title, count, label, image));
+    public void setHomeItemList(String id, String title, String count, String label, int image, String tokenVote) {
+        homeItemList.add(get(id, title, count, label, image, tokenVote));
     }
 
-    private HomeItem get(String id, String title, String count, String label, int image) {
-        return new HomeItem(id, title, count, label, image);
+    private HomeItem get(String id, String title, String count, String label, int image, String tokenVote) {
+        return new HomeItem(id, title, count, label, image,tokenVote);
 
     }
 
@@ -244,6 +244,8 @@ public class NetworkService {
                         String title = dataVote.getString("title");
                         String voter = dataVote.getString("voter_count");
                         String vote_id = dataVote.getString("id");
+                        JSONObject user = dataVote.getJSONObject("user");
+                        String tokenVote = user.getString("auth_token");
                         String label;
                         if (dataVote.getBoolean("status") == true) {
                             label = "Open";
@@ -251,7 +253,7 @@ public class NetworkService {
                             label = "Closed";
                         }
 
-                        setHomeItemList(vote_id, title, voter, label, R.mipmap.ic_launcher);
+                        setHomeItemList(vote_id, title, voter, label, R.mipmap.ic_launcher,tokenVote);
 
                     }
                     if (status.equals("OK")) {
@@ -298,6 +300,8 @@ public class NetworkService {
                     String status = logResponse.getString("status");
                     JSONObject data = logResponse.getJSONObject("data");
                     JSONObject vote = data.getJSONObject("vote");
+                    JSONObject user = vote.getJSONObject("user");
+                    String token = user.getString("auth_token");
                     date = vote.getString("created_at");
                     Boolean label = vote.getBoolean("status");
                     JSONArray options = vote.getJSONArray("options");
