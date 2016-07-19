@@ -35,6 +35,27 @@ public class NetworkService {
         this.requestQueue = Volley.newRequestQueue(context);
     }
 
+    public List<HomeItem> getHomeItemList() {
+        return homeItemList;
+    }
+
+    public void setHomeItemList(String id, String title, String count, String label, int image) {
+        homeItemList.add(get(id, title, count, label, image));
+    }
+
+    private HomeItem get(String id, String title, String count, String label, int image) {
+        return new HomeItem(id, title, count, label, image);
+
+    }
+
+    public List<ResultItem> getResultItemList() {
+        return resultItemList;
+    }
+
+    public void setResultItemList(String title, String count, String percentage) {
+        resultItemList.add(new ResultItem(title, count, percentage));
+    }
+
     public void signUp(final String email, final String pwd, final String pwdConfirm, final ClientCallback clientCallback) {
         String url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.sign_up);
         StringRequest signUpRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
@@ -256,19 +277,6 @@ public class NetworkService {
 
     }
 
-    public List<HomeItem> getHomeItemList() {
-        return homeItemList;
-    }
-
-    public void setHomeItemList(String id, String title, String count, String label, int image) {
-        homeItemList.add(get(id, title, count, label, image));
-    }
-
-    private HomeItem get(String id, String title, String count, String label, int image) {
-        return new HomeItem(id, title, count, label, image);
-
-    }
-
     public void specificVote(final String token, final String id, final ClientCallbackSignIn clientCallback) {
         String url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.create_vote) + "/" + id;
         StringRequest specificVote = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
@@ -321,13 +329,50 @@ public class NetworkService {
         requestQueue.add(specificVote);
     }
 
-    public List<ResultItem> getResultItemList() {
-        return resultItemList;
-    }
+    public void givingVote(final String token, final int vote_id, final int option_id, final ClientCallbackSignIn clientCallback) {
+        String url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.giving_vote);
+        StringRequest givingVoteRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject logResponse = new JSONObject(response);
+                    Log.d("givingVote", "response " + logResponse.toString(2));
+                    String status = logResponse.getString("status");
+                    if (status.equals("success")) {
+                        clientCallback.onSucceded();
+                    } else {
+                        clientCallback.onFailed();
+                    }
 
-    public void setResultItemList(String title, String count, String percentage) {
-        resultItemList.add(new ResultItem(title, count, percentage));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    clientCallback.onFailed();
+                }
+            }
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("givingVote", "error giving vote " + error.toString());
+                clientCallback.onFailed();
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> header = new HashMap<>();
+                header.put("Authorization", token);
+                return header;
+            }
+
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("vote_id", String.valueOf(vote_id));
+                params.put("vote_option_id", String.valueOf(option_id));
+                return params;
+            }
+        };
+        requestQueue.add(givingVoteRequest);
     }
 }
-
-
