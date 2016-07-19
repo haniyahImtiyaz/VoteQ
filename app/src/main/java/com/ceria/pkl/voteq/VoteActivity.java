@@ -96,9 +96,9 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
                 networkService.givingVote(token, id, radioGroupVote.getCheckedRadioButtonId(), VoteActivity.this);
                 VoteList.listItem = new ArrayList<HomeItem>();
                 MyVoteList.listItem = new ArrayList<HomeItem>();
-                Log.d("voteList", String.valueOf(VoteList.listItem.size()));
                 Intent i = new Intent(VoteActivity.this, HomeActivity.class);
                 startActivity(i);
+                finish();
             }
         });
     }
