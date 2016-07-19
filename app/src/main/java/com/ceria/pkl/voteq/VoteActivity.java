@@ -15,6 +15,7 @@ import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +33,7 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
     int countRadioVote;
     TextView textDate;
     Button btnVote;
+    SeekBar seekBarStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +59,7 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         TextView countView = (TextView)findViewById(R.id.txt_vote_count);
         TextView labelView = (TextView)findViewById(R.id.txt_stat);
         LinearLayout linearLayout = (LinearLayout)findViewById(R.id.layout_label);
+        seekBarStatus = (SeekBar)findViewById(R.id.seekBarStatus);
         radioGroupVote = (RadioGroup)findViewById(R.id.radio_group_vote);
         textDate = (TextView)findViewById(R.id.txt_date_vote);
         btnVote = (Button)findViewById(R.id.btn_submit_vote);
@@ -72,6 +75,7 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please Wait...");
         progressDialog.show();
+        seekBarStatus.setVisibility(View.INVISIBLE);
 
         if(labelText.equals("Closed")){
             linearLayout.setBackgroundColor(Color.parseColor("#F44336"));
@@ -115,6 +119,8 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
             radioButtonVote.setText(resultItemList.get(i).getTextTitle());
             radioGroupVote.addView(radioButtonVote);
         }
+
+
         progressDialog.dismiss();
     }
 

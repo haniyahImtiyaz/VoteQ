@@ -15,6 +15,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -187,6 +188,7 @@ public class NetworkService {
                 }
 
             }
+
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
@@ -207,15 +209,16 @@ public class NetworkService {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 params.put("title", title);
-                for (int i = 0; i < option.size(); i++) {
-                    params.put("options[]", option.get(i));
-                    Log.d("Options", option.get(i).toString());
+                for (int i=0;i<option.size();i++){
+                    String opt = option.get(i).toString();
+                    params.put("options["+i+"]",opt);
                 }
                 int size = option.size();
                 Log.d("optionSize", String.valueOf(size));
                 params.put("is_open", String.valueOf(is_open));
                 return params;
             }
+
         };
         requestQueue.add(createVoteRequest);
     }
@@ -395,4 +398,5 @@ public class NetworkService {
         };
         requestQueue.add(givingVoteRequest);
     }
+
 }
