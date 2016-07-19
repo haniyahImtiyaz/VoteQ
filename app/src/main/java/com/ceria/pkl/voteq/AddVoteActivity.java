@@ -116,8 +116,11 @@ public class AddVoteActivity extends AppCompatActivity implements ClientCallback
     @Override
     public void onSucceded() {
         progressDialog.dismiss();
-        Intent intent = new Intent(this, HomeActivity.class);
-        startActivity(intent);
+        VoteList.listItem = new ArrayList<HomeItem>();
+        MyVoteList.listItem = new ArrayList<HomeItem>();
+        Intent i = new Intent(AddVoteActivity.this, HomeActivity.class);
+        startActivity(i);
+        finish();
 
     }
 
