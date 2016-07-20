@@ -126,11 +126,10 @@
                         android:id="@+id/grid_sementara_count"
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:numColumns="2" >
+                        android:layout_height="match_parent"
+                        android:numColumns="2">
 
                     </GridView>
-
                 </LinearLayout>
             </FrameLayout>
 
@@ -178,31 +177,6 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/radio_group_vote"
                         android:layout_marginTop="10dp">
-                        <!--<RadioButton-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:text="Pink"-->
-                        <!--android:layout_marginTop="10dp"/>-->
-                        <!--<RadioButton-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:text="Biru"-->
-                        <!--android:layout_marginTop="10dp"/>-->
-                        <!--<RadioButton-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:text="Abu - abu bakso"-->
-                        <!--android:layout_marginTop="10dp"/>-->
-                        <!--<RadioButton-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:text="Biru Laut"-->
-                        <!--android:layout_marginTop="10dp"/>-->
-                        <!--<RadioButton-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:text="Abang Ijo"-->
-                        <!--android:layout_marginTop="10dp"/>-->
                     </RadioGroup>
                 </LinearLayout>
             </ScrollView>
