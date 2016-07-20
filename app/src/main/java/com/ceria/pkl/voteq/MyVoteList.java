@@ -63,6 +63,7 @@ public class MyVoteList extends Fragment implements ClientCallbackSignIn {
         listItem = networkService.getHomeItemList();
         homeAdapter = new HomeAdapter(listItem,getContext());
         listViewVote.setAdapter(homeAdapter);
+
         progressDialog.dismiss();
     }
 
