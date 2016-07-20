@@ -51,7 +51,7 @@ public class VoteList extends Fragment implements ClientCallbackSignIn {
                     intent.putExtra("creator_id", listItem.get(position).getIdCreator());
                     startActivity(intent);
                 } else {
-                    Intent intent = new Intent(getContext(), VoteActivity.class);
+                    Intent intent = new Intent(getContext(), ResultActivity.class);
                     intent.putExtra("id", listItem.get(position).getId());
                     intent.putExtra("title", listItem.get(position).getTextTitle());
                     intent.putExtra("count", listItem.get(position).getTextCount());
