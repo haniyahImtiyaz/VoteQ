@@ -24,7 +24,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class VoteActivity extends AppCompatActivity implements ClientCallbackSignIn {
+public class VoteActivity extends AppCompatActivity implements ClientCallbackSignIn, ClientCallBackLabel {
 
     GridView gridView;
     private ListAdapterResult listAdapterResult;
@@ -34,9 +34,10 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
     RadioGroup radioGroupVote;
     int countRadioVote;
     TextView textDate;
-    Button btnVote;
+    Button btnVote, btnResult;
     SeekBar seekBarStatus;
     TextView seekStatusText;
+    String labelText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +56,9 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
 
         Intent intent = getIntent();
         final String id = intent.getStringExtra("id");
-        String titleText= intent.getStringExtra("title");
+        final String titleText= intent.getStringExtra("title");
         String countText= intent.getStringExtra("count");
-        String labelText= intent.getStringExtra("status");
+        labelText= intent.getStringExtra("status");
         String creator_id= intent.getStringExtra("creator_id");
 
         TextView titleView = (TextView)findViewById(R.id.txt_title);
@@ -68,6 +69,7 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         radioGroupVote = (RadioGroup)findViewById(R.id.radio_group_vote);
         textDate = (TextView)findViewById(R.id.txt_date_vote);
         btnVote = (Button)findViewById(R.id.btn_submit_vote);
+        btnResult = (Button)findViewById(R.id.btn_result);
         seekStatusText = (TextView)findViewById(R.id.seek_status_text);
 
         countRadioVote = Integer.parseInt(countText);
@@ -78,6 +80,7 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         networkService = new NetworkService(VoteActivity.this);
         networkService.specificVote(token, id, VoteActivity.this);
 
+        visibleButton(labelText);
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please Wait...");
@@ -97,10 +100,34 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
             seekBarStatus.setVisibility(View.INVISIBLE);
             linearLayout.setVisibility(View.VISIBLE);
         }
+
+        seekStatusText.setText(labelText);
+
         gridView= (GridView)findViewById(R.id.grid_sementara_count);
         titleView.setText(titleText);
         countView.setText(countText +" Peoples Voted");
         labelView.setText(labelText);
+
+        seekBarStatus.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if(seekBarStatus.getProgress() == 1){
+                    networkService.updateLabel(token, id, titleText, false, VoteActivity.this);
+                }else{
+                    networkService.updateLabel(token, id, titleText, true, VoteActivity.this);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
 
         btnVote.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,5 +186,31 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
             Log.d("listPercent", resultItemList.get(i).getTextPercent());
         }
 
+    }
+
+    @Override
+    public void succes() {
+        if (seekStatusText.getText().toString().equals("Open")){
+            seekStatusText.setText("Closed");
+           //linearLayout.setBackgroundColor(Color.parseColor("#F44336"));
+        }else {
+            seekStatusText.setText("Open");
+        }
+        visibleButton(seekStatusText.getText().toString());
+    }
+
+    @Override
+    public void fail() {
+
+    }
+
+    private void visibleButton(String label){
+        if(label.equals("Open")){
+            btnResult.setVisibility(View.INVISIBLE);
+            radioGroupVote.setVisibility(View.VISIBLE);
+        }else{
+            btnResult.setVisibility(View.VISIBLE);
+            radioGroupVote.setVisibility(View.INVISIBLE);
+        }
     }
 }

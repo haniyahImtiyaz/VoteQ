@@ -15,7 +15,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -61,6 +60,20 @@ public class NetworkService {
         resultItemList.add(new ResultItem(id, title, count, percentage));
     }
 
+    public String getDate(){
+        SimpleDateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy hh:mm:ss Z");
+        Date dateText = new Date();
+        try {
+            dateText = format.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        format = new SimpleDateFormat("MMMM dd, yyyy");
+        String dateNew = format.format(dateText);
+        Log.d("getDate", dateNew.toString());
+        return dateNew;
+    }
+
     public void signUp(final String email, final String pwd, final String pwdConfirm, final ClientCallback clientCallback) {
         String url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.sign_up);
         StringRequest signUpRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
@@ -81,6 +94,10 @@ public class NetworkService {
                             clientCallback.onEmailSame();
                         } else {
                             clientCallback.onFailed();
+                        }
+                    }else {
+                        if (status.equals("success")){
+                            clientCallback.onSucceeded();
                         }
                     }
                 } catch (JSONException e) {
@@ -344,19 +361,7 @@ public class NetworkService {
 
         requestQueue.add(specificVote);
     }
-    public String getDate(){
-        SimpleDateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy hh:mm:ss Z");
-        Date dateText = new Date();
-        try {
-            dateText = format.parse(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        format = new SimpleDateFormat("MMMM dd, yyyy");
-        String dateNew = format.format(dateText);
-        Log.d("getDate", dateNew.toString());
-        return dateNew;
-    }
+
     public void givingVote(final String token, final String vote_id, final int option_id, final ClientCallbackSignIn clientCallback) {
         String url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.giving_vote);
         StringRequest givingVoteRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
@@ -401,6 +406,52 @@ public class NetworkService {
             }
         };
         requestQueue.add(givingVoteRequest);
+    }
+
+    public void updateLabel(final String token, final String id, final String  title, final boolean is_open, final ClientCallBackLabel clientCallback) {
+        String url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.create_vote) + "/" + id;
+        StringRequest updateLabelRequest = new StringRequest(Request.Method.PUT, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject logResponse = new JSONObject(response);
+                    Log.d("updateLabel", "response " + logResponse.toString(2));
+                    int status = logResponse.getInt("status");
+                    if (status == 200) {
+                        clientCallback.succes();
+                    } else {
+                        clientCallback.fail();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    clientCallback.fail();
+                }
+            }
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("updateLabel", "error update label " + error.toString());
+                clientCallback.fail();
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> header = new HashMap<>();
+                header.put("Authorization", token);
+                return header;
+            }
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("title", title);
+                params.put("is_open", String.valueOf(is_open));
+                return params;
+            }
+        };
+        requestQueue.add(updateLabelRequest);
     }
 
 }

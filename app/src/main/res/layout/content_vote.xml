@@ -158,6 +158,17 @@
                         android:textStyle="bold"
                         android:id="@+id/txt_title"
                         android:layout_marginTop="20dp"/>
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="RESULT"
+                        android:background="@color/colorAccent"
+                        android:textColor="@android:color/white"
+                        android:id="@+id/btn_result"
+                        android:layout_marginTop="40dp"
+                        android:layout_gravity="center_horizontal"/>
+
                     <RadioGroup
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

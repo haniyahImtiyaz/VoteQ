@@ -31,7 +31,7 @@ public class VoteList extends Fragment implements ClientCallbackSignIn{
         Log.d("voteList", "voteListCreate");
         View rootView = inflater.inflate(R.layout.page_vote_list, container, false);
         listViewVote = (ListView)rootView.findViewById(R.id.list_vote);
-        if (listItem.size() == 0) {
+        if (listItem.isEmpty()) {
             visible();
         }
         listViewVote.setOnItemClickListener(new AdapterView.OnItemClickListener() {
