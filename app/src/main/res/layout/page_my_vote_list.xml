@@ -5,12 +5,16 @@
     android:layout_height="match_parent"
     tools:context="com.ceria.pkl.voteq.MyVoteList"
     >
-
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/swipe_refresh"
+        android:layout_marginTop="100dp">
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/list_my_vote"
         android:layout_marginTop="100dp"
         />
-
+</android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

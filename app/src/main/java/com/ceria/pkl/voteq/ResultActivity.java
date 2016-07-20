@@ -58,11 +58,6 @@ public class ResultActivity extends AppCompatActivity implements ClientCallbackS
 
         textTitle.setText(title);
         textValueVote.setText(count + " votes");
-        resultItemList.add(get("1","Merah Muda", "1200 Votes", "55%"));
-        resultItemList.add(get("2","Merah Muda", "1200 Votes", "55%"));
-        resultItemList.add(get("3","Merah Muda", "1200 Votes", "55%"));
-        resultItemList.add(get("4","Merah Muda", "1200 Votes", "55%"));
-
 
 
         expandableListView.setExpanded(true);
@@ -99,7 +94,7 @@ public class ResultActivity extends AppCompatActivity implements ClientCallbackS
                 }
             });
         }
-        textPercentCircle.setText(resultItemList.get(0).getTextPercent());
+        textPercentCircle.setText(resultItemList.get(0).getTextPercent() + "%");
         textResult.setText(resultItemList.get(0).getTextTitle());
 
     }
