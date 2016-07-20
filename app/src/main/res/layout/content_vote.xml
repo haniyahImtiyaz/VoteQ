@@ -122,6 +122,16 @@
                         android:textStyle="bold"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="@color/colorPrimaryBlue" />
+<<<<<<< HEAD
+
+                    <com.github.paolorotolo.expandableheightlistview.ExpandableHeightGridView
+                        android:layout_height="120dp"
+                        android:minHeight="50dp"
+                        android:layout_width="match_parent"
+                        android:numColumns="2"
+                        android:id="@+id/grid_sementara_count"/>
+
+=======
                     <GridView
                         android:id="@+id/grid_sementara_count"
                         android:layout_marginTop="10dp"
@@ -130,6 +140,7 @@
                         android:numColumns="2">
 
                     </GridView>
+>>>>>>> 8615f8a7c563c7a37e98a3990a6d672a64e3cb06
                 </LinearLayout>
             </FrameLayout>
 

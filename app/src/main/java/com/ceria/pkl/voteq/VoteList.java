@@ -93,6 +93,7 @@ public class VoteList extends Fragment implements ClientCallbackSignIn {
     public void onFailed() {
         progressDialog.dismiss();
         Toast.makeText(getContext(), "failure", Toast.LENGTH_SHORT).show();
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     public void visible() {
