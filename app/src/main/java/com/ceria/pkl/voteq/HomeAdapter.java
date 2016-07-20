@@ -63,11 +63,8 @@ public class HomeAdapter extends BaseAdapter {
 
         HomeItem homeItem = homeItems.get(position);
 
-        Scanner stringTitle = new Scanner(homeItem.getTextTitle());
-        String stringTitled= stringTitle.nextLine();
-        String capitalize = Character.toUpperCase(stringTitled.charAt(0)) + stringTitled.substring(1);
 
-        holder.textViewTitle.setText(capitalize);
+        holder.textViewTitle.setText(homeItem.getTextTitle());
         holder.textViewCount.setText(homeItem.getTextCount()+" Peoples Voted");
         holder.textViewLabel.setText(homeItem.getLabel());
 
@@ -77,7 +74,11 @@ public class HomeAdapter extends BaseAdapter {
             holder.linearLayout.setBackgroundColor(Color.parseColor("#4CAF50"));
         }
 
-        holder.circleImageView.setImageResource(homeItem.getImage());
+        String lowerTitle = homeItem.getTextTitle().toLowerCase();
+        String lowerTitleFirst = lowerTitle.substring(0,1);
+        int image = convertView.getResources().getIdentifier(lowerTitleFirst,"drawable", inflater.getContext().getPackageName());
+
+        holder.circleImageView.setImageResource(image);
 
         return convertView;
     }

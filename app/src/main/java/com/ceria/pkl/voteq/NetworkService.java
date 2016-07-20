@@ -22,6 +22,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 /**
  * Created by pandhu on 12/07/16.
@@ -270,7 +271,8 @@ public class NetworkService {
                             label = "Closed";
                         }
 
-                        setHomeItemList(vote_id, title, voter, label, R.mipmap.ic_launcher,tokenVote);
+
+                        setHomeItemList(vote_id, title, voter, label, R.drawable.a,tokenVote);
 
                     }
                     if (status.equals("OK")) {
