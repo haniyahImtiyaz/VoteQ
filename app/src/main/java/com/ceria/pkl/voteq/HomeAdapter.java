@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
+import java.util.Scanner;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -62,7 +63,11 @@ public class HomeAdapter extends BaseAdapter {
 
         HomeItem homeItem = homeItems.get(position);
 
-        holder.textViewTitle.setText(homeItem.getTextTitle());
+        Scanner stringTitle = new Scanner(homeItem.getTextTitle());
+        String stringTitled= stringTitle.nextLine();
+        String capitalize = Character.toUpperCase(stringTitled.charAt(0)) + stringTitled.substring(1);
+
+        holder.textViewTitle.setText(capitalize);
         holder.textViewCount.setText(homeItem.getTextCount()+" Peoples Voted");
         holder.textViewLabel.setText(homeItem.getLabel());
 
