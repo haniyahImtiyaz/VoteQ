@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,7 +63,7 @@ public class MyVoteList extends Fragment implements ClientCallbackSignIn {
             @Override
             public void onRefresh() {
                 networkService = new NetworkService(getContext());
-                networkService.getAllVote(HomeActivity.token, "false", MyVoteList.this);
+                networkService.getAllVote(HomeActivity.token, "true", MyVoteList.this);
             }
         });
 
@@ -78,10 +79,16 @@ public class MyVoteList extends Fragment implements ClientCallbackSignIn {
     public void onSucceded() {
         listItem = networkService.getHomeItemList();
         homeAdapter = new HomeAdapter(listItem,getContext());
-        listViewVote.setAdapter(homeAdapter);
 
         progressDialog.dismiss();
         swipeRefreshLayout.setRefreshing(false);
+
+        if (networkService.getHomeItemList().size() == 0){
+            getView().setBackgroundResource(R.drawable.background);
+            Log.d("Suk", "suks");
+        }else{
+            listViewVote.setAdapter(homeAdapter);
+        }
     }
 
     @Override
