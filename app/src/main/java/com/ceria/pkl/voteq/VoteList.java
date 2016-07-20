@@ -4,10 +4,12 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -18,16 +20,17 @@ import java.util.List;
 /**
  * Created by pandhu on 11/07/16.
  */
-public class VoteList extends Fragment implements ClientCallbackSignIn{
+public class VoteList extends Fragment implements ClientCallbackSignIn {
 
     private ListView listViewVote;
     private HomeAdapter homeAdapter;
     static List<HomeItem> listItem = new ArrayList<HomeItem>();
     ProgressDialog progressDialog;
     NetworkService networkService;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, final Bundle savedInstanceState) {
         Log.d("voteList", "voteListCreate");
         View rootView = inflater.inflate(R.layout.page_vote_list, container, false);
         listViewVote = (ListView)rootView.findViewById(R.id.list_vote);
@@ -61,7 +64,6 @@ public class VoteList extends Fragment implements ClientCallbackSignIn{
 
         return rootView;
     }
-
     @Override
     public void onSucceded() {
         listItem = networkService.getHomeItemList();
@@ -84,4 +86,5 @@ public class VoteList extends Fragment implements ClientCallbackSignIn{
         progressDialog.setMessage("Please Wait...");
         progressDialog.show();
     }
+
 }
