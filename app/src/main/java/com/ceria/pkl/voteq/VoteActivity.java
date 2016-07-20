@@ -10,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
-import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -18,12 +17,14 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.paolorotolo.expandableheightlistview.ExpandableHeightGridView;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class VoteActivity extends AppCompatActivity implements ClientCallbackSignIn, ClientCallBackLabel {
 
-    GridView gridView;
+    ExpandableHeightGridView gridView;
     private ListAdapterResult listAdapterResult;
     List<ResultItem> resultItemList;
     NetworkService networkService;
@@ -94,13 +95,14 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
             seekBarStatus.setVisibility(View.VISIBLE);
             linearLayout.setVisibility(View.INVISIBLE);
         } else {
-            seekBarStatus.setVisibility(View.INVISIBLE);
+            seekBarStatus.setVisibility(View.GONE);
             linearLayout.setVisibility(View.VISIBLE);
         }
 
         seekStatusText.setText(labelText);
 
-        gridView = (GridView) findViewById(R.id.grid_sementara_count);
+        gridView = (ExpandableHeightGridView) findViewById(R.id.grid_sementara_count);
+        gridView.setExpanded(true);
         titleView.setText(titleText);
         countView.setText(countText + " Peoples Voted");
         labelView.setText(labelText);

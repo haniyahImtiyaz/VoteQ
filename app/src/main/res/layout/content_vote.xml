@@ -122,15 +122,12 @@
                         android:textStyle="bold"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="@color/colorPrimaryBlue" />
-                    <GridView
-                        android:id="@+id/grid_sementara_count"
-                        android:layout_marginTop="10dp"
-                        android:layout_width="match_parent"
+
+                    <com.github.paolorotolo.expandableheightlistview.ExpandableHeightGridView
                         android:layout_height="wrap_content"
-                        android:numColumns="2" >
-
-                    </GridView>
-
+                        android:layout_width="match_parent"
+                        android:numColumns="2"
+                        android:id="@+id/grid_sementara_count"/>
                 </LinearLayout>
             </FrameLayout>
 
