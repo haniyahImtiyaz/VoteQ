@@ -108,13 +108,13 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         seekBarStatus.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                resultItemList.removeAll(resultItemList);
+                radioGroupVote.removeAllViews();
                 if (seekBarStatus.getProgress() == 1) {
                     networkService.updateLabel(token, id, titleText, false, VoteActivity.this);
                 } else {
                     networkService.updateLabel(token, id, titleText, true, VoteActivity.this);
                 }
-                resultItemList.removeAll(resultItemList);
-                radioGroupVote.removeAllViews();
             }
 
             @Override
