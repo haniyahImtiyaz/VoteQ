@@ -8,7 +8,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
@@ -20,8 +19,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class VoteActivity extends AppCompatActivity implements ClientCallbackSignIn, ClientCallBackLabel {
@@ -134,13 +131,12 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         btnVote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                filterPercentage();
                 networkService.givingVote(token, id, radioGroupVote.getCheckedRadioButtonId(), VoteActivity.this);
                 VoteList.listItem = new ArrayList<HomeItem>();
                 MyVoteList.listItem = new ArrayList<HomeItem>();
                 Intent i = new Intent(VoteActivity.this, HomeActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);
-                finish();
             }
         });
 
@@ -184,24 +180,6 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
     public void onFailed() {
         Toast.makeText(VoteActivity.this, "Failure", Toast.LENGTH_SHORT).show();
         progressDialog.dismiss();
-    }
-
-    public void filterPercentage() {
-
-        resultItemList = networkService.getResultItemList();
-        for (int i = 0; i < resultItemList.size(); i++) {
-            List<Double> listPercent = new ArrayList<Double>();
-            listPercent.add(Double.valueOf(resultItemList.get(i).getTextPercent()));
-            //listPercent
-            Collections.sort(resultItemList, new Comparator<ResultItem>() {
-                @Override
-                public int compare(ResultItem lhs, ResultItem rhs) {
-                    return lhs.getTextPercent().compareTo(rhs.getTextPercent());
-                }
-            });
-            Log.d("listPercent", resultItemList.get(i).getTextPercent());
-        }
-
     }
 
     @Override
