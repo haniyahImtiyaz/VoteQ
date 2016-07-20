@@ -44,12 +44,12 @@ public class NetworkService {
         return homeItemList;
     }
 
-    public void setHomeItemList(String id, String title, String count, String label, int image, String tokenVote) {
-        homeItemList.add(get(id, title, count, label, image, tokenVote));
+    public void setHomeItemList(String id, String title, String count, String label, String tokenVote) {
+        homeItemList.add(get(id, title, count, label, tokenVote));
     }
 
-    private HomeItem get(String id, String title, String count, String label, int image, String tokenVote) {
-        return new HomeItem(id, title, count, label, image,tokenVote);
+    private HomeItem get(String id, String title, String count, String label, String tokenVote) {
+        return new HomeItem(id, title, count, label,tokenVote);
 
     }
 
@@ -272,7 +272,7 @@ public class NetworkService {
                         }
 
 
-                        setHomeItemList(vote_id, title, voter, label, R.drawable.a,tokenVote);
+                        setHomeItemList(vote_id, title, voter, label, tokenVote);
 
                     }
                     if (status.equals("OK")) {

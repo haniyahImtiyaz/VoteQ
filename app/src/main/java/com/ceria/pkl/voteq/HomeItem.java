@@ -5,16 +5,12 @@ package com.ceria.pkl.voteq;
  */
 public class HomeItem {
     private String id, textTitle, textCount,label,idCreator;
-    private int image;
 
-
-
-    public HomeItem(String id, String textTitle, String textCount, String label, int image, String idCreator) {
+    public HomeItem(String id, String textTitle, String textCount, String label, String idCreator) {
         this.id = id;
         this.textTitle = textTitle;
         this.textCount = textCount;
         this.label = label;
-        this.image = image;
         this.idCreator = idCreator;
     }
 
@@ -33,9 +29,6 @@ public class HomeItem {
         return label;
     }
 
-    public int getImage() {
-        return image;
-    }
 
     public  String getIdCreator(){
         return idCreator;
@@ -47,7 +40,6 @@ public class HomeItem {
                 "textTitle='" + textTitle + '\'' +
                 ", textCount='" + textCount + '\'' +
                 ", label='" + label + '\'' +
-                ", image=" + image +
                 '}';
     }
 }
