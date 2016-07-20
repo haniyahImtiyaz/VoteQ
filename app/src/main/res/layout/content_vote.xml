@@ -122,6 +122,7 @@
                         android:textStyle="bold"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="@color/colorPrimaryBlue" />
+<<<<<<< HEAD
 
                     <com.github.paolorotolo.expandableheightlistview.ExpandableHeightGridView
                         android:layout_height="120dp"
@@ -130,6 +131,16 @@
                         android:numColumns="2"
                         android:id="@+id/grid_sementara_count"/>
 
+=======
+                    <GridView
+                        android:id="@+id/grid_sementara_count"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:numColumns="2">
+
+                    </GridView>
+>>>>>>> 8615f8a7c563c7a37e98a3990a6d672a64e3cb06
                 </LinearLayout>
             </FrameLayout>
 
@@ -177,31 +188,6 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/radio_group_vote"
                         android:layout_marginTop="10dp">
-                        <!--<RadioButton-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:text="Pink"-->
-                        <!--android:layout_marginTop="10dp"/>-->
-                        <!--<RadioButton-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:text="Biru"-->
-                        <!--android:layout_marginTop="10dp"/>-->
-                        <!--<RadioButton-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:text="Abu - abu bakso"-->
-                        <!--android:layout_marginTop="10dp"/>-->
-                        <!--<RadioButton-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:text="Biru Laut"-->
-                        <!--android:layout_marginTop="10dp"/>-->
-                        <!--<RadioButton-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:text="Abang Ijo"-->
-                        <!--android:layout_marginTop="10dp"/>-->
                     </RadioGroup>
                 </LinearLayout>
             </ScrollView>
