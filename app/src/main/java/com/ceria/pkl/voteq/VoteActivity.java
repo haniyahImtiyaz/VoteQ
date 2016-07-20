@@ -166,6 +166,8 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         listAdapterResult = new ListAdapterResult(resultItemList, VoteActivity.this);
         gridView.setAdapter(listAdapterResult);
 
+
+
         //getDateFormat from network Service
         textDate.setText("Since " + networkService.getDate());
 

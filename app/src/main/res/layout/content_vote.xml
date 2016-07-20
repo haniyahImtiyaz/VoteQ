@@ -124,10 +124,12 @@
                         android:textColor="@color/colorPrimaryBlue" />
 
                     <com.github.paolorotolo.expandableheightlistview.ExpandableHeightGridView
-                        android:layout_height="wrap_content"
+                        android:layout_height="120dp"
+                        android:minHeight="50dp"
                         android:layout_width="match_parent"
                         android:numColumns="2"
                         android:id="@+id/grid_sementara_count"/>
+
                 </LinearLayout>
             </FrameLayout>
 
