@@ -22,7 +22,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 
 /**
  * Created by pandhu on 12/07/16.
@@ -86,6 +85,8 @@ public class NetworkService {
                     String status = logResponse.getString("status");
                     if (status.equals("error")) {
                         JSONObject dataResponse = logResponse.getJSONObject("data");
+                        JSONObject user = dataResponse.getJSONObject("user");
+                        auth_token = user.getString("auth_token");
                         JSONArray arrayResponseEmail = dataResponse.getJSONArray("email");
                         JSONArray arrayResponsePassword = dataResponse.getJSONArray("password");
                         JSONArray arrayResponsePasswordConfirm = dataResponse.getJSONArray("password_confirmation");
