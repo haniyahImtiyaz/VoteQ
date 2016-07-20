@@ -119,9 +119,8 @@ public class AddVoteActivity extends AppCompatActivity implements ClientCallback
         VoteList.listItem = new ArrayList<HomeItem>();
         MyVoteList.listItem = new ArrayList<HomeItem>();
         Intent i = new Intent(AddVoteActivity.this, HomeActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(i);
-        finish();
-
     }
 
     @Override

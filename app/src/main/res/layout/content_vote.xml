@@ -82,11 +82,15 @@
                         android:minWidth="30dp"
                         android:max="1" />
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:layout_width="65dp"
+                        android:layout_height="22dp"
+                        android:text="Open"
+                        android:gravity="center_horizontal"
                         android:id="@+id/seek_status_text"
-                        android:maxWidth="0dp"
-                        android:minHeight="0dp" />
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/white" />
                 </LinearLayout>
 
             </FrameLayout>
@@ -122,7 +126,7 @@
                         android:id="@+id/grid_sementara_count"
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
-                        android:layout_height="130dp"
+                        android:layout_height="wrap_content"
                         android:numColumns="2" >
 
                     </GridView>

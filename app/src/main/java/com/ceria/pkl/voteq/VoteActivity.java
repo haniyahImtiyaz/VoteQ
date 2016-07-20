@@ -8,7 +8,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
@@ -20,8 +19,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class VoteActivity extends AppCompatActivity implements ClientCallbackSignIn, ClientCallBackLabel {
@@ -37,12 +34,13 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
     Button btnVote, btnResult;
     SeekBar seekBarStatus;
     TextView seekStatusText;
-    String labelText;
+    String labelText, token, id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vote);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
@@ -53,69 +51,70 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
             }
         });
 
-
         Intent intent = getIntent();
-        final String id = intent.getStringExtra("id");
-        final String titleText= intent.getStringExtra("title");
-        String countText= intent.getStringExtra("count");
-        labelText= intent.getStringExtra("status");
-        String creator_id= intent.getStringExtra("creator_id");
+        id = intent.getStringExtra("id");
+        final String titleText = intent.getStringExtra("title");
+        final String countText = intent.getStringExtra("count");
+        labelText = intent.getStringExtra("status");
+        String creator_id = intent.getStringExtra("creator_id");
 
-        TextView titleView = (TextView)findViewById(R.id.txt_title);
-        TextView countView = (TextView)findViewById(R.id.txt_vote_count);
-        TextView labelView = (TextView)findViewById(R.id.txt_stat);
-        LinearLayout linearLayout = (LinearLayout)findViewById(R.id.layout_label);
-        seekBarStatus = (SeekBar)findViewById(R.id.seekBarStatus);
-        radioGroupVote = (RadioGroup)findViewById(R.id.radio_group_vote);
-        textDate = (TextView)findViewById(R.id.txt_date_vote);
-        btnVote = (Button)findViewById(R.id.btn_submit_vote);
-        btnResult = (Button)findViewById(R.id.btn_result);
-        seekStatusText = (TextView)findViewById(R.id.seek_status_text);
+        TextView titleView = (TextView) findViewById(R.id.txt_title);
+        TextView countView = (TextView) findViewById(R.id.txt_vote_count);
+        TextView labelView = (TextView) findViewById(R.id.txt_stat);
+        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.layout_label);
+        seekBarStatus = (SeekBar) findViewById(R.id.seekBarStatus);
+        textDate = (TextView) findViewById(R.id.txt_date_vote);
+        radioGroupVote = (RadioGroup) findViewById(R.id.radio_group_vote);
+        btnVote = (Button) findViewById(R.id.btn_submit_vote);
+        btnResult = (Button) findViewById(R.id.btn_result);
+        seekStatusText = (TextView) findViewById(R.id.seek_status_text);
 
         countRadioVote = Integer.parseInt(countText);
 
+        visibleButton(labelText);
+
         SharedPreferences sharedPrefernces = getSharedPreferences(SignIn.token, Context.MODE_PRIVATE);
-        final String token = sharedPrefernces.getString("token", "");
+        token = sharedPrefernces.getString("token", "");
 
         networkService = new NetworkService(VoteActivity.this);
         networkService.specificVote(token, id, VoteActivity.this);
-
-        visibleButton(labelText);
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please Wait...");
         progressDialog.show();
 
-        if(labelText.equals("Closed")){
-            linearLayout.setBackgroundColor(Color.parseColor("#F44336"));
-        }else{
-
-            linearLayout.setBackgroundColor(Color.parseColor("#4CAF50"));
+        if (labelText.equals("Closed")) {
+            seekStatusText.setBackgroundColor(Color.parseColor("#F44336"));
+            seekBarStatus.setProgress(1);
+        } else {
+            seekStatusText.setBackgroundColor(Color.parseColor("#4CAF50"));
         }
 
-        if (creator_id.equals(token)){
+        if (creator_id.equals(token)) {
             seekBarStatus.setVisibility(View.VISIBLE);
             linearLayout.setVisibility(View.INVISIBLE);
-        }else{
+        } else {
             seekBarStatus.setVisibility(View.INVISIBLE);
             linearLayout.setVisibility(View.VISIBLE);
         }
 
         seekStatusText.setText(labelText);
 
-        gridView= (GridView)findViewById(R.id.grid_sementara_count);
+        gridView = (GridView) findViewById(R.id.grid_sementara_count);
         titleView.setText(titleText);
-        countView.setText(countText +" Peoples Voted");
+        countView.setText(countText + " Peoples Voted");
         labelView.setText(labelText);
 
         seekBarStatus.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                if(seekBarStatus.getProgress() == 1){
+                if (seekBarStatus.getProgress() == 1) {
                     networkService.updateLabel(token, id, titleText, false, VoteActivity.this);
-                }else{
+                } else {
                     networkService.updateLabel(token, id, titleText, true, VoteActivity.this);
                 }
+                resultItemList.removeAll(resultItemList);
+                radioGroupVote.removeAllViews();
             }
 
             @Override
@@ -132,16 +131,29 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         btnVote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                filterPercentage();
                 networkService.givingVote(token, id, radioGroupVote.getCheckedRadioButtonId(), VoteActivity.this);
                 VoteList.listItem = new ArrayList<HomeItem>();
                 MyVoteList.listItem = new ArrayList<HomeItem>();
                 Intent i = new Intent(VoteActivity.this, HomeActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);
+            }
+        });
+
+        btnResult.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(VoteActivity.this, ResultActivity.class);
+                intent.putExtra("title",titleText);
+                intent.putExtra("count",countText );
+                intent.putExtra("id", id);
+                startActivity(intent);
                 finish();
             }
         });
     }
+
+
 
 
     @Override
@@ -154,7 +166,7 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         textDate.setText("Since " + networkService.getDate());
 
         //Create Radio Button to populate vote options
-        for (int i=0;i<resultItemList.size();i++){
+        for (int i = 0; i < resultItemList.size(); i++) {
             RadioButton radioButtonVote = new RadioButton(this);
             radioButtonVote.setId(Integer.parseInt(resultItemList.get(i).getTextId()));
             radioButtonVote.setText(resultItemList.get(i).getTextTitle());
@@ -170,47 +182,37 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         progressDialog.dismiss();
     }
 
-    public void filterPercentage(){
-
-        resultItemList = networkService.getResultItemList();
-        for (int i=0; i < resultItemList.size(); i++){
-            List<Double> listPercent = new ArrayList<Double>();
-            listPercent.add(Double.valueOf(resultItemList.get(i).getTextPercent()));
-            //listPercent
-            Collections.sort(resultItemList, new Comparator<ResultItem>() {
-                @Override
-                public int compare(ResultItem lhs, ResultItem rhs) {
-                    return lhs.getTextPercent().compareTo(rhs.getTextPercent());
-                }
-            });
-            Log.d("listPercent", resultItemList.get(i).getTextPercent());
-        }
-
-    }
-
     @Override
     public void succes() {
-        if (seekStatusText.getText().toString().equals("Open")){
+        if (seekStatusText.getText().toString().equals("Open")) {
             seekStatusText.setText("Closed");
-           //linearLayout.setBackgroundColor(Color.parseColor("#F44336"));
-        }else {
+            labelText = "Closed";
+            seekStatusText.setBackgroundColor(Color.parseColor("#F44336"));
+        } else {
             seekStatusText.setText("Open");
+            labelText = "Open";
+            seekStatusText.setBackgroundColor(Color.parseColor("#4CAF50"));
         }
-        visibleButton(seekStatusText.getText().toString());
+        visibleButton(labelText);
+        seekStatusText.setText(labelText);
+        networkService.specificVote(token, id, VoteActivity.this);
     }
 
     @Override
     public void fail() {
-
+        Toast.makeText(VoteActivity.this, "Failure update status", Toast.LENGTH_SHORT).show();
     }
 
-    private void visibleButton(String label){
-        if(label.equals("Open")){
-            btnResult.setVisibility(View.INVISIBLE);
+    private void visibleButton(String label) {
+        if (label.equals("Open")) {
+            btnResult.setVisibility(View.GONE);
             radioGroupVote.setVisibility(View.VISIBLE);
-        }else{
+            btnVote.setVisibility(View.VISIBLE);
+
+        } else {
             btnResult.setVisibility(View.VISIBLE);
-            radioGroupVote.setVisibility(View.INVISIBLE);
+            radioGroupVote.setVisibility(View.GONE);
+            btnVote.setVisibility(View.GONE);
         }
     }
 }
