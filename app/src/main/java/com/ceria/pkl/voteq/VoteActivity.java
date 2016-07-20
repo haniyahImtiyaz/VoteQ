@@ -169,7 +169,6 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         gridView.setAdapter(listAdapterResult);
 
         if (resultItemList.size() > 2) {
-
         }
 
         //getDateFormat from network Service
