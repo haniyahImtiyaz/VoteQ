@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +20,7 @@ import java.util.List;
  */
 public class MyVoteList extends Fragment implements ClientCallbackSignIn {
     private ListView listViewVote;
-    private HomeAdapter homeAdapter;
+    private  HomeAdapter homeAdapter;
     static List<HomeItem> listItem = new ArrayList<HomeItem>();
     ProgressDialog progressDialog;
     NetworkService networkService;
@@ -78,16 +77,15 @@ public class MyVoteList extends Fragment implements ClientCallbackSignIn {
     @Override
     public void onSucceded() {
         listItem = networkService.getHomeItemList();
-        homeAdapter = new HomeAdapter(listItem,getContext());
+        HomeActivity.homeAdapter2 = new HomeAdapter(listItem,getContext());
 
         progressDialog.dismiss();
         swipeRefreshLayout.setRefreshing(false);
 
         if (networkService.getHomeItemList().size() == 0){
             getView().setBackgroundResource(R.drawable.background);
-            Log.d("Suk", "suks");
         }else{
-            listViewVote.setAdapter(homeAdapter);
+            listViewVote.setAdapter(HomeActivity.homeAdapter2);
         }
     }
 
@@ -106,4 +104,5 @@ public class MyVoteList extends Fragment implements ClientCallbackSignIn {
         progressDialog.setMessage("Please Wait...");
         progressDialog.show();
     }
+
 }

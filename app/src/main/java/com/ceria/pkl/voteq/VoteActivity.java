@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +35,7 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
     TextView textDate;
     Button btnVote, btnResult;
     SeekBar seekBarStatus;
+    ScrollView scrollExpand;
     TextView seekStatusText;
     String labelText, token, id;
 
@@ -52,13 +54,6 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
             }
         });
 
-        Intent intent = getIntent();
-        id = intent.getStringExtra("id");
-        final String titleText = intent.getStringExtra("title");
-        final String countText = intent.getStringExtra("count");
-        labelText = intent.getStringExtra("status");
-        String creator_id = intent.getStringExtra("creator_id");
-
         TextView titleView = (TextView) findViewById(R.id.txt_title);
         TextView countView = (TextView) findViewById(R.id.txt_vote_count);
         TextView labelView = (TextView) findViewById(R.id.txt_stat);
@@ -69,9 +64,16 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         btnVote = (Button) findViewById(R.id.btn_submit_vote);
         btnResult = (Button) findViewById(R.id.btn_result);
         seekStatusText = (TextView) findViewById(R.id.seek_status_text);
+        scrollExpand = (ScrollView)findViewById(R.id.scrollExpand);
+
+        Intent intent = getIntent();
+        id = intent.getStringExtra("id");
+        final String titleText = intent.getStringExtra("title");
+        final String countText = intent.getStringExtra("count");
+        labelText = intent.getStringExtra("status");
+        String creator_id = intent.getStringExtra("creator_id");
 
         countRadioVote = Integer.parseInt(countText);
-
         visibleButton(labelText);
 
         SharedPreferences sharedPrefernces = getSharedPreferences(SignIn.token, Context.MODE_PRIVATE);
@@ -166,7 +168,9 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         listAdapterResult = new ListAdapterResult(resultItemList, VoteActivity.this);
         gridView.setAdapter(listAdapterResult);
 
+        if (resultItemList.size() > 2) {
 
+        }
 
         //getDateFormat from network Service
         textDate.setText("Since " + networkService.getDate());

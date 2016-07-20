@@ -81,7 +81,6 @@ public class ResultActivity extends AppCompatActivity implements ClientCallbackS
     @Override
     public void onSucceded() {
         progressDialog.dismiss();
-        Toast.makeText(ResultActivity.this, "yeayyy", Toast.LENGTH_SHORT).show();
         resultItemList = networkService.getResultItemList();
         listAdapterResult = new ListAdapterResult(resultItemList, this);
         expandableListView.setAdapter(listAdapterResult);

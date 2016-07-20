@@ -3,12 +3,12 @@ package com.ceria.pkl.voteq;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
-import android.widget.GridView;
+import android.widget.ListView;
 
 /**
  * Created by win 8 on 7/20/2016.
  */
-public class ExpandGrid extends GridView {
+public class ExpandGrid extends ListView {
 
         private android.view.ViewGroup.LayoutParams params;
         private int old_count = 0;
