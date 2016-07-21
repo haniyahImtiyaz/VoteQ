@@ -2,12 +2,16 @@ package com.ceria.pkl.voteq;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -23,7 +27,7 @@ import com.github.paolorotolo.expandableheightlistview.ExpandableHeightGridView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VoteActivity extends AppCompatActivity implements ClientCallbackSignIn, ClientCallBackLabel {
+public class VoteActivity extends AppCompatActivity implements ClientCallbackSignIn, ClientCallBackLabel, ClientCallBackVoting {
 
     ExpandableHeightGridView gridView;
     private ListAdapterResult listAdapterResult;
@@ -38,6 +42,7 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
     ScrollView scrollExpand;
     TextView seekStatusText;
     String labelText, token, id;
+    Snackbar snackbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,10 +118,13 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 radioGroupVote.removeAllViews();
+                resultItemList.clear();
                 if (seekBarStatus.getProgress() == 1) {
+                    radioGroupVote.removeAllViews();
                     resultItemList.clear();
                     networkService.updateLabel(token, id, titleText, false, VoteActivity.this);
                 } else {
+                    radioGroupVote.removeAllViews();
                     resultItemList.clear();
                     networkService.updateLabel(token, id, titleText, true, VoteActivity.this);
                 }
@@ -124,7 +132,8 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-
+                radioGroupVote.removeAllViews();
+                resultItemList.clear();
             }
 
             @Override
@@ -136,12 +145,29 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         btnVote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                networkService.givingVote(token, id, radioGroupVote.getCheckedRadioButtonId(), VoteActivity.this);
-                VoteList.listItem = new ArrayList<HomeItem>();
-                MyVoteList.listItem = new ArrayList<HomeItem>();
-                Intent i = new Intent(VoteActivity.this, HomeActivity.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(i);
+                if(radioGroupVote.getCheckedRadioButtonId()== -1) {
+                    Log.d("radioGroup", String.valueOf(radioGroupVote.getCheckedRadioButtonId()));
+                    new AlertDialog.Builder(VoteActivity.this)
+                            .setMessage("Please check one option to continue!")
+                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            })
+                    .show();
+                }else{
+                    networkService.givingVote(token, id, radioGroupVote.getCheckedRadioButtonId(), VoteActivity.this);
+                    snackbar = Snackbar.make(v, "Network Failure", Snackbar.LENGTH_INDEFINITE);
+                    snackbar.setAction("Try Again", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            snackbar.dismiss();
+                            networkService.givingVote(token, id, radioGroupVote.getCheckedRadioButtonId(), VoteActivity.this);
+                        }
+                    });
+
+                }
+
             }
         });
 
@@ -219,5 +245,19 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
             radioGroupVote.setVisibility(View.GONE);
             btnVote.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void onSuccedeedVoting() {
+        VoteList.listItem = new ArrayList<HomeItem>();
+        MyVoteList.listItem = new ArrayList<HomeItem>();
+        Intent i = new Intent(VoteActivity.this, HomeActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
+    }
+
+    @Override
+    public void onFailedVoting() {
+        snackbar.show();
     }
 }
