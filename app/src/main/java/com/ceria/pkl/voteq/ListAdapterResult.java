@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
 import java.util.List;
 
 /**
@@ -38,15 +39,15 @@ public class ListAdapterResult extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         Holder holder;
-        if(convertView == null){
-            convertView = inflater.inflate(R.layout.result_item,parent,false);
+        if (convertView == null) {
+            convertView = inflater.inflate(R.layout.result_item, parent, false);
             holder = new Holder();
             holder.textViewTitle = (TextView) convertView.findViewById(R.id.textTitle);
             holder.textViewValue = (TextView) convertView.findViewById(R.id.textValue);
             holder.textViewPercent = (TextView) convertView.findViewById(R.id.textPercent);
             convertView.setTag(holder);
-        }else {
-            holder = (Holder)convertView.getTag();
+        } else {
+            holder = (Holder) convertView.getTag();
         }
 
         ResultItem resultItem = resultItemList.get(position);
@@ -58,7 +59,7 @@ public class ListAdapterResult extends BaseAdapter {
         return convertView;
     }
 
-    static class Holder{
+    static class Holder {
         TextView textViewTitle;
         TextView textViewValue;
         TextView textViewPercent;

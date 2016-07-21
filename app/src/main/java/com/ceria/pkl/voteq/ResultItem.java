@@ -13,7 +13,7 @@ public class ResultItem {
         this.textPercent = textPercent;
     }
 
-    public String getTextId(){
+    public String getTextId() {
         return textId;
     }
 

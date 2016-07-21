@@ -15,7 +15,7 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 
 
-public class SignIn extends AppCompatActivity implements ClientCallbackSignIn{
+public class SignIn extends AppCompatActivity implements ClientCallbackSignIn {
 
     EditText edtEmail;
     EditText edtPassword;
@@ -25,7 +25,7 @@ public class SignIn extends AppCompatActivity implements ClientCallbackSignIn{
     Intent i;
     RequestQueue requestQueue;
     ProgressDialog progressDialog;
-    public static String token ;
+    public static String token;
     NetworkService networkService;
     SharedPreferences sharedPreferences;
 
@@ -69,8 +69,8 @@ public class SignIn extends AppCompatActivity implements ClientCallbackSignIn{
         });
 
         sharedPreferences = getSharedPreferences(token, Context.MODE_PRIVATE);
-        String auth_token = sharedPreferences.getString("token","");
-        if (!auth_token.isEmpty()){
+        String auth_token = sharedPreferences.getString("token", "");
+        if (!auth_token.isEmpty()) {
             Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);
             finish();

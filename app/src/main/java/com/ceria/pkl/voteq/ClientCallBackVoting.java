@@ -4,6 +4,6 @@ package com.ceria.pkl.voteq;
  * Created by win 8 on 7/21/2016.
  */
 public interface ClientCallBackVoting {
-    public void onSuccedeedVoting();
-    public void onFailedVoting();
+    void onSuccedeedVoting();
+    void onFailedVoting();
 }

@@ -17,7 +17,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
     public PagerAdapter(FragmentManager fm, int tabCount) {
         super(fm);
         //Initializing tab count
-        this.tabCount= tabCount;
+        this.tabCount = tabCount;
     }
 
     //Overriding method getItem
@@ -30,7 +30,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
                 return voteList;
             case 1:
                 MyVoteList myVoteList = new MyVoteList();
-                return  myVoteList;
+                return myVoteList;
             default:
                 return null;
         }

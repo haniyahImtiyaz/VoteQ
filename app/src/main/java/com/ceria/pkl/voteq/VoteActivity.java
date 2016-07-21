@@ -41,7 +41,7 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
     SeekBar seekBarStatus;
     ScrollView scrollExpand;
     TextView seekStatusText;
-    String labelText, token, id, creator_id,titleText, countText ;
+    String labelText, token, id, creator_id, titleText, countText;
     Snackbar snackbar;
     LinearLayout linearLayout;
 
@@ -70,7 +70,7 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         btnVote = (Button) findViewById(R.id.btn_submit_vote);
         btnResult = (Button) findViewById(R.id.btn_result);
         seekStatusText = (TextView) findViewById(R.id.seek_status_text);
-        scrollExpand = (ScrollView)findViewById(R.id.scrollExpand);
+        scrollExpand = (ScrollView) findViewById(R.id.scrollExpand);
 
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
@@ -124,7 +124,7 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         btnVote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(radioGroupVote.getCheckedRadioButtonId()== -1) {
+                if (radioGroupVote.getCheckedRadioButtonId() == -1) {
                     Log.d("radioGroup", String.valueOf(radioGroupVote.getCheckedRadioButtonId()));
                     new AlertDialog.Builder(VoteActivity.this)
                             .setMessage("Please check one option to continue!")
@@ -134,13 +134,14 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
                                 }
                             })
                             .show();
-                }else{
+                } else {
                     if (networkService.is_voted()) {
                         Log.d("yaya", "yaya");
                         networkService.givingVote(token, networkService.is_voted(), id, radioGroupVote.getCheckedRadioButtonId(), VoteActivity.this);
                     } else {
                         networkService.givingVote(token, networkService.is_voted(), id, radioGroupVote.getCheckedRadioButtonId(), VoteActivity.this);
-                    }snackbar = Snackbar.make(v, "Network Failure", Snackbar.LENGTH_INDEFINITE);
+                    }
+                    snackbar = Snackbar.make(v, "Network Failure", Snackbar.LENGTH_INDEFINITE);
                     snackbar.setAction("Try Again", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -158,8 +159,8 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(VoteActivity.this, ResultActivity.class);
-                intent.putExtra("title",titleText);
-                intent.putExtra("count",countText );
+                intent.putExtra("title", titleText);
+                intent.putExtra("count", countText);
                 intent.putExtra("id", id);
                 startActivity(intent);
                 finish();
@@ -167,7 +168,7 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         });
     }
 
-    private void load(){
+    private void load() {
         networkService = new NetworkService(VoteActivity.this);
         networkService.specificVote(token, id, VoteActivity.this);
 
@@ -193,27 +194,28 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
 
         seekStatusText.setText(labelText);
     }
+
     @Override
     public void onSucceded() {
-            resultItemList = networkService.getResultItemList();
-            listAdapterResult = new ListAdapterResult(resultItemList, VoteActivity.this);
-            gridView.setAdapter(listAdapterResult);
+        resultItemList = networkService.getResultItemList();
+        listAdapterResult = new ListAdapterResult(resultItemList, VoteActivity.this);
+        gridView.setAdapter(listAdapterResult);
 
-            if (resultItemList.size() > 2) {
-            }
+        if (resultItemList.size() > 2) {
+        }
 
-            //getDateFormat from network Service
-            textDate.setText("Since " + networkService.getDate());
+        //getDateFormat from network Service
+        textDate.setText("Since " + networkService.getDate());
 
-            //Create Radio Button to populate vote options
-            for (int i = 0; i < resultItemList.size(); i++) {
-                RadioButton radioButtonVote = new RadioButton(this);
-                radioButtonVote.setId(Integer.parseInt(resultItemList.get(i).getTextId()));
-                radioButtonVote.setText(resultItemList.get(i).getTextTitle());
-                radioGroupVote.addView(radioButtonVote);
-            }
+        //Create Radio Button to populate vote options
+        for (int i = 0; i < resultItemList.size(); i++) {
+            RadioButton radioButtonVote = new RadioButton(this);
+            radioButtonVote.setId(Integer.parseInt(resultItemList.get(i).getTextId()));
+            radioButtonVote.setText(resultItemList.get(i).getTextTitle());
+            radioGroupVote.addView(radioButtonVote);
+        }
 
-            progressDialog.dismiss();
+        progressDialog.dismiss();
     }
 
     @Override

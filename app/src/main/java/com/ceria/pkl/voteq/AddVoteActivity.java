@@ -75,14 +75,14 @@ public class AddVoteActivity extends AppCompatActivity implements ClientCallback
         buttonAddOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (editTextTitle.getText().toString().length() == 0){
+                if (editTextTitle.getText().toString().length() == 0) {
                     new AlertDialog.Builder(AddVoteActivity.this).setMessage("Please fill title to continue!")
                             .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                 }
                             })
                             .show();
-                }else if (editTextOption.getText().toString().trim().length() == 0) {
+                } else if (editTextOption.getText().toString().trim().length() == 0) {
                     new AlertDialog.Builder(AddVoteActivity.this)
                             .setMessage("please, fill this option value!")
                             .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
@@ -90,7 +90,7 @@ public class AddVoteActivity extends AppCompatActivity implements ClientCallback
                                 }
                             })
                             .show();
-                }else {
+                } else {
                     String option = editTextOption.getText().toString();
                     optionItemList.add(get("Option " + (listAdapterOption.getCount() + 1), option));
                     listAdapterOption.notifyDataSetChanged();
@@ -114,9 +114,9 @@ public class AddVoteActivity extends AppCompatActivity implements ClientCallback
                                 }
                             })
                             .show();
-                } else if (editTextOption.getText().toString().length() != 0){
+                } else if (editTextOption.getText().toString().length() != 0) {
                     final String option = editTextOption.getText().toString();
-                    new AlertDialog.Builder(AddVoteActivity.this).setMessage("Option '"+option+"' haven't added in option list, Do you want add '"+option+"' to option list ?")
+                    new AlertDialog.Builder(AddVoteActivity.this).setMessage("Option '" + option + "' haven't added in option list, Do you want add '" + option + "' to option list ?")
                             .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     optionItemList.add(get("Option " + (listAdapterOption.getCount() + 1), option));

@@ -4,7 +4,7 @@ package com.ceria.pkl.voteq;
  * Created by pandhu on 11/07/16.
  */
 public class HomeItem {
-    private String id, textTitle, textCount,label,idCreator;
+    private String id, textTitle, textCount, label, idCreator;
 
     public HomeItem(String id, String textTitle, String textCount, String label, String idCreator) {
         this.id = id;
@@ -14,9 +14,10 @@ public class HomeItem {
         this.idCreator = idCreator;
     }
 
-    public String getId(){
+    public String getId() {
         return id;
     }
+
     public String getTextTitle() {
         return textTitle;
     }
@@ -30,9 +31,10 @@ public class HomeItem {
     }
 
 
-    public  String getIdCreator(){
+    public String getIdCreator() {
         return idCreator;
     }
+
     @Override
     public String toString() {
         return "HomeItem{" +

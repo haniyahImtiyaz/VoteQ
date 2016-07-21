@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class MyVoteList extends Fragment implements ClientCallbackSignIn {
     private ListView listViewVote;
-    private  HomeAdapter homeAdapter;
+    private HomeAdapter homeAdapter;
     static List<HomeItem> listItem = new ArrayList<HomeItem>();
     ProgressDialog progressDialog;
     NetworkService networkService;
@@ -29,28 +29,28 @@ public class MyVoteList extends Fragment implements ClientCallbackSignIn {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.page_my_vote_list, container, false);
-        listViewVote = (ListView)rootView.findViewById(R.id.list_my_vote);
-        swipeRefreshLayout = (SwipeRefreshLayout)rootView.findViewById(R.id.swipe_refresh);
-        if (listItem.isEmpty()){
+        listViewVote = (ListView) rootView.findViewById(R.id.list_my_vote);
+        swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh);
+        if (listItem.isEmpty()) {
             visible();
         }
         listViewVote.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                if(listItem.get(position).getLabel().equals("Open") || (listItem.get(position).getLabel().equals("Close") && listItem.get(position).getIdCreator().equals(HomeActivity.token))){
+                if (listItem.get(position).getLabel().equals("Open") || (listItem.get(position).getLabel().equals("Close") && listItem.get(position).getIdCreator().equals(HomeActivity.token))) {
                     Intent intent = new Intent(getContext(), VoteActivity.class);
                     intent.putExtra("id", listItem.get(position).getId());
                     intent.putExtra("title", listItem.get(position).getTextTitle());
-                    intent.putExtra("count",listItem.get(position).getTextCount() );
+                    intent.putExtra("count", listItem.get(position).getTextCount());
                     intent.putExtra("status", listItem.get(position).getLabel());
                     intent.putExtra("creator_id", listItem.get(position).getIdCreator());
                     startActivity(intent);
-                }else{
+                } else {
                     Intent intent = new Intent(getContext(), VoteActivity.class);
                     intent.putExtra("id", listItem.get(position).getId());
                     intent.putExtra("title", listItem.get(position).getTextTitle());
-                    intent.putExtra("count",listItem.get(position).getTextCount() );
+                    intent.putExtra("count", listItem.get(position).getTextCount());
                     intent.putExtra("status", listItem.get(position).getLabel());
                     intent.putExtra("creator_id", listItem.get(position).getIdCreator());
                     startActivity(intent);
@@ -77,14 +77,14 @@ public class MyVoteList extends Fragment implements ClientCallbackSignIn {
     @Override
     public void onSucceded() {
         listItem = networkService.getHomeItemList();
-        HomeActivity.homeAdapter2 = new HomeAdapter(listItem,getContext());
+        HomeActivity.homeAdapter2 = new HomeAdapter(listItem, getContext());
 
         progressDialog.dismiss();
         swipeRefreshLayout.setRefreshing(false);
 
-        if (networkService.getHomeItemList().size() == 0){
+        if (networkService.getHomeItemList().size() == 0) {
             getView().setBackgroundResource(R.drawable.background);
-        }else{
+        } else {
             listViewVote.setAdapter(HomeActivity.homeAdapter2);
         }
     }

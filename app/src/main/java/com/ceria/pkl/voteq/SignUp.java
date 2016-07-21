@@ -24,7 +24,7 @@ public class SignUp extends AppCompatActivity implements ClientCallback {
 
         edtEmail = (EditText) findViewById(R.id.txt_email);
         edtPassword = (EditText) findViewById(R.id.txt_password);
-        edtConfirmPassword = (EditText)findViewById(R.id.txt_confirm_passoword);
+        edtConfirmPassword = (EditText) findViewById(R.id.txt_confirm_passoword);
         btnSignUp = (Button) findViewById(R.id.butSignUp);
 
         final NetworkService networkService = new NetworkService(this);
@@ -34,17 +34,16 @@ public class SignUp extends AppCompatActivity implements ClientCallback {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (edtEmail.getText().toString().isEmpty()){
+                if (edtEmail.getText().toString().isEmpty()) {
                     Toast.makeText(SignUp.this, "Please, fill the Email to continue!", Toast.LENGTH_LONG).show();
-                }
-                else if (isEmailValid(edtEmail.getText().toString()) == false){
+                } else if (isEmailValid(edtEmail.getText().toString()) == false) {
                     Toast.makeText(SignUp.this, "Sorry, Email is invalid", Toast.LENGTH_LONG).show();
-                }else if (!edtPassword.getText().toString().equals(edtConfirmPassword.getText().toString())){
+                } else if (!edtPassword.getText().toString().equals(edtConfirmPassword.getText().toString())) {
                     Toast.makeText(SignUp.this, "Sorry, password didn't match", Toast.LENGTH_LONG).show();
-                }else if(edtPassword.length() < 6){
+                } else if (edtPassword.length() < 6) {
                     Toast.makeText(SignUp.this, "Sorry, password must have at least 6 characters", Toast.LENGTH_LONG).show();
-                }else{
-                    networkService.signUp(edtEmail.getText().toString(), edtPassword.getText().toString(),edtConfirmPassword.getText().toString(), SignUp.this);
+                } else {
+                    networkService.signUp(edtEmail.getText().toString(), edtPassword.getText().toString(), edtConfirmPassword.getText().toString(), SignUp.this);
                     progressDialog.show();
                     progressDialog.setCanceledOnTouchOutside(false);
                 }
@@ -52,8 +51,7 @@ public class SignUp extends AppCompatActivity implements ClientCallback {
         });
     }
 
-    public boolean isEmailValid(String email)
-    {
+    public boolean isEmailValid(String email) {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
 
     }

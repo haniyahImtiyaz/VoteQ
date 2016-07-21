@@ -39,14 +39,14 @@ public class ListAdapterOption extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         Holder holder;
-        if(convertView == null){
-            convertView = inflater.inflate(R.layout.option_item,parent,false);
+        if (convertView == null) {
+            convertView = inflater.inflate(R.layout.option_item, parent, false);
             holder = new Holder();
             holder.textViewOption = (TextView) convertView.findViewById(R.id.text_option);
             holder.textViewValue = (TextView) convertView.findViewById(R.id.text_option_value);
             convertView.setTag(holder);
-        }else {
-            holder = (Holder)convertView.getTag();
+        } else {
+            holder = (Holder) convertView.getTag();
         }
 
         OptionItem optionItem = optionItemList.get(position);
@@ -57,7 +57,7 @@ public class ListAdapterOption extends BaseAdapter {
         return convertView;
     }
 
-    static class Holder{
+    static class Holder {
         TextView textViewOption;
         TextView textViewValue;
     }

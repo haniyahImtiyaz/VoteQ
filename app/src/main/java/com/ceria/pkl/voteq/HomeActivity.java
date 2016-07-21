@@ -15,7 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-public class HomeActivity extends AppCompatActivity implements SearchView.OnQueryTextListener{
+public class HomeActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
     static String token;
     static HomeAdapter homeAdapter, homeAdapter2;
 
@@ -29,12 +29,12 @@ public class HomeActivity extends AppCompatActivity implements SearchView.OnQuer
         getSupportActionBar().setLogo(R.mipmap.logo);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
 
-        final TabLayout tabLayout = (TabLayout)findViewById(R.id.tabLayoutHome);
+        final TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayoutHome);
         tabLayout.addTab(tabLayout.newTab().setText("Vote List"));
         tabLayout.addTab(tabLayout.newTab().setText("My Vote List"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        final ViewPager viewPager = (ViewPager)findViewById(R.id.pagerHome);
+        final ViewPager viewPager = (ViewPager) findViewById(R.id.pagerHome);
 
         final PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(pagerAdapter);
@@ -62,7 +62,7 @@ public class HomeActivity extends AppCompatActivity implements SearchView.OnQuer
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(HomeActivity.this,AddVoteActivity.class);
+                Intent intent = new Intent(HomeActivity.this, AddVoteActivity.class);
                 startActivity(intent);
             }
         });
@@ -86,7 +86,7 @@ public class HomeActivity extends AppCompatActivity implements SearchView.OnQuer
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.logout) {
-            SharedPreferences sharedPreferences = getSharedPreferences(SignIn.token, Context.MODE_PRIVATE );
+            SharedPreferences sharedPreferences = getSharedPreferences(SignIn.token, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("token", "");
             editor.commit();
