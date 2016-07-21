@@ -71,11 +71,12 @@ public class ResultActivity extends AppCompatActivity implements ClientCallbackS
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please Wait...");
         progressDialog.show();
+        progressDialog.setCanceledOnTouchOutside(false);
 
     }
 
     private ResultItem get(String id, String title, String value, String percent) {
-        return new ResultItem(id,title, value, percent);
+        return new ResultItem(id, title, value, percent);
     }
 
     @Override
@@ -84,7 +85,7 @@ public class ResultActivity extends AppCompatActivity implements ClientCallbackS
         resultItemList = networkService.getResultItemList();
         listAdapterResult = new ListAdapterResult(resultItemList, this);
         expandableListView.setAdapter(listAdapterResult);
-        for (int i=0; i < resultItemList.size(); i++){
+        for (int i = 0; i < resultItemList.size(); i++) {
 
             Collections.sort(resultItemList, new Comparator<ResultItem>() {
                 @Override
@@ -103,8 +104,8 @@ public class ResultActivity extends AppCompatActivity implements ClientCallbackS
         Toast.makeText(ResultActivity.this, "yahhhh", Toast.LENGTH_SHORT).show();
     }
 
-    public void filterPercentage(){
-        for (int i=0; i < resultItemList.size(); i++){
+    public void filterPercentage() {
+        for (int i = 0; i < resultItemList.size(); i++) {
             List<Double> listPercent = new ArrayList<Double>();
             listPercent.add(Double.valueOf(resultItemList.get(i).getTextPercent()));
             //listPercent

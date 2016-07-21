@@ -51,6 +51,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:imeOptions="actionNext"
+                android:singleLine="true"
                 android:hint="Title"
                 android:textColorHint="@color/colorPrimaryTextBlue" />
 
@@ -84,6 +86,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textViewOption"
                 android:layout_marginTop="5dp"
+                android:imeOptions="actionGo"
+                android:singleLine="true"
                 android:hint="Option 1"
                 android:textColorHint="@color/colorPrimaryTextBlue" />
             <RelativeLayout

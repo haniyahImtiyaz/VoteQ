@@ -51,42 +51,42 @@ public class HomeAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         Holder holder;
 
-        if(convertView == null){
-            convertView= inflater.inflate(R.layout.home_item,parent,false);
+        if (convertView == null) {
+            convertView = inflater.inflate(R.layout.home_item, parent, false);
             holder = new Holder();
-            holder.textViewTitle = (TextView)convertView.findViewById(R.id.txt_vote_title);
-            holder.textViewCount = (TextView)convertView.findViewById(R.id.txt_count_vote);
-            holder.textViewLabel = (TextView)convertView.findViewById(R.id.label_status);
-            holder.linearLayout = (LinearLayout)convertView.findViewById(R.id.layout_home_list);
-            holder.circleImageView = (CircleImageView)convertView.findViewById(R.id.image_circle);
+            holder.textViewTitle = (TextView) convertView.findViewById(R.id.txt_vote_title);
+            holder.textViewCount = (TextView) convertView.findViewById(R.id.txt_count_vote);
+            holder.textViewLabel = (TextView) convertView.findViewById(R.id.label_status);
+            holder.linearLayout = (LinearLayout) convertView.findViewById(R.id.layout_home_list);
+            holder.circleImageView = (CircleImageView) convertView.findViewById(R.id.image_circle);
             convertView.setTag(holder);
-        }else{
-            holder = (Holder)convertView.getTag();
+        } else {
+            holder = (Holder) convertView.getTag();
         }
 
         HomeItem homeItem = homeItems.get(position);
 
 
         holder.textViewTitle.setText(homeItem.getTextTitle());
-        holder.textViewCount.setText(homeItem.getTextCount()+" Peoples Voted");
+        holder.textViewCount.setText(homeItem.getTextCount() + " Peoples Voted");
         holder.textViewLabel.setText(homeItem.getLabel());
 
-        if(homeItem.getLabel().toString().equals("Closed")){
+        if (homeItem.getLabel().toString().equals("Closed")) {
             holder.linearLayout.setBackgroundColor(Color.parseColor("#F44336"));
-        }else{
+        } else {
             holder.linearLayout.setBackgroundColor(Color.parseColor("#4CAF50"));
         }
 
         String lowerTitle = homeItem.getTextTitle().toLowerCase();
-        String lowerTitleFirst = lowerTitle.substring(0,1);
-        int image = convertView.getResources().getIdentifier(lowerTitleFirst,"drawable", inflater.getContext().getPackageName());
+        String lowerTitleFirst = lowerTitle.substring(0, 1);
+        int image = convertView.getResources().getIdentifier(lowerTitleFirst, "drawable", inflater.getContext().getPackageName());
 
         holder.circleImageView.setImageResource(image);
 
         return convertView;
     }
 
-    static class Holder{
+    static class Holder {
         TextView textViewTitle;
         TextView textViewCount;
         TextView textViewLabel;

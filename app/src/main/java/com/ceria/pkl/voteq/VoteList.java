@@ -82,8 +82,8 @@ public class VoteList extends Fragment implements ClientCallbackSignIn {
     @Override
     public void onSucceded() {
         listItem = networkService.getHomeItemList();
-        HomeActivity.homeAdapter = new HomeAdapter(listItem,getContext());
-   //     homeAdapter.notifyDataSetChanged();
+        HomeActivity.homeAdapter = new HomeAdapter(listItem, getContext());
+        //     homeAdapter.notifyDataSetChanged();
         listViewVote.setAdapter(HomeActivity.homeAdapter);
         progressDialog.dismiss();
         swipeRefreshLayout.setRefreshing(false);
@@ -102,6 +102,7 @@ public class VoteList extends Fragment implements ClientCallbackSignIn {
 
         progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("Please Wait...");
+        progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
     }
 
