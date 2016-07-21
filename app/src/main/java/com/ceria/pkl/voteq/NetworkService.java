@@ -365,7 +365,7 @@ public class NetworkService {
         requestQueue.add(specificVote);
     }
 
-    public void givingVote(final String token, final String vote_id, final int option_id, final ClientCallbackSignIn clientCallback) {
+    public void givingVote(final String token, final String vote_id, final int option_id, final ClientCallBackLabel clientCallback) {
         String url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.giving_vote);
         StringRequest givingVoteRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
@@ -375,14 +375,14 @@ public class NetworkService {
                     Log.d("givingVote", "response " + logResponse.toString(2));
                     String status = logResponse.getString("status");
                     if (status.equals("success")) {
-                        clientCallback.onSucceded();
+                        clientCallback.succes();
                     } else {
-                        clientCallback.onFailed();
+                        clientCallback.fail();
                     }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    clientCallback.onFailed();
+                    clientCallback.fail();
                 }
             }
 
@@ -390,7 +390,7 @@ public class NetworkService {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.d("givingVote", "error giving vote " + error.toString());
-                clientCallback.onFailed();
+                clientCallback.fail();
             }
         }) {
             @Override

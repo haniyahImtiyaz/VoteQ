@@ -92,7 +92,7 @@ public class MyVoteList extends Fragment implements ClientCallbackSignIn {
     @Override
     public void onFailed() {
         progressDialog.dismiss();
-        Toast.makeText(getContext(), "failure myvotelist", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Network Failure in MyVote List", Toast.LENGTH_SHORT).show();
         swipeRefreshLayout.setRefreshing(false);
     }
 

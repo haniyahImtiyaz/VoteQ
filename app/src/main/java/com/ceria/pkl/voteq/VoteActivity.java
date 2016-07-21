@@ -115,11 +115,9 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
                 radioGroupVote.removeAllViews();
                 if (seekBarStatus.getProgress() == 1) {
                     resultItemList.clear();
-                //    radioGroupVote.removeAllViews();
                     networkService.updateLabel(token, id, titleText, false, VoteActivity.this);
                 } else {
                     resultItemList.clear();
-                //    radioGroupVote.removeAllViews();
                     networkService.updateLabel(token, id, titleText, true, VoteActivity.this);
                 }
             }
@@ -159,9 +157,6 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
             }
         });
     }
-
-
-
 
     @Override
     public void onSucceded() {
