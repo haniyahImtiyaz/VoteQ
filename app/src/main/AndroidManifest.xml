@@ -11,6 +11,7 @@
         <activity
             android:name=".AddVoteActivity"
             android:label="@string/title_activity_add_vote"
+            android:windowSoftInputMode="stateVisible|adjustResize"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity

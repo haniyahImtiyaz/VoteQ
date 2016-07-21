@@ -6,13 +6,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorToolbar"
-    android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.ceria.pkl.voteq.VoteActivity">
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="#dedddd"></LinearLayout>
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="35dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -211,6 +214,7 @@
         android:id="@+id/btn_submit_vote"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:layout_alignParentBottom="true"
         android:background="@color/colorAccent"
         android:text="VOTE"
