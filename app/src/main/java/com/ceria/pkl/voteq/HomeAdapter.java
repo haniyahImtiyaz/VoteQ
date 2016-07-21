@@ -6,12 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -20,12 +20,15 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 public class HomeAdapter extends BaseAdapter {
     private List<HomeItem> homeItems;
+    private List<HomeItem> homeItemsArray;
     private LayoutInflater inflater;
 
 
     public HomeAdapter(List<HomeItem> homeItems, Context context) {
         this.homeItems = homeItems;
         this.inflater = LayoutInflater.from(context);
+        this.homeItemsArray = new ArrayList<HomeItem>();
+        homeItemsArray.addAll(homeItems);
     }
 
 
@@ -89,5 +92,21 @@ public class HomeAdapter extends BaseAdapter {
         TextView textViewLabel;
         LinearLayout linearLayout;
         CircleImageView circleImageView;
+    }
+
+    public void filter(String textSearch) {
+        textSearch = textSearch.toLowerCase(Locale.getDefault());
+        homeItems.clear();
+        if (textSearch.length() == 0) {
+            homeItems.addAll(homeItemsArray);
+        } else {
+            for (HomeItem key : homeItemsArray) {
+                if (key.getTextTitle().toLowerCase(Locale.getDefault())
+                        .contains(textSearch)) {
+                    homeItems.add(key);
+                }
+            }
+        }
+        notifyDataSetChanged();
     }
 }

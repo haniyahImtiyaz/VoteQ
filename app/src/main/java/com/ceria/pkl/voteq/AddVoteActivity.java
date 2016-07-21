@@ -76,7 +76,7 @@ public class AddVoteActivity extends AppCompatActivity implements ClientCallback
                                 }
                             })
                             .show();
-                } else {
+                }else {
                     String option = editTextOption.getText().toString();
                     optionItemList.add(get("Option " + (listAdapterOption.getCount() + 1), option));
                     listAdapterOption.notifyDataSetChanged();
@@ -93,10 +93,43 @@ public class AddVoteActivity extends AppCompatActivity implements ClientCallback
         buttonDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences sharedPreferences = getSharedPreferences(SignIn.token, Context.MODE_PRIVATE);
-                String token = sharedPreferences.getString("token","");
-                networkService.createVote(token, editTextTitle.getText().toString(), listOption, true, AddVoteActivity.this);
-                progressDialog.show();
+                if (editTextTitle.getText().toString().length() == 0) {
+                    new AlertDialog.Builder(AddVoteActivity.this).setMessage("Please fill title to continue!")
+                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            })
+                            .show();
+                } else if (editTextOption.getText().toString().length() != 0){
+                    final String option = editTextOption.getText().toString();
+                    new AlertDialog.Builder(AddVoteActivity.this).setMessage("Option '"+option+"' haven't added in option list, Do you want add '"+option+"' to option list ?")
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    optionItemList.add(get("Option " + (listAdapterOption.getCount() + 1), option));
+                                    listAdapterOption.notifyDataSetChanged();
+                                    editTextOption.setText("");
+                                    editTextOption.setHint("Option " + (listAdapterOption.getCount() + 1));
+                                }
+                            })
+                            .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    editTextOption.setText("");
+                                }
+                            })
+                            .show();
+                } else if (optionItemList.size() == 0) {
+                    new AlertDialog.Builder(AddVoteActivity.this).setMessage("Please fill the option list to continue!")
+                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            })
+                            .show();
+                } else {
+                    SharedPreferences sharedPreferences = getSharedPreferences(SignIn.token, Context.MODE_PRIVATE);
+                    String token = sharedPreferences.getString("token", "");
+                    networkService.createVote(token, editTextTitle.getText().toString(), listOption, true, AddVoteActivity.this);
+                    progressDialog.show();
+                }
             }
         });
 
