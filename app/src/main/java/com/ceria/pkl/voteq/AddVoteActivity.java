@@ -143,6 +143,7 @@ public class AddVoteActivity extends AppCompatActivity implements ClientCallback
                     String token = sharedPreferences.getString("token", "");
                     networkService.createVote(token, editTextTitle.getText().toString(), listOption, true, AddVoteActivity.this);
                     progressDialog.show();
+                    progressDialog.setCanceledOnTouchOutside(false);
                 }
             }
         });

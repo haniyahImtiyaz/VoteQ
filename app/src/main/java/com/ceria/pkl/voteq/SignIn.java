@@ -64,6 +64,7 @@ public class SignIn extends AppCompatActivity implements ClientCallbackSignIn{
             public void onClick(View v) {
                 networkService.login(edtEmail.getText().toString(), edtPassword.getText().toString(), SignIn.this);
                 progressDialog.show();
+                progressDialog.setCanceledOnTouchOutside(false);
             }
         });
 

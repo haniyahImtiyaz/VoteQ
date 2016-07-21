@@ -103,6 +103,7 @@ public class MyVoteList extends Fragment implements ClientCallbackSignIn {
         progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("Please Wait...");
         progressDialog.show();
+        progressDialog.setCanceledOnTouchOutside(false);
     }
 
 }

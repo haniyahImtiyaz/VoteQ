@@ -41,8 +41,9 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
     SeekBar seekBarStatus;
     ScrollView scrollExpand;
     TextView seekStatusText;
-    String labelText, token, id;
+    String labelText, token, id, creator_id,titleText, countText ;
     Snackbar snackbar;
+    LinearLayout linearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +63,7 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         TextView titleView = (TextView) findViewById(R.id.txt_title);
         TextView countView = (TextView) findViewById(R.id.txt_vote_count);
         TextView labelView = (TextView) findViewById(R.id.txt_stat);
-        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.layout_label);
+        linearLayout = (LinearLayout) findViewById(R.id.layout_label);
         seekBarStatus = (SeekBar) findViewById(R.id.seekBarStatus);
         textDate = (TextView) findViewById(R.id.txt_date_vote);
         radioGroupVote = (RadioGroup) findViewById(R.id.radio_group_vote);
@@ -73,46 +74,24 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
 
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
-        final String titleText = intent.getStringExtra("title");
-        final String countText = intent.getStringExtra("count");
+        titleText = intent.getStringExtra("title");
+        countText = intent.getStringExtra("count");
         labelText = intent.getStringExtra("status");
-        String creator_id = intent.getStringExtra("creator_id");
+        creator_id = intent.getStringExtra("creator_id");
 
         countRadioVote = Integer.parseInt(countText);
         visibleButton(labelText);
-
-        SharedPreferences sharedPrefernces = getSharedPreferences(SignIn.token, Context.MODE_PRIVATE);
-        token = sharedPrefernces.getString("token", "");
-
-        networkService = new NetworkService(VoteActivity.this);
-        networkService.specificVote(token, id, VoteActivity.this);
-
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Please Wait...");
-        progressDialog.show();
-
-        if (labelText.equals("Closed")) {
-            seekStatusText.setBackgroundColor(Color.parseColor("#F44336"));
-            seekBarStatus.setProgress(1);
-        } else {
-            seekStatusText.setBackgroundColor(Color.parseColor("#4CAF50"));
-        }
-
-        if (creator_id.equals(token)) {
-            seekBarStatus.setVisibility(View.VISIBLE);
-            linearLayout.setVisibility(View.INVISIBLE);
-        } else {
-            seekBarStatus.setVisibility(View.GONE);
-            linearLayout.setVisibility(View.VISIBLE);
-        }
-
-        seekStatusText.setText(labelText);
 
         gridView = (ExpandableHeightGridView) findViewById(R.id.grid_sementara_count);
         gridView.setExpanded(true);
         titleView.setText(titleText);
         countView.setText(countText + " Peoples Voted");
         labelView.setText(labelText);
+
+        SharedPreferences sharedPrefernces = getSharedPreferences(SignIn.token, Context.MODE_PRIVATE);
+        token = sharedPrefernces.getString("token", "");
+
+        load();
 
         seekBarStatus.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -154,15 +133,19 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
 
                                 }
                             })
-                    .show();
+                            .show();
                 }else{
-                    networkService.givingVote(token, id, radioGroupVote.getCheckedRadioButtonId(), VoteActivity.this);
-                    snackbar = Snackbar.make(v, "Network Failure", Snackbar.LENGTH_INDEFINITE);
+                    if (networkService.is_voted()) {
+                        Log.d("yaya", "yaya");
+                        networkService.givingVote(token, networkService.is_voted(), id, radioGroupVote.getCheckedRadioButtonId(), VoteActivity.this);
+                    } else {
+                        networkService.givingVote(token, networkService.is_voted(), id, radioGroupVote.getCheckedRadioButtonId(), VoteActivity.this);
+                    }snackbar = Snackbar.make(v, "Network Failure", Snackbar.LENGTH_INDEFINITE);
                     snackbar.setAction("Try Again", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             snackbar.dismiss();
-                            networkService.givingVote(token, id, radioGroupVote.getCheckedRadioButtonId(), VoteActivity.this);
+                            networkService.givingVote(token, networkService.is_voted(), id, radioGroupVote.getCheckedRadioButtonId(), VoteActivity.this);
                         }
                     });
 
@@ -184,33 +167,60 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         });
     }
 
+    private void load(){
+        networkService = new NetworkService(VoteActivity.this);
+        networkService.specificVote(token, id, VoteActivity.this);
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Please Wait...");
+        progressDialog.show();
+        progressDialog.setCanceledOnTouchOutside(false);
+
+        if (labelText.equals("Closed")) {
+            seekStatusText.setBackgroundColor(Color.parseColor("#F44336"));
+            seekBarStatus.setProgress(1);
+        } else {
+            seekStatusText.setBackgroundColor(Color.parseColor("#4CAF50"));
+        }
+
+        if (creator_id.equals(token)) {
+            seekBarStatus.setVisibility(View.VISIBLE);
+            linearLayout.setVisibility(View.INVISIBLE);
+        } else {
+            seekBarStatus.setVisibility(View.GONE);
+            linearLayout.setVisibility(View.VISIBLE);
+        }
+
+        seekStatusText.setText(labelText);
+    }
     @Override
     public void onSucceded() {
-        resultItemList = networkService.getResultItemList();
-        listAdapterResult = new ListAdapterResult(resultItemList, VoteActivity.this);
-        gridView.setAdapter(listAdapterResult);
+            resultItemList = networkService.getResultItemList();
+            listAdapterResult = new ListAdapterResult(resultItemList, VoteActivity.this);
+            gridView.setAdapter(listAdapterResult);
 
-        if (resultItemList.size() > 2) {
-        }
+            if (resultItemList.size() > 2) {
+            }
 
-        //getDateFormat from network Service
-        textDate.setText("Since " + networkService.getDate());
+            //getDateFormat from network Service
+            textDate.setText("Since " + networkService.getDate());
 
-        //Create Radio Button to populate vote options
-        for (int i = 0; i < resultItemList.size(); i++) {
-            RadioButton radioButtonVote = new RadioButton(this);
-            radioButtonVote.setId(Integer.parseInt(resultItemList.get(i).getTextId()));
-            radioButtonVote.setText(resultItemList.get(i).getTextTitle());
-            radioGroupVote.addView(radioButtonVote);
-        }
+            //Create Radio Button to populate vote options
+            for (int i = 0; i < resultItemList.size(); i++) {
+                RadioButton radioButtonVote = new RadioButton(this);
+                radioButtonVote.setId(Integer.parseInt(resultItemList.get(i).getTextId()));
+                radioButtonVote.setText(resultItemList.get(i).getTextTitle());
+                radioGroupVote.addView(radioButtonVote);
+            }
 
-        progressDialog.dismiss();
+            progressDialog.dismiss();
     }
 
     @Override
     public void onFailed() {
         Toast.makeText(VoteActivity.this, "Failure", Toast.LENGTH_SHORT).show();
         progressDialog.dismiss();
+        load();
     }
 
     @Override

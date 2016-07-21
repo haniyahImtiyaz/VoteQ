@@ -2,8 +2,8 @@ package com.ceria.pkl.voteq;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,19 +34,28 @@ public class SignUp extends AppCompatActivity implements ClientCallback {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!edtPassword.getText().toString().equals(edtConfirmPassword.getText().toString())){
-                    Toast.makeText(SignUp.this, "Sorry, password didn't match", Toast.LENGTH_SHORT).show();
-                    progressDialog.dismiss();
+                if (edtEmail.getText().toString().isEmpty()){
+                    Toast.makeText(SignUp.this, "Please, fill the Email to continue!", Toast.LENGTH_LONG).show();
+                }
+                else if (isEmailValid(edtEmail.getText().toString()) == false){
+                    Toast.makeText(SignUp.this, "Sorry, Email is invalid", Toast.LENGTH_LONG).show();
+                }else if (!edtPassword.getText().toString().equals(edtConfirmPassword.getText().toString())){
+                    Toast.makeText(SignUp.this, "Sorry, password didn't match", Toast.LENGTH_LONG).show();
                 }else if(edtPassword.length() < 6){
-                    Toast.makeText(SignUp.this, "Sorry, password must have at least 6 characters", Toast.LENGTH_SHORT).show();
-                    progressDialog.dismiss();
+                    Toast.makeText(SignUp.this, "Sorry, password must have at least 6 characters", Toast.LENGTH_LONG).show();
                 }else{
-
                     networkService.signUp(edtEmail.getText().toString(), edtPassword.getText().toString(),edtConfirmPassword.getText().toString(), SignUp.this);
                     progressDialog.show();
+                    progressDialog.setCanceledOnTouchOutside(false);
                 }
             }
         });
+    }
+
+    public boolean isEmailValid(String email)
+    {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+
     }
 
     @Override
@@ -66,7 +75,7 @@ public class SignUp extends AppCompatActivity implements ClientCallback {
 
     @Override
     public void onEmailSame() {
-        Toast.makeText(this, "Sorry, Email has already been taken", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Sorry, Email has already been taken or Email invalid", Toast.LENGTH_LONG).show();
         progressDialog.dismiss();
     }
 }

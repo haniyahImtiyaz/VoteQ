@@ -71,6 +71,7 @@ public class ResultActivity extends AppCompatActivity implements ClientCallbackS
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please Wait...");
         progressDialog.show();
+        progressDialog.setCanceledOnTouchOutside(false);
 
     }
 
