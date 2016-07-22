@@ -36,12 +36,12 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/textPercentCircle"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="3dp"
             android:text="Result"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@android:color/white"
             android:textStyle="bold"
-            android:textAlignment="center"/>
+            android:gravity="center"/>
 
         <RelativeLayout
             android:id="@+id/rlv2"
