@@ -35,8 +35,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:text="Create new Vote!"
-                android:textColor="@color/colorPrimaryBlue"
-                android:textSize="18sp" />
+                android:textColor="@android:color/black"
+                android:textSize="24dp"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/textView2"
@@ -60,7 +61,7 @@
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="20dp"
                 android:text="Option List"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textStyle="bold" />
