@@ -2,9 +2,11 @@ package com.ceria.pkl.voteq;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -42,7 +44,6 @@ public class SignIn extends AppCompatActivity implements ClientCallbackSignIn {
         account = (TextView) findViewById(R.id.newAccount);
         forgotPassword = (TextView) findViewById(R.id.forgotPassword);
 
-
         account.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,9 +63,25 @@ public class SignIn extends AppCompatActivity implements ClientCallbackSignIn {
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                networkService.login(edtEmail.getText().toString(), edtPassword.getText().toString(), SignIn.this);
-                progressDialog.show();
-                progressDialog.setCanceledOnTouchOutside(false);
+                if (edtEmail.getText().toString().isEmpty()){
+                    new AlertDialog.Builder(SignIn.this).setMessage("Please fill email to continue!")
+                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            })
+                            .show();
+                } else if (edtPassword.getText().toString().isEmpty()){
+                    new AlertDialog.Builder(SignIn.this).setMessage("Please fill password to continue!")
+                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            })
+                            .show();
+                } else {
+                    networkService.login(edtEmail.getText().toString(), edtPassword.getText().toString(), SignIn.this);
+                    progressDialog.show();
+                    progressDialog.setCanceledOnTouchOutside(false);
+                }
             }
         });
 
@@ -80,17 +97,19 @@ public class SignIn extends AppCompatActivity implements ClientCallbackSignIn {
 
     public void onSucceded() {
         progressDialog.dismiss();
-        i = new Intent(SignIn.this, HomeActivity.class);
         token = networkService.getAuth_token();
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("token", token);
         editor.commit();
+        VoteList.listItem.clear();
+        MyVoteList.listItem.clear();
+        i = new Intent(this, HomeActivity.class);
         startActivity(i);
         finish();
     }
 
     public void onFailed() {
-        Toast.makeText(SignIn.this, "Sign in failure", Toast.LENGTH_SHORT).show();
+        Toast.makeText(SignIn.this, "Invalid Email or Password", Toast.LENGTH_LONG).show();
         progressDialog.dismiss();
     }
 }

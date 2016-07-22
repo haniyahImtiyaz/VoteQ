@@ -135,12 +135,7 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
                             })
                             .show();
                 } else {
-                    if (networkService.is_voted()) {
-                        Log.d("yaya", "yaya");
-                        networkService.givingVote(token, networkService.is_voted(), id, radioGroupVote.getCheckedRadioButtonId(), VoteActivity.this);
-                    } else {
-                        networkService.givingVote(token, networkService.is_voted(), id, radioGroupVote.getCheckedRadioButtonId(), VoteActivity.this);
-                    }
+                    networkService.givingVote(token, networkService.is_voted(), id, radioGroupVote.getCheckedRadioButtonId(), VoteActivity.this);
                     snackbar = Snackbar.make(v, "Network Failure", Snackbar.LENGTH_INDEFINITE);
                     snackbar.setAction("Try Again", new View.OnClickListener() {
                         @Override
@@ -149,7 +144,6 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
                             networkService.givingVote(token, networkService.is_voted(), id, radioGroupVote.getCheckedRadioButtonId(), VoteActivity.this);
                         }
                     });
-
                 }
 
             }

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,10 +29,10 @@ public class VoteList extends Fragment implements ClientCallbackSignIn {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, final Bundle savedInstanceState) {
-        Log.d("voteList", "voteListCreate");
         View rootView = inflater.inflate(R.layout.page_vote_list, container, false);
         listViewVote = (ListView) rootView.findViewById(R.id.list_vote);
         swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh);
+        progressDialog = new ProgressDialog(getContext());
         if (listItem.isEmpty()) {
             visible();
         }
@@ -100,7 +99,6 @@ public class VoteList extends Fragment implements ClientCallbackSignIn {
         networkService = new NetworkService(getContext());
         networkService.getAllVote(HomeActivity.token, "false", VoteList.this);
 
-        progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("Please Wait...");
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
