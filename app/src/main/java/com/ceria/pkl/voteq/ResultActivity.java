@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +25,8 @@ public class ResultActivity extends AppCompatActivity implements ClientCallbackS
     List<ResultItem> resultItemList;
     NetworkService networkService;
     ProgressDialog progressDialog;
+    String token, id;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +45,7 @@ public class ResultActivity extends AppCompatActivity implements ClientCallbackS
         });
 
         Intent intent = getIntent();
-        String id = intent.getStringExtra("id");
+        id = intent.getStringExtra("id");
         String title = intent.getStringExtra("title");
         String count = intent.getStringExtra("count");
 
@@ -59,11 +60,10 @@ public class ResultActivity extends AppCompatActivity implements ClientCallbackS
         textTitle.setText(title);
         textValueVote.setText(count + " votes");
 
-
         expandableListView.setExpanded(true);
 
         SharedPreferences sharedPrefernces = getSharedPreferences(SignIn.token, Context.MODE_PRIVATE);
-        final String token = sharedPrefernces.getString("token", "");
+        token = sharedPrefernces.getString("token", "");
 
         networkService = new NetworkService(ResultActivity.this);
         networkService.specificVote(token, id, ResultActivity.this);
@@ -110,15 +110,7 @@ public class ResultActivity extends AppCompatActivity implements ClientCallbackS
     public void onFailed() {
         progressDialog.dismiss();
         Toast.makeText(ResultActivity.this, "Network Failure", Toast.LENGTH_SHORT).show();
-    }
-
-    public void filterPercentage() {
-        for (int i = 0; i < resultItemList.size(); i++) {
-            List<Double> listPercent = new ArrayList<Double>();
-            listPercent.add(Double.valueOf(resultItemList.get(i).getTextPercent()));
-            //listPercent
-            Collections.sort(listPercent);
-            Log.d("listPercent", listPercent.toString());
-        }
+        networkService.specificVote(token, id, ResultActivity.this);
+        progressDialog.show();
     }
 }
