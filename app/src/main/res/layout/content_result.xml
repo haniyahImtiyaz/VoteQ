@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/colorToolbar"
+    android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.ceria.pkl.voteq.ResultActivity"
     tools:showIn="@layout/activity_result">
@@ -13,8 +13,9 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:backgroundTintMode="multiply"
-        android:background="@drawable/result">
+        android:background="@drawable/result"
+        android:backgroundTintMode="multiply">
+
         <TextView
             android:id="@+id/textPercentCircle"
             android:layout_width="75dp"
@@ -24,9 +25,9 @@
             android:background="@drawable/circle_background"
             android:gravity="center"
             android:text="100.00%"
-            android:textSize="18dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/colorPrimaryTextBlue"
+            android:textSize="18dp"
             android:textStyle="bold" />
 
         <TextView
@@ -37,8 +38,8 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="5dp"
             android:text="Result"
-            android:textColor="@android:color/white"
             android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@android:color/white"
             android:textStyle="bold" />
 
         <RelativeLayout
@@ -51,6 +52,15 @@
 
     </RelativeLayout>
 
+    <TextView
+        android:id="@+id/textTitleResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Title"
+        android:padding="10dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -61,16 +71,7 @@
             android:orientation="vertical"
             android:paddingBottom="@dimen/activity_vertical_margin"
             android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/activity_vertical_margin">
-
-            <TextView
-                android:id="@+id/textTitleResult"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Title"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textStyle="bold" />
+            android:paddingRight="@dimen/activity_horizontal_margin">
 
             <com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView
                 android:id="@+id/list_result"
@@ -92,9 +93,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:text="1200 votes"
-                android:textStyle="bold"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@color/colorPrimaryBlue" />
+                android:textColor="@color/colorPrimaryBlue"
+                android:textStyle="bold" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

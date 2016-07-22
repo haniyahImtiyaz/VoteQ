@@ -2,6 +2,7 @@ package com.ceria.pkl.voteq;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -16,6 +17,8 @@ public class SignUp extends AppCompatActivity implements ClientCallback {
     Button btnSignUp;
     Intent i;
     ProgressDialog progressDialog;
+    NetworkService networkService;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +30,7 @@ public class SignUp extends AppCompatActivity implements ClientCallback {
         edtConfirmPassword = (EditText) findViewById(R.id.txt_confirm_passoword);
         btnSignUp = (Button) findViewById(R.id.butSignUp);
 
-        final NetworkService networkService = new NetworkService(this);
+        networkService = new NetworkService(this);
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please Wait...");
 
@@ -58,8 +61,11 @@ public class SignUp extends AppCompatActivity implements ClientCallback {
 
     @Override
     public void onSucceeded() {
-        Toast.makeText(this, "Sign Up Success", Toast.LENGTH_SHORT).show();
         progressDialog.dismiss();
+        String token = networkService.getAuth_token();
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("token", token);
+        editor.commit();
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
         finish();
