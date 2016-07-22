@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -98,6 +99,7 @@ public class SignIn extends AppCompatActivity implements ClientCallbackSignIn {
     public void onSucceded() {
         progressDialog.dismiss();
         token = networkService.getAuth_token();
+        Log.d("token", token);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("token", token);
         editor.commit();

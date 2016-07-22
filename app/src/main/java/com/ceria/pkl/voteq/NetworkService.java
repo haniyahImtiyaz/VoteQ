@@ -88,25 +88,14 @@ public class NetworkService {
                     JSONObject logResponse = new JSONObject(response);
                     Log.d("signUpPost", "response " + logResponse.toString(2));
                     String status = logResponse.getString("status");
-                    if (status.equals("error")) {
                         JSONObject dataResponse = logResponse.getJSONObject("data");
                         JSONObject user = dataResponse.getJSONObject("user");
                         auth_token = user.getString("auth_token");
-                        JSONArray arrayResponseEmail = dataResponse.getJSONArray("email");
-                        JSONArray arrayResponsePassword = dataResponse.getJSONArray("password");
-                        JSONArray arrayResponsePasswordConfirm = dataResponse.getJSONArray("password_confirmation");
-                        String responseEmail = arrayResponseEmail.getString(0);
-                        String responsePwd = arrayResponseEmail.getString(0);
-                        if (responseEmail.equals("has already been taken")) {
-                            clientCallback.onEmailSame();
-                        } else {
-                            clientCallback.onFailed();
-                        }
-                    } else {
                         if (status.equals("success")) {
                             clientCallback.onSucceeded();
+                        }else{
+                            clientCallback  .onFailed();
                         }
-                    }
                 } catch (JSONException e) {
                     Log.d("signUpPost", "response " + response);
                     e.printStackTrace();
