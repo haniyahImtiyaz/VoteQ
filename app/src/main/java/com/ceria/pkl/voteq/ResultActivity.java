@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -97,11 +98,17 @@ public class ResultActivity extends AppCompatActivity implements ClientCallbackS
         String max = resultItemList.get(0).getTextPercent();
         textPercentCircle.setText(resultItemList.get(0).getTextPercent() + "%");
         textResult.setText(resultItemList.get(0).getTextTitle());
-
         int i = 1;
-        while (resultItemList.get(i).getTextPercent().equals(max)){
-            textResult.setText(textResult.getText() + "/" + resultItemList.get(i).getTextTitle());
-            i++;
+        int sizeText = 25;
+        while (resultItemList.get(i).getTextPercent().equals(max) ){
+            if (i == resultItemList.size()-1){
+                break;
+            }else {
+                textResult.setText(textResult.getText() + "/" + resultItemList.get(i).getTextTitle());
+                i++;
+                sizeText = sizeText - 2;
+                textResult.setTextSize(TypedValue.COMPLEX_UNIT_DIP,sizeText);
+            }
         }
 
     }

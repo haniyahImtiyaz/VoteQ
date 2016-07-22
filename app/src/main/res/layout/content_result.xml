@@ -32,7 +32,7 @@
 
         <TextView
             android:id="@+id/textResult"
-            android:layout_width="wrap_content"
+            android:layout_width="165dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textPercentCircle"
             android:layout_centerHorizontal="true"
@@ -40,7 +40,8 @@
             android:text="Result"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@android:color/white"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textAlignment="center"/>
 
         <RelativeLayout
             android:id="@+id/rlv2"
