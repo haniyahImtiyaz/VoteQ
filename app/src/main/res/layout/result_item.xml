@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:text="Medium Text"
             android:textColor="@color/colorSecondaryTextBlue"
-            android:textSize="13sp"
+            android:textSize="15sp"
             android:textStyle="bold" />
 
         <TextView
@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:text="Small Text"
             android:textColor="@color/colorSecondaryTextBlue"
-            android:textSize="10sp" />
+            android:textSize="12sp" />
 
     </LinearLayout>
 
