@@ -94,14 +94,22 @@ public class ResultActivity extends AppCompatActivity implements ClientCallbackS
                 }
             });
         }
+        String max = resultItemList.get(0).getTextPercent();
         textPercentCircle.setText(resultItemList.get(0).getTextPercent() + "%");
         textResult.setText(resultItemList.get(0).getTextTitle());
+
+        int i = 1;
+        while (resultItemList.get(i).getTextPercent().equals(max)){
+            textResult.setText(textResult.getText() + "/" + resultItemList.get(i).getTextTitle());
+            i++;
+        }
 
     }
 
     @Override
     public void onFailed() {
-        Toast.makeText(ResultActivity.this, "yahhhh", Toast.LENGTH_SHORT).show();
+        progressDialog.dismiss();
+        Toast.makeText(ResultActivity.this, "Network Failure", Toast.LENGTH_SHORT).show();
     }
 
     public void filterPercentage() {
