@@ -1,6 +1,6 @@
 # VOTEQ #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+VOTEQ adalah aplikasi berplatform android yang berfunsi untuk melakukan voting (pemungutan suara) secara online. 
 
 ### What is this repository for? ###
 
