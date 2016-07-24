@@ -91,6 +91,9 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         SharedPreferences sharedPrefernces = getSharedPreferences(SignIn.token, Context.MODE_PRIVATE);
         token = sharedPrefernces.getString("token", "");
 
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Please Wait...");
+
         load();
 
         seekBarStatus.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -143,6 +146,7 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
                         public void onClick(View v) {
                             snackbar.dismiss();
                             networkService.givingVote(token, networkService.is_voted(), id, radioGroupVote.getCheckedRadioButtonId(), VoteActivity.this);
+                            progressDialog.show();
                         }
                     });
                 }
@@ -167,8 +171,6 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         networkService = new NetworkService(VoteActivity.this);
         networkService.specificVote(token, id, VoteActivity.this);
 
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Please Wait...");
         progressDialog.show();
         progressDialog.setCanceledOnTouchOutside(false);
 
@@ -266,6 +268,7 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
 
     @Override
     public void onFailedVoting() {
+        progressDialog.dismiss();
         snackbar.show();
     }
 }
