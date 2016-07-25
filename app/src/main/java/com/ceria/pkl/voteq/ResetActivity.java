@@ -1,5 +1,6 @@
 package com.ceria.pkl.voteq;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -19,6 +20,8 @@ public class ResetActivity extends AppCompatActivity {
         edtCode = (EditText)findViewById(R.id.txt_code);
         edtPassword = (EditText)findViewById(R.id.txt_pwd);
         edtPasswordConfirm = (EditText)findViewById(R.id.txt_confirm_passoword);
+
+        Intent i = getIntent();
 
         btnReset = (Button)findViewById(R.id.btn_reset);
 

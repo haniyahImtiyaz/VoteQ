@@ -28,7 +28,7 @@ public class ForgotPassword extends AppCompatActivity implements ClientCallbackS
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                networkService.reset(emailText, ForgotPassword.this);
+                networkService.resetRequest(emailText, ForgotPassword.this);
             }
 
         });

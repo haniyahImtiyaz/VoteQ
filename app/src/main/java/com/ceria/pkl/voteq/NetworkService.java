@@ -474,12 +474,25 @@ public class NetworkService {
         requestQueue.add(updateLabelRequest);
     }
 
-    public void reset(final String email, final ClientCallbackReset clientCallback) {
-        String url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.sign_in);
+    public void resetRequest(final String email, final ClientCallbackReset clientCallback) {
+        String url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.request_forgot_password);
         StringRequest resetRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                try {
+                    JSONObject logResponse = new JSONObject(response);
+                    Log.d("resetReq", "response " + logResponse.toString(2));
+                    String status = logResponse.getString("status");
+                    if (status.equals("success")) {
+                        clientCallback.onSucceded();
+                    } else {
+                        clientCallback.onFailed();
+                    }
 
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    clientCallback.onFailed();
+                }
             }
         }, new Response.ErrorListener() {
             public void onErrorResponse(VolleyError error) {
@@ -495,7 +508,7 @@ public class NetworkService {
 
             public Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("session[email]", email);
+                params.put("email", email);
                 return params;
             }
         };

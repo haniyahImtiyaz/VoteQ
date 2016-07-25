@@ -15,4 +15,6 @@
     <string name="giving_vote">/user/user_votes</string>
     <string name="get_myvote">/user/votes/?current_user=true</string>
     <string name="title_activity_reset">ResetActivity</string>
+    <string name="request_forgot_password">/user/request_forgot_password</string>
+    <string name="forgot_password">/user/forgot_password</string>
 </resources>
