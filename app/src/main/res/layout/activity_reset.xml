@@ -37,9 +37,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:hint="Password"
+            android:hint="Enter Code"
             android:drawablePadding="10dp"
-            android:drawableLeft="@mipmap/key"
+            android:drawableLeft="@mipmap/code"
             android:inputType="text"
             android:id="@+id/txt_code"
             android:layout_centerVertical="true" />

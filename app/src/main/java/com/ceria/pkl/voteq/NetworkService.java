@@ -474,4 +474,32 @@ public class NetworkService {
         requestQueue.add(updateLabelRequest);
     }
 
+    public void reset(final String email, final ClientCallbackReset clientCallback) {
+        String url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.sign_in);
+        StringRequest resetRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+            }
+        }, new Response.ErrorListener() {
+            public void onErrorResponse(VolleyError error) {
+                Log.d("Error", error.toString());
+                clientCallback.onFailed();
+            }
+        }) {
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> header = new HashMap<>();
+                header.put("Context-Type", "application/x-www-form-urlencoded");
+                return header;
+            }
+
+            public Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("session[email]", email);
+                return params;
+            }
+        };
+        requestQueue.add(resetRequest);
+    }
+
 }
