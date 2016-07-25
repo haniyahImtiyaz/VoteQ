@@ -12,7 +12,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -116,7 +115,6 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
             @Override
             public void onClick(View v) {
                 if (radioGroupVote.getCheckedRadioButtonId() == -1) {
-                    Log.d("radioGroup", String.valueOf(radioGroupVote.getCheckedRadioButtonId()));
                     new AlertDialog.Builder(VoteActivity.this)
                             .setMessage("Please check one option to continue!")
                             .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
