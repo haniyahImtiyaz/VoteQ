@@ -1,12 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/colorToolbar"
     tools:context="com.ceria.pkl.voteq.ResetActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-</RelativeLayout>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@mipmap/logo"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            app:civ_border_width="1dp"
+            android:id="@+id/image_circle"
+            app:civ_border_color="@color/colorDividerBlue"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="Enter New Password"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:hint="Password"
+            android:drawablePadding="10dp"
+            android:drawableLeft="@mipmap/key"
+            android:inputType="text"
+            android:id="@+id/txt_code"
+            android:layout_centerVertical="true" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:hint="Password"
+            android:drawablePadding="10dp"
+            android:drawableLeft="@mipmap/key"
+            android:inputType="textPassword"
+            android:id="@+id/txt_pwd"
+            android:layout_centerVertical="true" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:hint="Password Confirm"
+            android:inputType="textPassword"
+            android:layout_marginTop="5dp"
+            android:drawablePadding="10dp"
+            android:drawableLeft="@mipmap/key"
+            android:id="@+id/txt_pwd_confir"
+            android:layout_below="@+id/username" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="RESET PASSWORD"
+            android:layout_marginTop="5dp"
+            android:id="@+id/btn_reset_pwd"
+            android:background="@color/colorAccent"
+            android:textColor="@color/colorToolbar" />
+    </LinearLayout>
+
+</ScrollView>
