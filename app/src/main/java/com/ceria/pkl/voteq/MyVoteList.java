@@ -58,6 +58,13 @@ public class MyVoteList extends Fragment implements ClientCallbackSignIn {
             }
         });
 
+        listViewVote.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+                return true;
+            }
+        });
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
