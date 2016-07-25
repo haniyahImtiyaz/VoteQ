@@ -92,6 +92,8 @@ public class SignIn extends AppCompatActivity implements ClientCallbackSignIn {
             Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);
             finish();
+        }else{
+            auth_token = networkService.getAuth_token();
         }
     }
 

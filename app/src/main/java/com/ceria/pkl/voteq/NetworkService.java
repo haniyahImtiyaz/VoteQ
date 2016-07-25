@@ -246,7 +246,7 @@ public class NetworkService {
     }
 
     public void getAllVote(final String token, final String current_user, final ClientCallbackSignIn clientCallback) {
-        String url;
+        final String url;
         if (current_user.equals("true")) {
             url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.get_myvote);
         } else {
@@ -285,7 +285,8 @@ public class NetworkService {
                         clientCallback.onFailed();
                     }
 
-                } catch (JSONException e) {
+                }
+                catch (JSONException e) {
                     e.printStackTrace();
                     clientCallback.onFailed();
                 }
@@ -302,14 +303,13 @@ public class NetworkService {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> header = new HashMap<>();
+                header.put("Content-Type", "application/x-www-form-urlencoded");
                 header.put("Authorization", token);
                 return header;
             }
 
         };
-
         requestQueue.add(getAllVoteRequest);
-
     }
 
     public void specificVote(final String token, final String id, final ClientCallbackSignIn clientCallback) {

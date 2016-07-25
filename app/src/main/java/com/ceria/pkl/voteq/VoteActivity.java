@@ -10,15 +10,15 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.ScrollView;
-import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,12 +38,12 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
     int countRadioVote;
     TextView textDate;
     Button btnVote, btnResult;
-    SeekBar seekBarStatus;
     ScrollView scrollExpand;
     TextView seekStatusText;
     String labelText, token, id, creator_id, titleText, countText;
     Snackbar snackbar;
     LinearLayout linearLayout;
+    SwitchCompat switchCompat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,15 +62,15 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
 
         TextView titleView = (TextView) findViewById(R.id.txt_title);
         TextView countView = (TextView) findViewById(R.id.txt_vote_count);
-        TextView labelView = (TextView) findViewById(R.id.txt_stat);
+        final TextView labelView = (TextView) findViewById(R.id.txt_stat);
         linearLayout = (LinearLayout) findViewById(R.id.layout_label);
-        seekBarStatus = (SeekBar) findViewById(R.id.seekBarStatus);
         textDate = (TextView) findViewById(R.id.txt_date_vote);
         radioGroupVote = (RadioGroup) findViewById(R.id.radio_group_vote);
         btnVote = (Button) findViewById(R.id.btn_submit_vote);
         btnResult = (Button) findViewById(R.id.btn_result);
         seekStatusText = (TextView) findViewById(R.id.seek_status_text);
         scrollExpand = (ScrollView) findViewById(R.id.scrollExpand);
+        switchCompat = (SwitchCompat)findViewById(R.id.compatSwitch);
 
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
@@ -96,31 +96,18 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
 
         load();
 
-        seekBarStatus.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 radioGroupVote.removeAllViews();
                 resultItemList.clear();
-                if (seekBarStatus.getProgress() == 1) {
-                    radioGroupVote.removeAllViews();
-                    resultItemList.clear();
-                    networkService.updateLabel(token, id, titleText, false, VoteActivity.this);
-                } else {
-                    radioGroupVote.removeAllViews();
-                    resultItemList.clear();
+                if(isChecked){
                     networkService.updateLabel(token, id, titleText, true, VoteActivity.this);
+                    labelText = "Open";
+                }else{
+                    networkService.updateLabel(token, id, titleText, false, VoteActivity.this);
+                    labelText = "Closed";
                 }
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-                radioGroupVote.removeAllViews();
-                resultItemList.clear();
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
             }
         });
 
@@ -128,7 +115,6 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
             @Override
             public void onClick(View v) {
                 if (radioGroupVote.getCheckedRadioButtonId() == -1) {
-                    Log.d("radioGroup", String.valueOf(radioGroupVote.getCheckedRadioButtonId()));
                     new AlertDialog.Builder(VoteActivity.this)
                             .setMessage("Please check one option to continue!")
                             .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
@@ -176,16 +162,17 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
 
         if (labelText.equals("Closed")) {
             seekStatusText.setBackgroundColor(Color.parseColor("#F44336"));
-            seekBarStatus.setProgress(1);
+            switchCompat.setChecked(false);
         } else {
             seekStatusText.setBackgroundColor(Color.parseColor("#4CAF50"));
+            switchCompat.setChecked(true);
         }
 
         if (creator_id.equals(token)) {
-            seekBarStatus.setVisibility(View.VISIBLE);
+            switchCompat.setVisibility(View.VISIBLE);
             linearLayout.setVisibility(View.INVISIBLE);
         } else {
-            seekBarStatus.setVisibility(View.GONE);
+            switchCompat.setVisibility(View.GONE);
             linearLayout.setVisibility(View.VISIBLE);
         }
 
