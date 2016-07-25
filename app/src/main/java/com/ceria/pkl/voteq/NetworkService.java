@@ -514,5 +514,47 @@ public class NetworkService {
         };
         requestQueue.add(resetRequest);
     }
+    public void resetPassword(final String code,final String password, final String password_confirmation, final ClientCallbackSignIn clientCallback) {
+        String url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.forgot_password);
+        StringRequest resetPwdRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject logResponse = new JSONObject(response);
+                    Log.d("resetReq", "response " + logResponse.toString(2));
+                    String status = logResponse.getString("status");
+                    if (status.equals("success")) {
+                        clientCallback.onSucceded();
+                    } else {
+                        clientCallback.onFailed();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    clientCallback.onFailed();
+                }
+            }
+        }, new Response.ErrorListener() {
+            public void onErrorResponse(VolleyError error) {
+                Log.d("Error", error.toString());
+                clientCallback.onFailed();
+            }
+        }) {
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> header = new HashMap<>();
+                header.put("Context-Type", "application/x-www-form-urlencoded");
+                return header;
+            }
+
+            public Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("forgot_code", code);
+                params.put("password", password);
+                params.put("password_confirmation", password_confirmation);
+                return params;
+            }
+        };
+        requestQueue.add(resetPwdRequest);
+    }
 
 }
