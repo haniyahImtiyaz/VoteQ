@@ -14,4 +14,5 @@
     <string name="create_vote">/user/votes</string>
     <string name="giving_vote">/user/user_votes</string>
     <string name="get_myvote">/user/votes/?current_user=true</string>
+    <string name="title_activity_reset">ResetActivity</string>
 </resources>
