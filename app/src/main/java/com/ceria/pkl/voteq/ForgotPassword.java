@@ -24,10 +24,11 @@ public class ForgotPassword extends AppCompatActivity implements ClientCallbackS
         submit = (Button) findViewById(R.id.btn_reset);
         final String emailText = email.getText().toString();
 
-        networkService = new NetworkService(ForgotPassword.this);
+
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                networkService = new NetworkService(ForgotPassword.this);
                 networkService.resetRequest(emailText, ForgotPassword.this);
             }
 
