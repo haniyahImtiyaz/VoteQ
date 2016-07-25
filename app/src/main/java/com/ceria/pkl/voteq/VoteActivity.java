@@ -91,6 +91,9 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         SharedPreferences sharedPrefernces = getSharedPreferences(SignIn.token, Context.MODE_PRIVATE);
         token = sharedPrefernces.getString("token", "");
 
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Please Wait...");
+
         load();
 
         seekBarStatus.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -136,12 +139,14 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
                             .show();
                 } else {
                     networkService.givingVote(token, networkService.is_voted(), id, radioGroupVote.getCheckedRadioButtonId(), VoteActivity.this);
+                    progressDialog.show();
                     snackbar = Snackbar.make(v, "Network Failure", Snackbar.LENGTH_INDEFINITE);
                     snackbar.setAction("Try Again", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             snackbar.dismiss();
                             networkService.givingVote(token, networkService.is_voted(), id, radioGroupVote.getCheckedRadioButtonId(), VoteActivity.this);
+                            progressDialog.show();
                         }
                     });
                 }
@@ -166,8 +171,6 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         networkService = new NetworkService(VoteActivity.this);
         networkService.specificVote(token, id, VoteActivity.this);
 
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Please Wait...");
         progressDialog.show();
         progressDialog.setCanceledOnTouchOutside(false);
 
@@ -195,9 +198,6 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         listAdapterResult = new ListAdapterResult(resultItemList, VoteActivity.this);
         gridView.setAdapter(listAdapterResult);
 
-        if (resultItemList.size() > 2) {
-        }
-
         //getDateFormat from network Service
         textDate.setText("Since " + networkService.getDate());
 
@@ -207,6 +207,10 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
             radioButtonVote.setId(Integer.parseInt(resultItemList.get(i).getTextId()));
             radioButtonVote.setText(resultItemList.get(i).getTextTitle());
             radioGroupVote.addView(radioButtonVote);
+        }
+
+        if (networkService.voted_option_id() != 0){
+            radioGroupVote.check(networkService.voted_option_id());
         }
 
         progressDialog.dismiss();
@@ -255,8 +259,8 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
 
     @Override
     public void onSuccedeedVoting() {
-        VoteList.listItem = new ArrayList<HomeItem>();
-        MyVoteList.listItem = new ArrayList<HomeItem>();
+        VoteList.listItem = new ArrayList<>();
+        MyVoteList.listItem = new ArrayList<>();
         Intent i = new Intent(VoteActivity.this, HomeActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(i);
@@ -264,6 +268,7 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
 
     @Override
     public void onFailedVoting() {
+        progressDialog.dismiss();
         snackbar.show();
     }
 }

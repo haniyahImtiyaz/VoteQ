@@ -118,6 +118,5 @@ public class ResultActivity extends AppCompatActivity implements ClientCallbackS
         progressDialog.dismiss();
         Toast.makeText(ResultActivity.this, "Network Failure", Toast.LENGTH_SHORT).show();
         networkService.specificVote(token, id, ResultActivity.this);
-        progressDialog.show();
     }
 }

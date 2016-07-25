@@ -30,10 +30,11 @@ public class NetworkService {
     private final RequestQueue requestQueue;
     private final Context context;
     private String auth_token;
-    private final List<HomeItem> homeItemList = new ArrayList<HomeItem>();
-    private final List<ResultItem> resultItemList = new ArrayList<ResultItem>();
+    private final List<HomeItem> homeItemList = new ArrayList<>();
+    private final List<ResultItem> resultItemList = new ArrayList<>();
     private String date;
-    private boolean is_voted = false;
+    private boolean is_voted;
+    private int voted_option_id;
 
     public NetworkService(Context context) {
         this.context = context;
@@ -75,7 +76,11 @@ public class NetworkService {
         return dateNew;
     }
 
-    public boolean is_voted() {
+    public int voted_option_id() {
+        return voted_option_id;
+    }
+
+    public boolean is_voted(){
         return is_voted;
     }
 
@@ -319,14 +324,14 @@ public class NetworkService {
                     JSONObject data = logResponse.getJSONObject("data");
                     JSONObject vote = data.getJSONObject("vote");
                     JSONObject user = vote.getJSONObject("user");
-                    String token = user.getString("auth_token");
                     date = vote.getString("created_at");
 
                     try {
-                        is_voted = vote.getBoolean("voted");
-
+                        is_voted = true;
+                        voted_option_id = vote.getInt("voted_option_id");
                     } catch (Exception e) {
                         is_voted = false;
+                        voted_option_id = 0;
                     }
 
                     Boolean label = vote.getBoolean("status");
