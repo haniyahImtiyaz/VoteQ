@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,8 @@ public class VoteList extends Fragment implements ClientCallbackSignIn {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, final Bundle savedInstanceState) {
+
+        Log.d("tokenv", HomeActivity.token);
         View rootView = inflater.inflate(R.layout.page_vote_list, container, false);
         listViewVote = (ListView) rootView.findViewById(R.id.list_vote);
         swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh);
@@ -39,7 +42,6 @@ public class VoteList extends Fragment implements ClientCallbackSignIn {
         listViewVote.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
 
                 if (listItem.get(position).getLabel().equals("Open") || (listItem.get(position).getLabel().equals("Close") && listItem.get(position).getIdCreator().equals(HomeActivity.token))) {
                     Intent intent = new Intent(getContext(), VoteActivity.class);
@@ -61,10 +63,10 @@ public class VoteList extends Fragment implements ClientCallbackSignIn {
 
             }
         });
-
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                Log.d("tokenBaru", HomeActivity.token);
                 networkService = new NetworkService(getContext());
                 networkService.getAllVote(HomeActivity.token, "false", VoteList.this);
             }
@@ -96,6 +98,7 @@ public class VoteList extends Fragment implements ClientCallbackSignIn {
     }
 
     public void visible() {
+        Log.d("tokenBaru", HomeActivity.token);
         networkService = new NetworkService(getContext());
         networkService.getAllVote(HomeActivity.token, "false", VoteList.this);
 
