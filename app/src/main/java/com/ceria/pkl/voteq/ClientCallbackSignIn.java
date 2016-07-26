@@ -6,4 +6,5 @@ package com.ceria.pkl.voteq;
 public interface ClientCallbackSignIn{
     void onSucceded();
     void onFailed();
+    void onTimeout();
 }

@@ -50,7 +50,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.ceria.pkl.voteq.HomeActivity" />
         </activity>
-        <activity android:name=".ResetActivity"></activity>
+        <activity android:name=".ResetActivity" />
     </application>
 
 </manifest>
