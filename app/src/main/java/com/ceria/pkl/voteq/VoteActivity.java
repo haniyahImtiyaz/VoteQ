@@ -88,7 +88,7 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         countView.setText(countText + " Peoples Voted");
         labelView.setText(labelText);
 
-        SharedPreferences sharedPrefernces = getSharedPreferences(SignIn.token, Context.MODE_PRIVATE);
+        SharedPreferences sharedPrefernces = getSharedPreferences("TOKEN_USER", Context.MODE_PRIVATE);
         token = sharedPrefernces.getString("token", "");
 
         progressDialog = new ProgressDialog(this);
@@ -208,6 +208,11 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         Toast.makeText(VoteActivity.this, "Failure", Toast.LENGTH_SHORT).show();
         progressDialog.dismiss();
         load();
+    }
+
+    @Override
+    public void onTimeout() {
+        Toast.makeText(VoteActivity.this, "Network Failure", Toast.LENGTH_SHORT).show();
     }
 
     @Override

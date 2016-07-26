@@ -3,8 +3,6 @@ package com.ceria.pkl.voteq;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.StrictMode;
-import android.support.annotation.StringDef;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -71,6 +69,11 @@ public class ResetActivity extends AppCompatActivity implements ClientCallbackSi
     public void onFailed() {
         progressDialog.dismiss();
         Toast.makeText(ResetActivity.this, "Password gagal diubah", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onTimeout() {
+        Toast.makeText(ResetActivity.this, "Network Failure", Toast.LENGTH_SHORT).show();
     }
 
 

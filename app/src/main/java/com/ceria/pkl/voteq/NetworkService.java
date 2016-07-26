@@ -171,7 +171,11 @@ public class NetworkService {
         }, new Response.ErrorListener() {
             public void onErrorResponse(VolleyError error) {
                 Log.d("Error", error.toString());
-                clientCallback.onFailed();
+                if (error.toString().equals("com.android.volley.TimeoutError")) {
+                    clientCallback.onTimeout();
+                } else {
+                    clientCallback.onFailed();
+                }
             }
         }) {
             public Map<String, String> getHeaders() throws AuthFailureError {
@@ -252,6 +256,7 @@ public class NetworkService {
 
     public void getAllVote(final String token, final String current_user, final ClientCallbackSignIn clientCallback) {
         final String url;
+        Log.d("token login", "ini token "+token);
         if (current_user.equals("true")) {
             url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.get_myvote);
         } else {

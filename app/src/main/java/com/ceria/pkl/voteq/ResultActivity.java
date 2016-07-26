@@ -63,7 +63,7 @@ public class ResultActivity extends AppCompatActivity implements ClientCallbackS
 
         expandableListView.setExpanded(true);
 
-        SharedPreferences sharedPrefernces = getSharedPreferences(SignIn.token, Context.MODE_PRIVATE);
+        SharedPreferences sharedPrefernces = getSharedPreferences("TOKEN_USER", Context.MODE_PRIVATE);
         token = sharedPrefernces.getString("token", "");
 
         networkService = new NetworkService(ResultActivity.this);
@@ -118,5 +118,11 @@ public class ResultActivity extends AppCompatActivity implements ClientCallbackS
         progressDialog.dismiss();
         Toast.makeText(ResultActivity.this, "Network Failure", Toast.LENGTH_SHORT).show();
         networkService.specificVote(token, id, ResultActivity.this);
+    }
+
+    @Override
+    public void onTimeout() {
+        progressDialog.dismiss();
+        Toast.makeText(ResultActivity.this, "Network Failure", Toast.LENGTH_SHORT).show();
     }
 }

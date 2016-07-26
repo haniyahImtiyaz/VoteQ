@@ -1,10 +1,12 @@
 package com.ceria.pkl.voteq;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,7 +63,19 @@ public class MyVoteList extends Fragment implements ClientCallbackSignIn {
         listViewVote.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                new AlertDialog.Builder(getContext()).setMessage("Are you sure you want to delete '" + listItem.get(position).getTextTitle() + "' ?")
+                        .setTitle("Delete")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
 
+                            }
+                        })
+                        .show();
                 return true;
             }
         });
@@ -101,6 +115,12 @@ public class MyVoteList extends Fragment implements ClientCallbackSignIn {
         progressDialog.dismiss();
         Toast.makeText(getContext(), "Network Failure in MyVote List", Toast.LENGTH_SHORT).show();
         swipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void onTimeout() {
+        progressDialog.dismiss();
+        Toast.makeText(getContext(), "Network Failure", Toast.LENGTH_SHORT).show();
     }
 
     public void visible() {

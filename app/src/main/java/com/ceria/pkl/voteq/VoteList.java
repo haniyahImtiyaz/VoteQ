@@ -93,6 +93,11 @@ public class VoteList extends Fragment implements ClientCallbackSignIn {
         swipeRefreshLayout.setRefreshing(false);
     }
 
+    @Override
+    public void onTimeout() {
+
+    }
+
     public void visible() {
         networkService = new NetworkService(getContext());
         networkService.getAllVote(HomeActivity.token, "false", VoteList.this);

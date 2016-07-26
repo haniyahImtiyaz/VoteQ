@@ -15,8 +15,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
-
 
 public class SignIn extends AppCompatActivity implements ClientCallbackSignIn {
 
@@ -26,7 +24,6 @@ public class SignIn extends AppCompatActivity implements ClientCallbackSignIn {
     TextView account;
     TextView forgotPassword;
     Intent i;
-    RequestQueue requestQueue;
     ProgressDialog progressDialog;
     public static String token;
     NetworkService networkService;
@@ -86,7 +83,7 @@ public class SignIn extends AppCompatActivity implements ClientCallbackSignIn {
             }
         });
 
-        sharedPreferences = getSharedPreferences(token, Context.MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("TOKEN_USER", Context.MODE_PRIVATE);
         String auth_token = sharedPreferences.getString("token", "");
         if (!auth_token.isEmpty()) {
             Intent intent = new Intent(this, HomeActivity.class);
@@ -115,5 +112,10 @@ public class SignIn extends AppCompatActivity implements ClientCallbackSignIn {
     public void onFailed() {
         Toast.makeText(SignIn.this, "Invalid Email or Password", Toast.LENGTH_LONG).show();
         progressDialog.dismiss();
+    }
+
+    @Override
+    public void onTimeout() {
+
     }
 }

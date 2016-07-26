@@ -34,7 +34,7 @@ public class SignUp extends AppCompatActivity implements ClientCallback {
         networkService = new NetworkService(this);
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please Wait...");
-        sharedPreferences = getSharedPreferences(SignIn.token, Context.MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("TOKEN_USER", Context.MODE_PRIVATE);
 
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override

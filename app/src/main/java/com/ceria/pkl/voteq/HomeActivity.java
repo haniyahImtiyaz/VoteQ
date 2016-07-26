@@ -55,7 +55,7 @@ public class HomeActivity extends AppCompatActivity implements SearchView.OnQuer
             }
         });
 
-        SharedPreferences sharedPrefernces = getSharedPreferences(SignIn.token, Context.MODE_PRIVATE);
+        SharedPreferences sharedPrefernces = getSharedPreferences("TOKEN_USER", Context.MODE_PRIVATE);
         token = sharedPrefernces.getString("token", "");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_create_vote);
@@ -86,7 +86,7 @@ public class HomeActivity extends AppCompatActivity implements SearchView.OnQuer
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.logout) {
-            SharedPreferences sharedPreferences = getSharedPreferences(SignIn.token, Context.MODE_PRIVATE);
+            SharedPreferences sharedPreferences = getSharedPreferences("TOKEN_USER", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("token", "");
             editor.commit();
