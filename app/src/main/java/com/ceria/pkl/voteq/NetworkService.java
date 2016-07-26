@@ -35,6 +35,7 @@ public class NetworkService {
     private String date;
     private boolean is_voted;
     private int voted_option_id;
+    private String emailReset;
 
     public NetworkService(Context context) {
         this.context = context;
@@ -82,6 +83,10 @@ public class NetworkService {
 
     public boolean is_voted(){
         return is_voted;
+    }
+
+    public String getEmailReset(){
+        return emailReset;
     }
 
     public void signUp(final String email, final String pwd, final String pwdConfirm, final ClientCallback clientCallback) {
@@ -483,12 +488,14 @@ public class NetworkService {
                     JSONObject logResponse = new JSONObject(response);
                     Log.d("resetReq", "response " + logResponse.toString(2));
                     String status = logResponse.getString("status");
-                    if (status.equals("success")) {
+                    if (status.equals("fail")){
+                        clientCallback.onEmailNotFound();
+                    }else if (status.equals("success")) {
                         clientCallback.onSucceded();
+                        emailReset = email;
                     } else {
                         clientCallback.onFailed();
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                     clientCallback.onFailed();
@@ -514,7 +521,7 @@ public class NetworkService {
         };
         requestQueue.add(resetRequest);
     }
-    public void resetPassword(final String code,final String password, final String password_confirmation, final ClientCallbackSignIn clientCallback) {
+    public void resetPassword(final String code,final String password, final String password_confirmation, final String email, final ClientCallbackSignIn clientCallback) {
         String url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.forgot_password);
         StringRequest resetPwdRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
@@ -522,10 +529,11 @@ public class NetworkService {
                 try {
                     JSONObject logResponse = new JSONObject(response);
                     Log.d("resetReq", "response " + logResponse.toString(2));
-                    String status = logResponse.getString("status");
-                    if (status.equals("success")) {
+                    int status = logResponse.getInt("status");
+                    Log.d("stat", "response " + status);
+                    if (status == 200) {
                         clientCallback.onSucceded();
-                    } else {
+                    } else{
                         clientCallback.onFailed();
                     }
 
@@ -551,6 +559,7 @@ public class NetworkService {
                 params.put("forgot_code", code);
                 params.put("password", password);
                 params.put("password_confirmation", password_confirmation);
+                params.put("email", email);
                 return params;
             }
         };
