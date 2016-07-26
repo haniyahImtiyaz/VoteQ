@@ -166,7 +166,11 @@ public class NetworkService {
         }, new Response.ErrorListener() {
             public void onErrorResponse(VolleyError error) {
                 Log.d("Error", error.toString());
-                clientCallback.onFailed();
+                if (error.toString().equals("com.android.volley.TimeoutError")) {
+                    clientCallback.onFailed();
+                } else {
+                    clientCallback.onFailed();
+                }
             }
         }) {
             public Map<String, String> getHeaders() throws AuthFailureError {

@@ -211,6 +211,11 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
     }
 
     @Override
+    public void onTimeout() {
+        Toast.makeText(VoteActivity.this, "Network Failure", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public void succes() {
         if (seekStatusText.getText().toString().equals("Open")) {
             seekStatusText.setText("Closed");

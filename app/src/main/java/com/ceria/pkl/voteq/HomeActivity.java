@@ -87,9 +87,7 @@ public class HomeActivity extends AppCompatActivity implements SearchView.OnQuer
         int id = item.getItemId();
         if (id == R.id.logout) {
             SharedPreferences sharedPreferences = getSharedPreferences(SignIn.token, Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("token", "");
-            editor.commit();
+            sharedPreferences.edit().remove("token").commit();
             Intent i = new Intent(this, SignIn.class);
             startActivity(i);
             finish();

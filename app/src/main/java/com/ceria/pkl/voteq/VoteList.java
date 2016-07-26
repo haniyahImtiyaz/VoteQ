@@ -95,7 +95,7 @@ public class VoteList extends Fragment implements ClientCallbackSignIn {
 
     public void visible() {
         networkService = new NetworkService(getContext());
-        networkService.getAllVote(HomeActivity.token, "false", VoteList.this);
+        networkService.getAllVote(networkService.getAuth_token(), "false", VoteList.this);
 
         progressDialog.setMessage("Please Wait...");
         progressDialog.setCanceledOnTouchOutside(false);

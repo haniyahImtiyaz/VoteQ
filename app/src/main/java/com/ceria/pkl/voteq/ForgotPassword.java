@@ -47,6 +47,11 @@ public class ForgotPassword extends AppCompatActivity implements ClientCallbackS
     }
 
     @Override
+    public void onTimeout() {
+        Toast.makeText(ForgotPassword.this, "Network Failure", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public void onEmailNotFound() {
         Toast.makeText(ForgotPassword.this, "Email tidak terdaftar", Toast.LENGTH_SHORT).show();
     }

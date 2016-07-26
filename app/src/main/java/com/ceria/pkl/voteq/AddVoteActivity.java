@@ -176,4 +176,10 @@ public class AddVoteActivity extends AppCompatActivity implements ClientCallback
         progressDialog.dismiss();
         Toast.makeText(AddVoteActivity.this, "Create Vote Failure", Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    public void onTimeout() {
+        progressDialog.dismiss();
+        Toast.makeText(AddVoteActivity.this, "Network Failure", Toast.LENGTH_SHORT).show();
+    }
 }
