@@ -139,7 +139,7 @@ public class AddVoteActivity extends AppCompatActivity implements ClientCallback
                             })
                             .show();
                 } else {
-                    SharedPreferences sharedPreferences = getSharedPreferences(SignIn.token, Context.MODE_PRIVATE);
+                    SharedPreferences sharedPreferences = getSharedPreferences("TOKEN_USER", Context.MODE_PRIVATE);
                     String token = sharedPreferences.getString("token", "");
                     networkService.createVote(token, editTextTitle.getText().toString(), listOption, true, AddVoteActivity.this);
                     progressDialog.show();

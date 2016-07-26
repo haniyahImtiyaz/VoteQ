@@ -88,7 +88,7 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         countView.setText(countText + " Peoples Voted");
         labelView.setText(labelText);
 
-        SharedPreferences sharedPrefernces = getSharedPreferences(SignIn.token, Context.MODE_PRIVATE);
+        SharedPreferences sharedPrefernces = getSharedPreferences("TOKEN_USER", Context.MODE_PRIVATE);
         token = sharedPrefernces.getString("token", "");
 
         progressDialog = new ProgressDialog(this);
