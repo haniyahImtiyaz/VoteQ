@@ -220,7 +220,7 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
     public void onFailed() {
         Toast.makeText(VoteActivity.this, "Failure", Toast.LENGTH_SHORT).show();
         progressDialog.dismiss();
-        load();
+        snackbar.show();
     }
 
     @Override

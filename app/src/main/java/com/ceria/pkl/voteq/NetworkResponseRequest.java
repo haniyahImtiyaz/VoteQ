@@ -42,4 +42,5 @@ public class NetworkResponseRequest extends Request<NetworkResponse> {
         }
         return parsed;
     }
+
 }

@@ -17,5 +17,5 @@
     <string name="title_activity_reset">ResetActivity</string>
     <string name="request_forgot_password">/user/request_forgot_password</string>
     <string name="forgot_password">/user/forgot_password</string>
-    <string name="cancel_vote">/users/user_votes</string>
+    <string name="cancel_vote">/user/user_votes</string>
 </resources>

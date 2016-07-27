@@ -5,7 +5,6 @@
       <module fileurl="file://$PROJECT_DIR$/VoteQ.iml" filepath="$PROJECT_DIR$/VoteQ.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/circleimageview-2.0.0/circleimageview-2.0.0.iml" filepath="$PROJECT_DIR$/circleimageview-2.0.0/circleimageview-2.0.0.iml" />
-      <module fileurl="file://$PROJECT_DIR$/voteq.iml" filepath="$PROJECT_DIR$/voteq.iml" />
     </modules>
   </component>
 </project>
