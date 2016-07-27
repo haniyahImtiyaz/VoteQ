@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -36,6 +37,7 @@ public class NetworkService {
     private boolean is_voted;
     private int voted_option_id;
     private String emailReset;
+    int mStatusCode;
 
     public NetworkService(Context context) {
         this.context = context;
@@ -544,7 +546,7 @@ public class NetworkService {
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    clientCallback.onFailed();
+                    clientCallback.onSucceded();
                 }
             }
         }, new Response.ErrorListener() {
@@ -570,5 +572,53 @@ public class NetworkService {
         };
         requestQueue.add(resetPwdRequest);
     }
+
+    public void cancelVote(final String token,final String vote_id, final ClientCallbackCancel clientCallback) {
+        String url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.cancel_vote);
+        StringRequest cancelVoteRequest = new StringRequest(Request.Method.DELETE, url, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+//                int respon = response.statusCode;
+//                if(respon == 204){
+//                    clientCallback.onSuccessCancelVote();
+//                }else{
+//                    clientCallback.onFailedCancelVotes();
+//                }
+            }
+        }, new Response.ErrorListener() {
+            public void onErrorResponse(VolleyError error) {
+                Log.d("Error", error.toString());
+                clientCallback.onFailedCancelVotes();
+            }
+        }) {
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> header = new HashMap<>();
+                header.put("Context-Type", "application/x-www-form-urlencoded");
+                header.put("Authorization", token);
+                return header;
+            }
+
+            public Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("vote_id", vote_id);
+                return params;
+            }
+            @Override
+            protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                if (response != null) {
+                    mStatusCode = response.statusCode;
+                }
+                if(mStatusCode == 204){
+                    clientCallback.onSuccessCancelVote();
+                }else{
+                    clientCallback.onFailedCancelVotes();
+                }
+                return super.parseNetworkResponse(response);
+            }
+        };
+        requestQueue.add(cancelVoteRequest);
+    }
+
 
 }
