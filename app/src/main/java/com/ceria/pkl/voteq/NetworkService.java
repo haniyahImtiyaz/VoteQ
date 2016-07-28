@@ -4,7 +4,6 @@ import android.content.Context;
 import android.util.Log;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -335,26 +334,34 @@ public class NetworkService {
                     String status = logResponse.getString("status");
                     JSONObject data = logResponse.getJSONObject("data");
                     JSONObject vote = data.getJSONObject("vote");
-                    JSONObject user = vote.getJSONObject("user");
                     date = vote.getString("created_at");
 
                     try {
+                        JSONObject vote2 = vote.getJSONObject("vote");
                         JSONObject choosen_option = vote.getJSONObject("choosen_option");
                         voted_option_id = choosen_option.getInt("id");
                         is_voted = true;
+                        JSONArray options = vote2.getJSONArray("options");
+                        for (int i = 0; i < options.length(); i++) {
+                            JSONObject dataOptions = options.getJSONObject(i);
+                            String id = dataOptions.getString("id");
+                            String title = dataOptions.getString("title");
+                            String count = dataOptions.getString("count");
+                            String percentage = dataOptions.getString("percentage");
+                            setResultItemList(id, title, count, percentage);
+                        }
                     } catch (Exception e) {
                         is_voted = false;
                         voted_option_id = 0;
-                    }
-
-                    JSONArray options = vote.getJSONArray("options");
-                    for (int i = 0; i < options.length(); i++) {
-                        JSONObject dataOptions = options.getJSONObject(i);
-                        String id = dataOptions.getString("id");
-                        String title = dataOptions.getString("title");
-                        String count = dataOptions.getString("count");
-                        String percentage = dataOptions.getString("percentage");
-                        setResultItemList(id, title, count, percentage);
+                        JSONArray options = vote.getJSONArray("options");
+                        for (int i = 0; i < options.length(); i++) {
+                            JSONObject dataOptions = options.getJSONObject(i);
+                            String id = dataOptions.getString("id");
+                            String title = dataOptions.getString("title");
+                            String count = dataOptions.getString("count");
+                            String percentage = dataOptions.getString("percentage");
+                            setResultItemList(id, title, count, percentage);
+                        }
                     }
 
                     if (status.equals("OK")) {
@@ -384,7 +391,6 @@ public class NetworkService {
                 return header;
             }
         };
-
         requestQueue.add(specificVote);
     }
 
@@ -574,18 +580,11 @@ public class NetworkService {
     }
 
        public void cancelVoted(final String token,final String vote_id, final ClientCallbackCancel clientCallback) {
-        String url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.cancel_vote);
+        String url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.cancel_vote) + "?vote_id=" + vote_id;
         StringRequest cancelVoteRequest = new StringRequest(Request.Method.DELETE, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-//                int respon = response.statusCode;
-//                if(respon == 204){
-//                    clientCallback.onSuccessCancelVote();
-//                }else{
-//                    clientCallback.onFailedCancelVotes();
-//                }
-                Log.d("responseCancel", "response "+response);
-
+                clientCallback.onSuccessCancelVote();
             }
         }, new Response.ErrorListener() {
             public void onErrorResponse(VolleyError error) {
@@ -600,58 +599,8 @@ public class NetworkService {
                 header.put("Authorization", token);
                 return header;
             }
-
-            public Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("vote_id", vote_id);
-                return params;
-            }
-            @Override
-            protected Response<String> parseNetworkResponse(NetworkResponse response) {
-                Log.d("response","rse "+response);
-                if (response != null) {
-                    mStatusCode = response.statusCode;
-                }
-                if(mStatusCode == 204){
-                    clientCallback.onSuccessCancelVote();
-                }else{
-                    clientCallback.onFailedCancelVotes();
-                }
-                return super.parseNetworkResponse(response);
-            }
         };
         requestQueue.add(cancelVoteRequest);
-    }
-
-    public void cancelVote(final String token,final String vote_id, final ClientCallbackCancel clientCallback) {
-        String url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.cancel_vote);
-       JsonObjectRequestWithNull j = new JsonObjectRequestWithNull(Request.Method.DELETE, url, null, new Response.Listener<JSONObject>() {
-           @Override
-           public void onResponse(JSONObject response) {
-               clientCallback.onSuccessCancelVote();
-                Log.d("cancelVote" , "yes");
-           }
-       }, new Response.ErrorListener() {
-           @Override
-           public void onErrorResponse(VolleyError error) {
-               clientCallback.onFailedCancelVotes();
-               Log.d("cancelVote" , "no");
-           }
-       }) {
-           public Map<String, String> getHeaders() throws AuthFailureError {
-               Map<String, String> header = new HashMap<>();
-               header.put("Context-Type", "application/x-www-form-urlencoded");
-               header.put("Authorization", token);
-               return header;
-           }
-
-           public Map<String, String> getParams() throws AuthFailureError {
-               Map<String, String> params = new HashMap<>();
-               params.put("vote_id", vote_id);
-               return params;
-           }
-       };
-        requestQueue.add(j);
     }
 
 }

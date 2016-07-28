@@ -157,7 +157,7 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
             @Override
             public void onClick(View view) {
                 NetworkService networkService = new NetworkService(VoteActivity.this);
-                networkService.cancelVote(token, id,VoteActivity.this);
+                networkService.cancelVoted(token, id,VoteActivity.this);
                 progressDialog.show();
             }
         });
@@ -220,7 +220,7 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
     public void onFailed() {
         Toast.makeText(VoteActivity.this, "Failure", Toast.LENGTH_SHORT).show();
         progressDialog.dismiss();
-        snackbar.show();
+        load();
     }
 
     @Override
