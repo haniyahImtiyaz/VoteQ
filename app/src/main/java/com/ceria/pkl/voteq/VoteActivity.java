@@ -35,12 +35,12 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
     NetworkService networkService;
     ProgressDialog progressDialog;
     RadioGroup radioGroupVote;
-    int countRadioVote;
+    int countRadioVote, position;
     TextView textDate;
     Button btnVote, btnResult;
     ScrollView scrollExpand;
     TextView seekStatusText;
-    String labelText, token, id, creator_id, titleText, countText;
+    String labelText, token, id, creator_id, titleText, countText, fragment;
     Snackbar snackbar;
     LinearLayout linearLayout;
     SwitchCompat switchCompat;
@@ -57,9 +57,10 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(VoteActivity.this, HomeActivity.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(i);
+//                Intent i = new Intent(VoteActivity.this, HomeActivity.class);
+//                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                startActivity(i);
+                onBackPressed();
             }
         });
 
@@ -82,6 +83,8 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         countText = intent.getStringExtra("count");
         labelText = intent.getStringExtra("status");
         creator_id = intent.getStringExtra("creator_id");
+        position = intent.getIntExtra("position",0);
+        fragment = intent.getStringExtra("fragment");
 
         countRadioVote = Integer.parseInt(countText);
         visibleButton(labelText);
@@ -108,13 +111,23 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
                 if(isChecked){
                     networkService.updateLabel(token, id, titleText, true, VoteActivity.this);
                     labelText = "Open";
-                    VoteList.listItem = new ArrayList<HomeItem>();
-                    MyVoteList.listItem = new ArrayList<HomeItem>();
+                    if (fragment.equals("voteList")){
+                        VoteList.listItem.get(position).setLabel("Open");
+                        HomeActivity.homeAdapter.notifyDataSetChanged();
+                    }else{
+                        MyVoteList.listItem.get(position).setLabel("Open");
+                        HomeActivity.homeAdapter2.notifyDataSetChanged();
+                    }
                 }else{
                     networkService.updateLabel(token, id, titleText, false, VoteActivity.this);
                     labelText = "Closed";
-                    VoteList.listItem = new ArrayList<HomeItem>();
-                    MyVoteList.listItem = new ArrayList<HomeItem>();
+                    if (fragment.equals("voteList")){
+                        VoteList.listItem.get(position).setLabel("Closed");
+                        HomeActivity.homeAdapter.notifyDataSetChanged();
+                    }else{
+                        MyVoteList.listItem.get(position).setLabel("Closed");
+                        HomeActivity.homeAdapter2.notifyDataSetChanged();
+                    }
                 }
             }
         });

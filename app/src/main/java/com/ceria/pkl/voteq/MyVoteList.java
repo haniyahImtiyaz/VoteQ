@@ -40,8 +40,10 @@ public class MyVoteList extends Fragment implements ClientCallbackSignIn {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                if (listItem.get(position).getLabel().equals("Open") || (listItem.get(position).getLabel().equals("Close") && listItem.get(position).getIdCreator().equals(HomeActivity.token))) {
+                if (listItem.get(position).getLabel().equals("Open") || (listItem.get(position).getLabel().equals("Closed") && listItem.get(position).getIdCreator().equals(HomeActivity.token))) {
                     Intent intent = new Intent(getContext(), VoteActivity.class);
+                    intent.putExtra("fragment", "voteList");
+                    intent.putExtra("position", position);
                     intent.putExtra("id", listItem.get(position).getId());
                     intent.putExtra("title", listItem.get(position).getTextTitle());
                     intent.putExtra("count", listItem.get(position).getTextCount());

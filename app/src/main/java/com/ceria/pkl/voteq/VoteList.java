@@ -43,8 +43,9 @@ public class VoteList extends Fragment implements ClientCallbackSignIn {
                 Log.d("tokenVote",HomeActivity.token);
                 Log.d("tokenVote",listItem.get(position).getIdCreator());
                 if (listItem.get(position).getLabel().equals("Open") || (listItem.get(position).getLabel().equals("Closed") && listItem.get(position).getIdCreator().equals(HomeActivity.token))) {
-
                     Intent intent = new Intent(getContext(), VoteActivity.class);
+                    intent.putExtra("fragment", "voteList");
+                    intent.putExtra("position", position);
                     intent.putExtra("id", listItem.get(position).getId());
                     intent.putExtra("title", listItem.get(position).getTextTitle());
                     intent.putExtra("count", listItem.get(position).getTextCount());

@@ -14,6 +14,10 @@ public class HomeItem {
         this.idCreator = idCreator;
     }
 
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
     public String getId() {
         return id;
     }
