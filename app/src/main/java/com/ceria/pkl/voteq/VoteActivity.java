@@ -57,7 +57,9 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                Intent i = new Intent(VoteActivity.this, HomeActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
             }
         });
 
@@ -106,6 +108,8 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
                 if(isChecked){
                     networkService.updateLabel(token, id, titleText, true, VoteActivity.this);
                     labelText = "Open";
+                    VoteList.listItem = new ArrayList<HomeItem>();
+                    MyVoteList.listItem = new ArrayList<HomeItem>();
                 }else{
                     networkService.updateLabel(token, id, titleText, false, VoteActivity.this);
                     labelText = "Closed";
@@ -152,7 +156,6 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
                 intent.putExtra("count", countText);
                 intent.putExtra("id", id);
                 startActivity(intent);
-                finish();
             }
         });
         btnCancelVote.setOnClickListener(new View.OnClickListener() {
