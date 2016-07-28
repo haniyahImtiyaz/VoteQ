@@ -71,6 +71,8 @@ public class HomeAdapter extends BaseAdapter {
         holder.textViewCount.setText(homeItem.getTextCount() + " Peoples Voted");
         holder.textViewLabel.setText(homeItem.getLabel());
 
+        int image;
+
         if (homeItem.getLabel().toString().equals("Closed")) {
             holder.linearLayout.setBackgroundColor(Color.parseColor("#F44336"));
         } else {
@@ -78,8 +80,14 @@ public class HomeAdapter extends BaseAdapter {
         }
 
         String lowerTitle = homeItem.getTextTitle().toLowerCase();
-        String lowerTitleFirst = lowerTitle.substring(0, 1);
-        int image = convertView.getResources().getIdentifier(lowerTitleFirst, "drawable", inflater.getContext().getPackageName());
+        char lowerTitleFirst = lowerTitle.charAt(0);
+        if(Character.isDigit(lowerTitleFirst)){
+            String imageHold = "a"+String.valueOf(lowerTitleFirst);
+            image = convertView.getResources().getIdentifier(imageHold, "drawable", inflater.getContext().getPackageName());
+        }else{
+           image = convertView.getResources().getIdentifier(String.valueOf(lowerTitleFirst), "drawable", inflater.getContext().getPackageName());
+        }
+
 
         holder.circleImageView.setImageResource(image);
 
