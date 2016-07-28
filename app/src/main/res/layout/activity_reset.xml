@@ -30,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            android:text="Enter New Password"/>
+            android:text="Enter Code and New Password"/>
 
         <EditText
             android:layout_width="match_parent"

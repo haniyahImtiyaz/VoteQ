@@ -27,7 +27,7 @@ import com.github.paolorotolo.expandableheightlistview.ExpandableHeightGridView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VoteActivity extends AppCompatActivity implements ClientCallbackSignIn, ClientCallBackLabel, ClientCallBackVoting {
+public class VoteActivity extends AppCompatActivity implements ClientCallbackSignIn, ClientCallBackLabel, ClientCallBackVoting, ClientCallbackCancel {
 
     ExpandableHeightGridView gridView;
     private ListAdapterResult listAdapterResult;
@@ -44,6 +44,7 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
     Snackbar snackbar;
     LinearLayout linearLayout;
     SwitchCompat switchCompat;
+    Button btnCancelVote;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +72,7 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         seekStatusText = (TextView) findViewById(R.id.seek_status_text);
         scrollExpand = (ScrollView) findViewById(R.id.scrollExpand);
         switchCompat = (SwitchCompat)findViewById(R.id.compatSwitch);
+        btnCancelVote = (Button)findViewById(R.id.btn_cancel_vote);
 
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
@@ -151,6 +153,14 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
                 finish();
             }
         });
+        btnCancelVote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NetworkService networkService = new NetworkService(VoteActivity.this);
+                networkService.cancelVote(token, id,VoteActivity.this);
+                progressDialog.show();
+            }
+        });
     }
 
     private void load() {
@@ -198,6 +208,9 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
 
         if (networkService.voted_option_id() != 0){
             radioGroupVote.check(networkService.voted_option_id());
+            btnCancelVote.setVisibility(View.VISIBLE);
+        }else{
+            btnCancelVote.setVisibility(View.INVISIBLE);
         }
 
         progressDialog.dismiss();
@@ -207,7 +220,7 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
     public void onFailed() {
         Toast.makeText(VoteActivity.this, "Failure", Toast.LENGTH_SHORT).show();
         progressDialog.dismiss();
-        load();
+        snackbar.show();
     }
 
     @Override
@@ -262,5 +275,23 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
     public void onFailedVoting() {
         progressDialog.dismiss();
         snackbar.show();
+    }
+
+    @Override
+    public void onSuccessCancelVote() {
+        Toast.makeText(VoteActivity.this, "Success Cancel Your Votes", Toast.LENGTH_SHORT).show();
+        progressDialog.dismiss();
+        VoteList.listItem = new ArrayList<>();
+        MyVoteList.listItem = new ArrayList<>();
+        Intent i = new Intent(VoteActivity.this, HomeActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
+
+    }
+
+    @Override
+    public void onFailedCancelVotes() {
+        Toast.makeText(VoteActivity.this, "Failur to cancel your Vote", Toast.LENGTH_SHORT).show();
+        progressDialog.dismiss();
     }
 }

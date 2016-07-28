@@ -32,7 +32,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            android:text="Masukkan Email dan Password"/>
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Enter your email and password"/>
 
         <EditText
             android:layout_width="match_parent"
