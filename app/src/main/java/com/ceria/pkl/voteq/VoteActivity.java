@@ -109,6 +109,8 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
                 }else{
                     networkService.updateLabel(token, id, titleText, false, VoteActivity.this);
                     labelText = "Closed";
+                    VoteList.listItem = new ArrayList<HomeItem>();
+                    MyVoteList.listItem = new ArrayList<HomeItem>();
                 }
             }
         });

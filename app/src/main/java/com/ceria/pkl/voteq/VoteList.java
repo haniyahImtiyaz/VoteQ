@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,8 +40,10 @@ public class VoteList extends Fragment implements ClientCallbackSignIn {
         listViewVote.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                Log.d("tokenVote",HomeActivity.token);
+                Log.d("tokenVote",listItem.get(position).getIdCreator());
                 if (listItem.get(position).getLabel().equals("Open") || (listItem.get(position).getLabel().equals("Close") && listItem.get(position).getIdCreator().equals(HomeActivity.token))) {
+
                     Intent intent = new Intent(getContext(), VoteActivity.class);
                     intent.putExtra("id", listItem.get(position).getId());
                     intent.putExtra("title", listItem.get(position).getTextTitle());
@@ -107,4 +110,11 @@ public class VoteList extends Fragment implements ClientCallbackSignIn {
         progressDialog.show();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (listItem.isEmpty()) {
+            visible();
+        }
+    }
 }

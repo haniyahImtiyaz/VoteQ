@@ -132,5 +132,11 @@ public class MyVoteList extends Fragment implements ClientCallbackSignIn {
         progressDialog.show();
         progressDialog.setCanceledOnTouchOutside(false);
     }
-
+    @Override
+    public void onResume() {
+        super.onResume();
+//        if (listItem.isEmpty()) {
+//            visible();
+//        }
+    }
 }
