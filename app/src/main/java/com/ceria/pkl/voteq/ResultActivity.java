@@ -101,14 +101,16 @@ public class ResultActivity extends AppCompatActivity implements ClientCallbackS
             textResult.setText(resultItemList.get(0).getTextTitle());
             int i = 1;
             int sizeText = 25;
-            while (resultItemList.get(i).getTextPercent().equals(max) ){
-                if (i == resultItemList.size()-1){
-                    break;
-                }else {
-                    textResult.setText(textResult.getText() + "/" + resultItemList.get(i).getTextTitle());
-                    i++;
-                    sizeText = sizeText - 2;
-                    textResult.setTextSize(TypedValue.COMPLEX_UNIT_DIP,sizeText);
+            if (resultItemList.size() > 1) {
+                while (resultItemList.get(i).getTextPercent().equals(max)) {
+                    if (i == resultItemList.size() - 1) {
+                        break;
+                    } else {
+                        textResult.setText(textResult.getText() + " / " + resultItemList.get(i).getTextTitle());
+                        i++;
+                        sizeText = sizeText - 2;
+                        textResult.setTextSize(TypedValue.COMPLEX_UNIT_DIP, sizeText);
+                    }
                 }
             }
         }
