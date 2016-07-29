@@ -116,7 +116,6 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
                 if(isChecked){
                     networkService.updateLabel(token, id, titleText, true, VoteActivity.this);
                     labelText = "Open";
-                    btnCancelVote.setVisibility(View.VISIBLE);
                     if (fragment.equals("voteList")){
                         VoteList.listItem.get(position).setLabel("Open");
                         HomeActivity.homeAdapter.notifyDataSetChanged();
@@ -127,7 +126,6 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
                 }else{
                     networkService.updateLabel(token, id, titleText, false, VoteActivity.this);
                     labelText = "Closed";
-                    btnCancelVote.setVisibility(View.GONE);
                     if (fragment.equals("voteList")){
                         VoteList.listItem.get(position).setLabel("Closed");
                         HomeActivity.homeAdapter.notifyDataSetChanged();
@@ -205,11 +203,9 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         if (labelText.equals("Closed")) {
             seekStatusText.setBackgroundColor(Color.parseColor("#F44336"));
             switchCompat.setChecked(false);
-            btnCancelVote.setVisibility(View.GONE);
         } else {
             seekStatusText.setBackgroundColor(Color.parseColor("#4CAF50"));
             switchCompat.setChecked(true);
-            btnCancelVote.setVisibility(View.VISIBLE);
         }
 
         if (creator_id.equals(token)) {
