@@ -579,7 +579,7 @@ public class NetworkService {
         requestQueue.add(resetPwdRequest);
     }
 
-       public void cancelVoted(final String token,final String vote_id, final ClientCallbackCancel clientCallback) {
+    public void cancelVoted(final String token,final String vote_id, final ClientCallbackCancel clientCallback) {
         String url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.cancel_vote) + "?vote_id=" + vote_id;
         StringRequest cancelVoteRequest = new StringRequest(Request.Method.DELETE, url, new Response.Listener<String>() {
             @Override
@@ -601,6 +601,30 @@ public class NetworkService {
             }
         };
         requestQueue.add(cancelVoteRequest);
+    }
+
+    public void deleteVotes(final String token,final String vote_id, final ClientCallbackCancel clientCallback) {
+        String url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.cancel_vote) + "?vote_id=" + vote_id;
+        StringRequest deteleVoteRequest = new StringRequest(Request.Method.DELETE, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                clientCallback.onSuccessCancelVote();
+            }
+        }, new Response.ErrorListener() {
+            public void onErrorResponse(VolleyError error) {
+                Log.d("Error", String.valueOf(error.networkResponse.statusCode));
+                clientCallback.onFailedCancelVotes();
+
+            }
+        }) {
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> header = new HashMap<>();
+                header.put("Context-Type", "application/x-www-form-urlencoded");
+                header.put("Authorization", token);
+                return header;
+            }
+        };
+        requestQueue.add(deteleVoteRequest);
     }
 
 }

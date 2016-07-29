@@ -20,13 +20,14 @@ import java.util.List;
 /**
  * Created by pandhu on 11/07/16.
  */
-public class MyVoteList extends Fragment implements ClientCallbackSignIn {
+public class MyVoteList extends Fragment implements ClientCallbackSignIn,ClientCallbackCancel {
     private ListView listViewVote;
     private HomeAdapter homeAdapter;
     static List<HomeItem> listItem = new ArrayList<HomeItem>();
     ProgressDialog progressDialog;
     NetworkService networkService;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private int position_id;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -64,11 +65,14 @@ public class MyVoteList extends Fragment implements ClientCallbackSignIn {
 
         listViewVote.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
                 new AlertDialog.Builder(getContext()).setMessage("Are you sure you want to delete '" + listItem.get(position).getTextTitle() + "' ?")
                         .setTitle("Delete")
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
+                                networkService = new NetworkService(getContext());
+                                networkService.deleteVotes(HomeActivity.token, listItem.get(position).getId(),MyVoteList.this);
+                                position_id = position;
                             }
                         })
                         .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -140,5 +144,17 @@ public class MyVoteList extends Fragment implements ClientCallbackSignIn {
 //        if (listItem.isEmpty()) {
 //            visible();
 //        }
+    }
+
+    @Override
+    public void onSuccessCancelVote() {
+        listItem.remove(position_id);
+        HomeActivity.homeAdapter2.notifyDataSetChanged();
+        Toast.makeText(getContext(), "Delete Vote Succeded", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onFailedCancelVotes() {
+        Toast.makeText(getContext(), "Delete Vote Failed", Toast.LENGTH_SHORT).show();
     }
 }
