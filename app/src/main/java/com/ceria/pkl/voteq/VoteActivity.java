@@ -244,6 +244,7 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         }
 
         progressDialog.dismiss();
+        btnReload.setVisibility(View.GONE);
     }
 
     @Override

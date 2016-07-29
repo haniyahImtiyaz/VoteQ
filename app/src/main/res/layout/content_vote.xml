@@ -190,15 +190,6 @@
                         android:textStyle="bold" />
 
                     <Button
-                        android:id="@+id/btn_result"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="40dp"
-                        android:background="@color/colorAccent"
-                        android:text="RESULT"
-                        android:textColor="@android:color/white" />
-                    <Button
                         android:id="@+id/btn_reload"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -207,6 +198,17 @@
                         android:background="@color/colorToolbar"
                         android:text="RELOAD"
                         android:textColor="@color/colorAccent" />
+
+                    <Button
+                        android:id="@+id/btn_result"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="40dp"
+                        android:background="@color/colorAccent"
+                        android:text="RESULT"
+                        android:textColor="@android:color/white" />
+
 
                     <RadioGroup
                         android:id="@+id/radio_group_vote"
