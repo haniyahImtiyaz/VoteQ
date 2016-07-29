@@ -14,8 +14,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -98,16 +96,6 @@ public class VoteList extends Fragment implements ClientCallbackSignIn {
     public void onSucceded() {
         listItem = networkService.getHomeItemList();
         HomeActivity.homeAdapter = new HomeAdapter(listItem, getContext());
-
-        for (int i = 0; i < listItem.size(); i++) {
-
-            Collections.sort(listItem, new Comparator<HomeItem>() {
-                @Override
-                public int compare(HomeItem lhs, HomeItem rhs) {
-                    return lhs.getTextTitle().compareTo(rhs.getTextTitle());
-                }
-            });
-        }
         listViewVote.setAdapter(HomeActivity.homeAdapter);
         progressDialog.dismiss();
         swipeRefreshLayout.setRefreshing(false);
