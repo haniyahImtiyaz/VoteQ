@@ -45,6 +45,7 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
     LinearLayout linearLayout;
     SwitchCompat switchCompat;
     Button btnCancelVote;
+    Button btnReload;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +77,7 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         scrollExpand = (ScrollView) findViewById(R.id.scrollExpand);
         switchCompat = (SwitchCompat)findViewById(R.id.compatSwitch);
         btnCancelVote = (Button)findViewById(R.id.btn_cancel_vote);
+        btnReload = (Button)findViewById(R.id.btn_reload);
 
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
@@ -85,6 +87,9 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         creator_id = intent.getStringExtra("creator_id");
         position = intent.getIntExtra("position",0);
         fragment = intent.getStringExtra("fragment");
+
+        btnCancelVote.setVisibility(View.GONE);
+        btnReload.setVisibility(View.GONE);
 
         countRadioVote = Integer.parseInt(countText);
         visibleButton(labelText);
@@ -179,6 +184,13 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
                 progressDialog.show();
             }
         });
+        btnReload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                load();
+            }
+        });
+
     }
 
     private void load() {
@@ -238,12 +250,13 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
     public void onFailed() {
         Toast.makeText(VoteActivity.this, "Failure", Toast.LENGTH_SHORT).show();
         progressDialog.dismiss();
-        load();
+        btnReload.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onTimeout() {
         Toast.makeText(VoteActivity.this, "Network Failure", Toast.LENGTH_SHORT).show();
+        btnReload.setVisibility(View.VISIBLE);
     }
 
     @Override

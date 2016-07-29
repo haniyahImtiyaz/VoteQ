@@ -76,9 +76,6 @@ public class ResultActivity extends AppCompatActivity implements ClientCallbackS
 
     }
 
-    private ResultItem get(String id, String title, String value, String percent) {
-        return new ResultItem(id, title, value, percent);
-    }
 
     @Override
     public void onSucceded() {
@@ -86,6 +83,7 @@ public class ResultActivity extends AppCompatActivity implements ClientCallbackS
         resultItemList = networkService.getResultItemList();
         listAdapterResult = new ListAdapterResult(resultItemList, this);
         expandableListView.setAdapter(listAdapterResult);
+
         for (int i = 0; i < resultItemList.size(); i++) {
 
             Collections.sort(resultItemList, new Comparator<ResultItem>() {
@@ -96,8 +94,14 @@ public class ResultActivity extends AppCompatActivity implements ClientCallbackS
             });
         }
         String max = resultItemList.get(0).getTextPercent();
+        Double maxDouble = Double.parseDouble(max);
+        if(maxDouble == 0.00){
+            textResult.setText("No One Votes");
+        }else{
+            textResult.setText(resultItemList.get(0).getTextTitle());
+        }
         textPercentCircle.setText(resultItemList.get(0).getTextPercent() + "%");
-        textResult.setText(resultItemList.get(0).getTextTitle());
+
         int i = 1;
         int sizeText = 25;
         while (resultItemList.get(i).getTextPercent().equals(max) ){
