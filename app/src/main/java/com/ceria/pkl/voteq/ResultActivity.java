@@ -99,21 +99,20 @@ public class ResultActivity extends AppCompatActivity implements ClientCallbackS
             textResult.setText("No One Votes");
         }else{
             textResult.setText(resultItemList.get(0).getTextTitle());
-        }
-        textPercentCircle.setText(resultItemList.get(0).getTextPercent() + "%");
-
-        int i = 1;
-        int sizeText = 25;
-        while (resultItemList.get(i).getTextPercent().equals(max) ){
-            if (i == resultItemList.size()-1){
-                break;
-            }else {
-                textResult.setText(textResult.getText() + "/" + resultItemList.get(i).getTextTitle());
-                i++;
-                sizeText = sizeText - 2;
-                textResult.setTextSize(TypedValue.COMPLEX_UNIT_DIP,sizeText);
+            int i = 1;
+            int sizeText = 25;
+            while (resultItemList.get(i).getTextPercent().equals(max) ){
+                if (i == resultItemList.size()-1){
+                    break;
+                }else {
+                    textResult.setText(textResult.getText() + "/" + resultItemList.get(i).getTextTitle());
+                    i++;
+                    sizeText = sizeText - 2;
+                    textResult.setTextSize(TypedValue.COMPLEX_UNIT_DIP,sizeText);
+                }
             }
         }
+        textPercentCircle.setText(resultItemList.get(0).getTextPercent() + "%");
 
     }
 
