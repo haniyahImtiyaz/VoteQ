@@ -209,7 +209,7 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         } else {
             seekStatusText.setBackgroundColor(Color.parseColor("#4CAF50"));
             switchCompat.setChecked(true);
-            btnCancelVote.setVisibility(View.GONE);
+            btnCancelVote.setVisibility(View.VISIBLE);
         }
 
         if (creator_id.equals(token)) {
@@ -240,7 +240,7 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
             radioGroupVote.addView(radioButtonVote);
         }
 
-        if (networkService.voted_option_id() != 0){
+        if (networkService.voted_option_id() != 0 && labelText.equals("Open")){
             radioGroupVote.check(networkService.voted_option_id());
             btnCancelVote.setVisibility(View.VISIBLE);
         }else{
