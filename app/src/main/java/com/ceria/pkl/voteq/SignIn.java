@@ -89,8 +89,6 @@ public class SignIn extends AppCompatActivity implements ClientCallbackSignIn {
             Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);
             finish();
-        }else{
-            auth_token = networkService.getAuth_token();
         }
     }
 
@@ -101,7 +99,7 @@ public class SignIn extends AppCompatActivity implements ClientCallbackSignIn {
         Log.d("token", token);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("token", token);
-        editor.commit();
+        editor.apply();
         VoteList.listItem.clear();
         MyVoteList.listItem.clear();
         i = new Intent(this, HomeActivity.class);

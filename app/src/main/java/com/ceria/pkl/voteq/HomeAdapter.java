@@ -27,7 +27,7 @@ public class HomeAdapter extends BaseAdapter {
     public HomeAdapter(List<HomeItem> homeItems, Context context) {
         this.homeItems = homeItems;
         this.inflater = LayoutInflater.from(context);
-        this.homeItemsArray = new ArrayList<HomeItem>();
+        this.homeItemsArray = new ArrayList<>();
         homeItemsArray.addAll(homeItems);
     }
 
@@ -73,7 +73,7 @@ public class HomeAdapter extends BaseAdapter {
 
         int image;
 
-        if (homeItem.getLabel().toString().equals("Closed")) {
+        if (homeItem.getLabel().equals("Closed")) {
             holder.linearLayout.setBackgroundColor(Color.parseColor("#F44336"));
         } else {
             holder.linearLayout.setBackgroundColor(Color.parseColor("#4CAF50"));

@@ -16,7 +16,6 @@ public class SignUp extends AppCompatActivity implements ClientCallback {
     EditText edtPassword;
     EditText edtConfirmPassword;
     Button btnSignUp;
-    Intent i;
     ProgressDialog progressDialog;
     NetworkService networkService;
     SharedPreferences sharedPreferences;
@@ -41,7 +40,7 @@ public class SignUp extends AppCompatActivity implements ClientCallback {
             public void onClick(View v) {
                 if (edtEmail.getText().toString().isEmpty()) {
                     Toast.makeText(SignUp.this, "Please, fill the Email to continue!", Toast.LENGTH_LONG).show();
-                } else if (isEmailValid(edtEmail.getText().toString()) == false) {
+                } else if (!isEmailValid(edtEmail.getText().toString())) {
                     Toast.makeText(SignUp.this, "Sorry, Email is invalid", Toast.LENGTH_LONG).show();
                 } else if (!edtPassword.getText().toString().equals(edtConfirmPassword.getText().toString())) {
                     Toast.makeText(SignUp.this, "Sorry, password didn't match", Toast.LENGTH_LONG).show();
@@ -67,7 +66,7 @@ public class SignUp extends AppCompatActivity implements ClientCallback {
         String token = networkService.getAuth_token();
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("token", token);
-        editor.commit();
+        editor.apply();
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
         finish();

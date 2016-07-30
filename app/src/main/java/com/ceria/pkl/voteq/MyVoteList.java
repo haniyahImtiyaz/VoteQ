@@ -22,8 +22,7 @@ import java.util.List;
  */
 public class MyVoteList extends Fragment implements ClientCallbackSignIn,ClientCallbackCancel {
     private ListView listViewVote;
-    private HomeAdapter homeAdapter;
-    static List<HomeItem> listItem = new ArrayList<HomeItem>();
+    static List<HomeItem> listItem = new ArrayList<>();
     ProgressDialog progressDialog;
     NetworkService networkService;
     private SwipeRefreshLayout swipeRefreshLayout;

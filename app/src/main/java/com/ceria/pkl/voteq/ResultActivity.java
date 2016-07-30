@@ -56,7 +56,7 @@ public class ResultActivity extends AppCompatActivity implements ClientCallbackS
         textValueVote = (TextView) findViewById(R.id.textValueVote);
         expandableListView = (ExpandableHeightListView) findViewById(R.id.list_result);
 
-        resultItemList = new ArrayList<ResultItem>();
+        resultItemList = new ArrayList<>();
 
         textTitle.setText(title);
         textValueVote.setText(count + " votes");

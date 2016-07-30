@@ -75,7 +75,4 @@ public class ResetActivity extends AppCompatActivity implements ClientCallbackSi
     public void onTimeout() {
         Toast.makeText(ResetActivity.this, "Network Failure", Toast.LENGTH_SHORT).show();
     }
-
-
-
 }

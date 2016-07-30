@@ -29,7 +29,7 @@ public class AddVoteActivity extends AppCompatActivity implements ClientCallback
     private ListAdapterOption listAdapterOption;
     private ExpandableHeightListView expandableListView;
     List<OptionItem> optionItemList;
-    ArrayList<String> listOption = new ArrayList<String>();
+    ArrayList<String> listOption = new ArrayList<>();
     ProgressDialog progressDialog;
     NetworkService networkService;
 
@@ -55,7 +55,7 @@ public class AddVoteActivity extends AppCompatActivity implements ClientCallback
         buttonDone = (Button) findViewById(R.id.buttonDone);
         expandableListView = (ExpandableHeightListView) findViewById(R.id.expandable_listview);
 
-        optionItemList = new ArrayList<OptionItem>();
+        optionItemList = new ArrayList<>();
         listAdapterOption = new ListAdapterOption(optionItemList, this);
         expandableListView.setAdapter(listAdapterOption);
 
@@ -164,8 +164,8 @@ public class AddVoteActivity extends AppCompatActivity implements ClientCallback
     @Override
     public void onSucceded() {
         progressDialog.dismiss();
-        VoteList.listItem = new ArrayList<HomeItem>();
-        MyVoteList.listItem = new ArrayList<HomeItem>();
+        VoteList.listItem = new ArrayList<>();
+        MyVoteList.listItem = new ArrayList<>();
         Intent i = new Intent(AddVoteActivity.this, HomeActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(i);

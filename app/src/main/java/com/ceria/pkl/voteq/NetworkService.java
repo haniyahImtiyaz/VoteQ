@@ -36,7 +36,6 @@ public class NetworkService {
     private boolean is_voted;
     private int voted_option_id;
     private String emailReset;
-    int mStatusCode;
 
     public NetworkService(Context context) {
         this.context = context;
@@ -74,7 +73,6 @@ public class NetworkService {
         }
         format = new SimpleDateFormat("MMMM dd, yyyy");
         String dateNew = format.format(dateText);
-        Log.d("getDate", dateNew.toString());
         return dateNew;
     }
 
@@ -123,7 +121,6 @@ public class NetworkService {
                     Log.d("signUpPostError", "error signUp " + error.toString());
                     clientCallback.onFailed();
                 }
-
             }
         }) {
             @Override
@@ -242,7 +239,7 @@ public class NetworkService {
                 Map<String, String> params = new HashMap<>();
                 params.put("title", title);
                 for (int i = 0; i < option.size(); i++) {
-                    String opt = option.get(i).toString();
+                    String opt = option.get(i);
                     params.put("options[" + i + "]", opt);
                 }
                 int size = option.size();
@@ -280,7 +277,7 @@ public class NetworkService {
                         JSONObject user = dataVote.getJSONObject("user");
                         String tokenVote = user.getString("auth_token");
                         String label;
-                        if (dataVote.getBoolean("status") == true) {
+                        if (dataVote.getBoolean("status")) {
                             label = "Open";
                         } else {
                             label = "Closed";
@@ -501,13 +498,17 @@ public class NetworkService {
                     JSONObject logResponse = new JSONObject(response);
                     Log.d("resetReq", "response " + logResponse.toString(2));
                     String status = logResponse.getString("status");
-                    if (status.equals("fail")){
-                        clientCallback.onEmailNotFound();
-                    }else if (status.equals("success")) {
-                        clientCallback.onSucceded();
-                        emailReset = email;
-                    } else {
-                        clientCallback.onFailed();
+                    switch (status) {
+                        case "fail":
+                            clientCallback.onEmailNotFound();
+                            break;
+                        case "success":
+                            clientCallback.onSucceded();
+                            emailReset = email;
+                            break;
+                        default:
+                            clientCallback.onFailed();
+                            break;
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -626,5 +627,4 @@ public class NetworkService {
         };
         requestQueue.add(deteleVoteRequest);
     }
-
 }
