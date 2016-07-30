@@ -535,6 +535,7 @@ public class NetworkService {
         };
         requestQueue.add(resetRequest);
     }
+
     public void resetPassword(final String code,final String password, final String password_confirmation, final String email, final ClientCallbackSignIn clientCallback) {
         String url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.forgot_password);
         StringRequest resetPwdRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
@@ -605,7 +606,7 @@ public class NetworkService {
     }
 
     public void deleteVotes(final String token,final String vote_id, final ClientCallbackCancel clientCallback) {
-        String url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.cancel_vote) + "/" + vote_id;
+        String url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.create_vote) + "/" + vote_id;
         StringRequest deteleVoteRequest = new StringRequest(Request.Method.DELETE, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
