@@ -2,7 +2,6 @@ package com.ceria.pkl.voteq;
 
 import android.content.Context;
 import android.util.Log;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -10,11 +9,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -81,10 +78,6 @@ public class NetworkService {
 
     public boolean is_voted(){
         return is_voted;
-    }
-
-    public String getEmailReset(){
-        return emailReset;
     }
 
     public void signUp(final String email, final String pwd, final String pwdConfirm, final ClientCallback clientCallback) {
