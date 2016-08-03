@@ -52,7 +52,6 @@ public class NetworkService {
 
     private HomeItem get(String id, String title, String count, String label, String tokenVote) {
         return new HomeItem(id, title, count, label, tokenVote);
-
     }
 
     public List<ResultItem> getResultItemList() {

@@ -35,7 +35,7 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
     NetworkService networkService;
     ProgressDialog progressDialog;
     RadioGroup radioGroupVote;
-    int countRadioVote, position;
+    int countRadioVote, position, option_id;
     TextView textDate;
     Button btnVote, btnResult;
     ScrollView scrollExpand;
@@ -237,6 +237,8 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         }
 
         if (networkService.voted_option_id() != 0 && labelText.equals("Open")){
+            option_id = networkService.voted_option_id();
+            radioGroupVote.clearCheck();
             radioGroupVote.check(networkService.voted_option_id());
             btnCancelVote.setVisibility(View.VISIBLE);
         }else{

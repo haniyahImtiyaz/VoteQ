@@ -87,8 +87,6 @@ public class HomeAdapter extends BaseAdapter {
         }else{
            image = convertView.getResources().getIdentifier(String.valueOf(lowerTitleFirst), "drawable", inflater.getContext().getPackageName());
         }
-
-
         holder.circleImageView.setImageResource(image);
 
         return convertView;

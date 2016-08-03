@@ -117,7 +117,7 @@ public class AddVoteActivity extends AppCompatActivity implements ClientCallback
                 } else if (editTextOption.getText().toString().length() != 0) {
                     final String option = editTextOption.getText().toString();
                     new AlertDialog.Builder(AddVoteActivity.this).setMessage("Option '" + option + "' haven't added in option list, Do you want add '" + option + "' to option list ?")
-                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            .setPositiveButton("yes", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     optionItemList.add(get("Option " + (listAdapterOption.getCount() + 1), option));
                                     listAdapterOption.notifyDataSetChanged();
