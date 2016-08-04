@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class ForgotPassword extends AppCompatActivity implements ClientCallbackReset {
+public class ForgotPassword extends AppCompatActivity implements ClientCallbackSignIn {
 
     EditText email;
     Button submit;
@@ -43,7 +43,7 @@ public class ForgotPassword extends AppCompatActivity implements ClientCallbackR
     @Override
     public void onSucceded() {
         progressDialog.dismiss();
-        Toast.makeText(ForgotPassword.this, "Silakan cek email anda", Toast.LENGTH_SHORT).show();
+        Toast.makeText(ForgotPassword.this, "Please check your email", Toast.LENGTH_SHORT).show();
         i = new Intent(ForgotPassword.this, ResetActivity.class);
         i.putExtra("email",emailText);
         startActivity(i);
@@ -52,12 +52,12 @@ public class ForgotPassword extends AppCompatActivity implements ClientCallbackR
     @Override
     public void onFailed() {
         progressDialog.dismiss();
-        Toast.makeText(ForgotPassword.this, "Tidak dapat melakukan Request", Toast.LENGTH_SHORT).show();
+        Toast.makeText(ForgotPassword.this, "Email invalid", Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void onEmailNotFound() {
+    public void onTimeout() {
         progressDialog.dismiss();
-        Toast.makeText(ForgotPassword.this, "Email tidak terdaftar", Toast.LENGTH_SHORT).show();
+        Toast.makeText(ForgotPassword.this, "Network Failure", Toast.LENGTH_SHORT).show();
     }
 }

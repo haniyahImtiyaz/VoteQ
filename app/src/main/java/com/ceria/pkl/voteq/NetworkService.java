@@ -235,7 +235,6 @@ public class NetworkService {
                     params.put("options[" + i + "]", opt);
                 }
                 int size = option.size();
-                Log.d("optionSize", String.valueOf(size));
                 params.put("is_open", String.valueOf(is_open));
                 return params;
             }
@@ -246,7 +245,6 @@ public class NetworkService {
 
     public void getAllVote(final String token, final String current_user, final ClientCallbackSignIn clientCallback) {
         final String url;
-        Log.d("token login", "ini token "+token);
         if (current_user.equals("true")) {
             url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.get_myvote);
         } else {
@@ -481,7 +479,7 @@ public class NetworkService {
         requestQueue.add(updateLabelRequest);
     }
 
-    public void resetRequest(final String email, final ClientCallbackReset clientCallback) {
+    public void resetRequest(final String email, final ClientCallbackSignIn clientCallback) {
         String url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.request_forgot_password);
         StringRequest resetRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
@@ -492,7 +490,7 @@ public class NetworkService {
                     String status = logResponse.getString("status");
                     switch (status) {
                         case "fail":
-                            clientCallback.onEmailNotFound();
+                            clientCallback.onFailed();
                             break;
                         case "success":
                             clientCallback.onSucceded();
@@ -510,7 +508,11 @@ public class NetworkService {
         }, new Response.ErrorListener() {
             public void onErrorResponse(VolleyError error) {
                 Log.d("Error", error.toString());
-                clientCallback.onFailed();
+                if (error.toString().equals("com.android.volley.TimeoutError")) {
+                    clientCallback.onTimeout();
+                } else {
+                    clientCallback.onFailed();
+                }
             }
         }) {
             public Map<String, String> getHeaders() throws AuthFailureError {

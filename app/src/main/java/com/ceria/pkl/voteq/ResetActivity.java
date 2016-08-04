@@ -60,7 +60,7 @@ public class ResetActivity extends AppCompatActivity implements ClientCallbackSi
     @Override
     public void onSucceded() {
         progressDialog.dismiss();
-        Toast.makeText(ResetActivity.this, "Password berhasil diubah", Toast.LENGTH_SHORT).show();
+        Toast.makeText(ResetActivity.this, "Successful password changed", Toast.LENGTH_SHORT).show();
         Intent i = new Intent(ResetActivity.this, SignIn.class);
         startActivity(i);
     }
@@ -68,7 +68,7 @@ public class ResetActivity extends AppCompatActivity implements ClientCallbackSi
     @Override
     public void onFailed() {
         progressDialog.dismiss();
-        Toast.makeText(ResetActivity.this, "Password gagal diubah", Toast.LENGTH_SHORT).show();
+        Toast.makeText(ResetActivity.this, "Failed password changed", Toast.LENGTH_SHORT).show();
     }
 
     @Override

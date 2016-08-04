@@ -125,20 +125,27 @@ public class AddVoteActivity extends AppCompatActivity implements ClientCallback
                                     editTextOption.setHint("Option " + (listAdapterOption.getCount() + 1));
                                 }
                             })
-                            .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            .setNegativeButton("no", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     editTextOption.setText("");
                                 }
                             })
                             .show();
-                } else if (optionItemList.size() == 0) {
+                } else if (optionItemList.size()  == 0) {
                     new AlertDialog.Builder(AddVoteActivity.this).setMessage("Please fill the option list to continue!")
+                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                }})
+                            .show();
+                }else if (optionItemList.size() < 2){
+                    new AlertDialog.Builder(AddVoteActivity.this).setMessage("List option can't only one item, Please add option to continue!")
                             .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                 }
                             })
                             .show();
-                } else {
+                }
+                else {
                     SharedPreferences sharedPreferences = getSharedPreferences("TOKEN_USER", Context.MODE_PRIVATE);
                     String token = sharedPreferences.getString("token", "");
                     networkService.createVote(token, editTextTitle.getText().toString(), listOption, true, AddVoteActivity.this);
