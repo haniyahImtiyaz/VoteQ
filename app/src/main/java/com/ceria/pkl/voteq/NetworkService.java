@@ -599,18 +599,20 @@ public class NetworkService {
         requestQueue.add(cancelVoteRequest);
     }
 
-    public void deleteVotes(final String token,final String vote_id, final ClientCallbackCancel clientCallback) {
-        Log.d("tokenLala", token);
+    public void deleteVotes(final String token,final String vote_id, final ClientCallbackDelete clientCallback) {
         String url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.create_vote) + "/" + vote_id;
         StringRequest deteleVoteRequest = new StringRequest(Request.Method.DELETE, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                clientCallback.onSuccessCancelVote();
+                clientCallback.onSuccededDelete();
             }
         }, new Response.ErrorListener() {
             public void onErrorResponse(VolleyError error) {
-                Log.d("Error", String.valueOf(error.networkResponse.statusCode));
-                clientCallback.onFailedCancelVotes();
+                if (error.toString().equals("com.android.volley.TimeoutError")) {
+                    clientCallback.onTimeout();
+                } else {
+                    clientCallback.onFailedDelete();
+                }
 
             }
         }) {

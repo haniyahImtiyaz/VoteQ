@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * Created by pandhu on 11/07/16.
  */
-public class MyVoteList extends Fragment implements ClientCallbackSignIn,ClientCallbackCancel {
+public class MyVoteList extends Fragment implements ClientCallbackSignIn,ClientCallbackCancel, ClientCallbackDelete {
     private ListView listViewVote;
     static List<HomeItem> listItem = new ArrayList<>();
     ProgressDialog progressDialog;
@@ -65,22 +65,25 @@ public class MyVoteList extends Fragment implements ClientCallbackSignIn,ClientC
         listViewVote.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
-                new AlertDialog.Builder(getContext()).setMessage("Are you sure you want to delete '" + listItem.get(position).getTextTitle() + "' ?")
-                        .setTitle("Delete")
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                networkService = new NetworkService(getContext());
-                                networkService.deleteVotes(HomeActivity.token, listItem.get(position).getId(),MyVoteList.this);
-                                position_id = position;
-                            }
-                        })
-                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
+                if (listItem.get(position).getLabel().equals("Closed")){
+                    new AlertDialog.Builder(getContext()).setMessage("Are you sure you want to delete '" + listItem.get(position).getTextTitle() + "' ?")
+                            .setTitle("Delete")
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    networkService = new NetworkService(getContext());
+                                    networkService.deleteVotes(HomeActivity.token, listItem.get(position).getId(),MyVoteList.this);
+                                    position_id = position;
+                                    progressDialog.show();
+                                }
+                            })
+                            .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
 
-                            }
-                        })
-                        .show();
+                                }
+                            })
+                            .show();
+                }
                 return true;
             }
         });
@@ -113,6 +116,18 @@ public class MyVoteList extends Fragment implements ClientCallbackSignIn,ClientC
         } else {
             listViewVote.setAdapter(HomeActivity.homeAdapter2);
         }
+    }
+
+    @Override
+    public void onSuccededDelete() {
+        progressDialog.dismiss();
+        Toast.makeText(getContext(), "Your vote has been deleted", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onFailedDelete() {
+        progressDialog.dismiss();
+        Toast.makeText(getContext(), "Delete vote failed", Toast.LENGTH_SHORT).show();
     }
 
     @Override
