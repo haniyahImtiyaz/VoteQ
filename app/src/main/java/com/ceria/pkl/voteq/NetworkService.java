@@ -600,6 +600,7 @@ public class NetworkService {
     }
 
     public void deleteVotes(final String token,final String vote_id, final ClientCallbackCancel clientCallback) {
+        Log.d("tokenLala", token);
         String url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.create_vote) + "/" + vote_id;
         StringRequest deteleVoteRequest = new StringRequest(Request.Method.DELETE, url, new Response.Listener<String>() {
             @Override
