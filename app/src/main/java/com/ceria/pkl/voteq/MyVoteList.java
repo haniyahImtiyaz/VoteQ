@@ -70,7 +70,7 @@ public class MyVoteList extends Fragment implements ClientCallbackSignIn,ClientC
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 networkService = new NetworkService(getContext());
-                                networkService.deleteVotes(HomeActivity.token, listItem.get(position).getId(),MyVoteList.this);
+//                                networkService.deleteVotes(HomeActivity.token, listItem.get(position).getId(),MyVoteList.this);
                                 position_id = position;
                             }
                         })
