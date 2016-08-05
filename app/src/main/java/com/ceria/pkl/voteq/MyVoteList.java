@@ -137,23 +137,16 @@ public class MyVoteList extends Fragment implements ClientCallbackSignIn,ClientC
         progressDialog.show();
         progressDialog.setCanceledOnTouchOutside(false);
     }
-    @Override
-    public void onResume() {
-        super.onResume();
-//        if (listItem.isEmpty()) {
-//            visible();
-//        }
-    }
 
     @Override
     public void onSuccessCancelVote() {
         listItem.remove(position_id);
         HomeActivity.homeAdapter2.notifyDataSetChanged();
-        Toast.makeText(getContext(), "Delete Vote Succeded", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Cancel Vote Succeded", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onFailedCancelVotes() {
-        Toast.makeText(getContext(), "Delete Vote Failed", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Cancel Vote Failed", Toast.LENGTH_SHORT).show();
     }
 }

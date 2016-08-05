@@ -58,9 +58,6 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent i = new Intent(VoteActivity.this, HomeActivity.class);
-//                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                startActivity(i);
                 onBackPressed();
             }
         });
@@ -106,6 +103,7 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please Wait...");
 
+        option_id = 0;
         load();
 
         switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -298,6 +296,7 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
 
     @Override
     public void onSuccedeedVoting() {
+        Toast.makeText(VoteActivity.this, "successful voting", Toast.LENGTH_SHORT).show();
         VoteList.listItem = new ArrayList<>();
         MyVoteList.listItem = new ArrayList<>();
         Intent i = new Intent(VoteActivity.this, HomeActivity.class);

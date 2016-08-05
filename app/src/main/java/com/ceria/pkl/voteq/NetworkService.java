@@ -508,7 +508,7 @@ public class NetworkService {
         }, new Response.ErrorListener() {
             public void onErrorResponse(VolleyError error) {
                 Log.d("Error", error.toString());
-                if (error.toString().equals("com.android.volley.TimeoutError")) {
+                if (error.toString().equals("com.android.volley.TimeoutError") || error.toString().equals("com.android.volley.ServerError")) {
                     clientCallback.onTimeout();
                 } else {
                     clientCallback.onFailed();

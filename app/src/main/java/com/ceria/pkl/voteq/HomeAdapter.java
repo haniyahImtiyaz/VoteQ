@@ -68,7 +68,11 @@ public class HomeAdapter extends BaseAdapter {
 
 
         holder.textViewTitle.setText(homeItem.getTextTitle());
-        holder.textViewCount.setText(homeItem.getTextCount() + " Peoples Voted");
+        if (homeItem.getTextCount().equals("1") || homeItem.getTextCount().equals("0")){
+            holder.textViewCount.setText(homeItem.getTextCount() + " People Voted");
+        }else{
+            holder.textViewCount.setText(homeItem.getTextCount() + " Peoples Voted");
+        }
         holder.textViewLabel.setText(homeItem.getLabel());
 
         int image;
