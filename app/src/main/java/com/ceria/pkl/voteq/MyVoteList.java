@@ -68,7 +68,7 @@ public class MyVoteList extends Fragment implements ClientCallbackSignIn,ClientC
                 if (listItem.get(position).getLabel().equals("Closed")){
                     new AlertDialog.Builder(getContext()).setMessage("Are you sure you want to delete '" + listItem.get(position).getTextTitle() + "' ?")
                             .setTitle("Delete")
-                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            .setPositiveButton("yes", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     networkService = new NetworkService(getContext());
                                     networkService.deleteVotes(HomeActivity.token, listItem.get(position).getId(),MyVoteList.this);
@@ -76,7 +76,7 @@ public class MyVoteList extends Fragment implements ClientCallbackSignIn,ClientC
                                     progressDialog.show();
                                 }
                             })
-                            .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            .setNegativeButton("no", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
 
@@ -121,6 +121,8 @@ public class MyVoteList extends Fragment implements ClientCallbackSignIn,ClientC
     @Override
     public void onSuccededDelete() {
         progressDialog.dismiss();
+        listItem.remove(position_id);
+        HomeActivity.homeAdapter2.notifyDataSetChanged();
         Toast.makeText(getContext(), "Your vote has been deleted", Toast.LENGTH_SHORT).show();
     }
 
@@ -155,8 +157,6 @@ public class MyVoteList extends Fragment implements ClientCallbackSignIn,ClientC
 
     @Override
     public void onSuccessCancelVote() {
-        listItem.remove(position_id);
-        HomeActivity.homeAdapter2.notifyDataSetChanged();
         Toast.makeText(getContext(), "Cancel Vote Succeded", Toast.LENGTH_SHORT).show();
     }
 
