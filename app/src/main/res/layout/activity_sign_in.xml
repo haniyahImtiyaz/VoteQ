@@ -62,7 +62,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="SIGN IN"
+            android:text="LOGIN"
             android:layout_marginTop="5dp"
             android:id="@+id/butSignIn"
             android:background="@color/colorAccent"
@@ -76,6 +76,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Forgot Password?"
             android:id="@+id/forgotPassword"
+            android:textColor="@color/colorPrimaryBlue"
             android:textAlignment="center"
             android:layout_below="@+id/txt_forgot"/>
 
@@ -87,6 +88,7 @@
             android:id="@+id/newAccount"
             android:layout_marginTop="25dp"
             android:layout_below="@+id/txt_sign_up"
+            android:textColor="@color/colorPrimaryBlue"
             android:textAlignment="center" />
 
     </LinearLayout>
