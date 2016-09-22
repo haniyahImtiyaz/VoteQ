@@ -15,6 +15,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ceria.pkl.voteq.models.NetworkService;
+
 
 public class SignIn extends AppCompatActivity implements ClientCallbackSignIn {
 

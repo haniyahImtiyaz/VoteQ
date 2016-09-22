@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.ceria.pkl.voteq.models.NetworkService;
+
 public class SignUp extends AppCompatActivity implements ClientCallback {
     EditText edtEmail;
     EditText edtPassword;
