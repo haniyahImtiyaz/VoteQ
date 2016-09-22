@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.ceria.pkl.voteq.activity.SignIn;
 import com.ceria.pkl.voteq.models.NetworkService;
 
 public class ResetActivity extends AppCompatActivity implements ClientCallbackSignIn {

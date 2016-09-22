@@ -1,4 +1,4 @@
-package com.ceria.pkl.voteq.models;
+package com.ceria.pkl.voteq.models.network;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

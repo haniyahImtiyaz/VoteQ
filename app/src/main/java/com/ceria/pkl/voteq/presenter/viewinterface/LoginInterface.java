@@ -11,4 +11,7 @@ public interface LoginInterface {
     void setCredentialError();
 
     void navigateToHome();
+
+    void onNetworkFailure();
+    
 }
