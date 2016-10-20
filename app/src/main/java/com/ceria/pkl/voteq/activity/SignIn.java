@@ -13,7 +13,6 @@ import android.widget.Toast;
 import com.ceria.pkl.voteq.ForgotPassword;
 import com.ceria.pkl.voteq.HomeActivity;
 import com.ceria.pkl.voteq.R;
-import com.ceria.pkl.voteq.SignUp;
 import com.ceria.pkl.voteq.presenter.view.LoginView;
 import com.ceria.pkl.voteq.presenter.viewinterface.LoginInterface;
 
