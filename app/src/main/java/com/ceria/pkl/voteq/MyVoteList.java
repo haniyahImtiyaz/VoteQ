@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.ceria.pkl.voteq.activity.HomeActivity;
 import com.ceria.pkl.voteq.models.NetworkService;
 
 import java.util.ArrayList;
@@ -152,7 +153,7 @@ public class MyVoteList extends Fragment implements ClientCallbackSignIn,ClientC
         networkService.getAllVote(HomeActivity.token, "true", MyVoteList.this);
 
         progressDialog = new ProgressDialog(getContext());
-        progressDialog.setMessage("Please Wait...");
+        progressDialog.setMessage("Please Wait MyVoteList...");
         progressDialog.show();
         progressDialog.setCanceledOnTouchOutside(false);
     }

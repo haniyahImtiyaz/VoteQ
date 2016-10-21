@@ -9,7 +9,6 @@ public interface SignupInterface {
     void onEmailSame();
     void onPasswordLess();
     void onConfirmPassNotMatch();
-    void onSuccedeed();
     void navigateToHome();
     void onNetworkFailure();
 

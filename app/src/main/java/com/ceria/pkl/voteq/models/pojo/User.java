@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
  */
 public class User {
     @SerializedName("id")
-    public int id;
+    public String id;
     @SerializedName("email")
     public String email;
     @SerializedName("created_at")
@@ -16,4 +16,6 @@ public class User {
     public String updatedAt;
     @SerializedName("auth_token")
     public String authToken;
+    @SerializedName("forgot_code")
+    public String forgot_code;
 }

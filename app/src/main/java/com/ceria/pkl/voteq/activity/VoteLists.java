@@ -1,4 +1,4 @@
-package com.ceria.pkl.voteq;
+package com.ceria.pkl.voteq.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -13,8 +13,13 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.ceria.pkl.voteq.activity.HomeActivity;
-import com.ceria.pkl.voteq.models.NetworkService;
+import com.ceria.pkl.voteq.HomeAdapter;
+import com.ceria.pkl.voteq.HomeItem;
+import com.ceria.pkl.voteq.R;
+import com.ceria.pkl.voteq.ResultActivity;
+import com.ceria.pkl.voteq.VoteActivity;
+import com.ceria.pkl.voteq.presenter.view.GetAllVoteView;
+import com.ceria.pkl.voteq.presenter.viewinterface.GetAllVoteInterface;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,13 +27,13 @@ import java.util.List;
 /**
  * Created by pandhu on 11/07/16.
  */
-public class VoteList extends Fragment implements ClientCallbackSignIn {
+public class VoteLists extends Fragment implements GetAllVoteInterface {
 
     private ListView listViewVote;
     static List<HomeItem> listItem = new ArrayList<>();
     ProgressDialog progressDialog;
-    NetworkService networkService;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private GetAllVoteView presenter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, final Bundle savedInstanceState) {
@@ -36,9 +41,13 @@ public class VoteList extends Fragment implements ClientCallbackSignIn {
         listViewVote = (ListView) rootView.findViewById(R.id.list_vote);
         swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh);
         progressDialog = new ProgressDialog(getContext());
+
+        presenter = new GetAllVoteView(this);
+
         if (listItem.isEmpty()) {
             visible();
-        }
+       }
+
         listViewVote.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -69,8 +78,7 @@ public class VoteList extends Fragment implements ClientCallbackSignIn {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                networkService = new NetworkService(getContext());
-                networkService.getAllVote(HomeActivity.token, "false", VoteList.this);
+                presenter.callGetAllVote(HomeActivity.token, false);
             }
         });
 
@@ -82,53 +90,45 @@ public class VoteList extends Fragment implements ClientCallbackSignIn {
         return rootView;
     }
 
-//    void sortList(List<HomeItem> list){
-//        Comparator<HomeItem> ALPHABETICAL_ORDER1 = new Comparator<HomeItem>() {
-//            public int compare(HomeItem object1, String object2) {
-//                int res = String.CASE_INSENSITIVE_ORDER.compare(object1.toString(), object2.toString());
-//                return res;
-//            }
-//        };
-//
-//        Collections.sort(your array name, ALPHABETICAL_ORDER1);
-//    }
-
-
-    @Override
-    public void onSucceded() {
-        listItem = networkService.getHomeItemList();
-        HomeActivity.homeAdapter = new HomeAdapter(listItem, getContext());
-        listViewVote.setAdapter(HomeActivity.homeAdapter);
-        progressDialog.dismiss();
-        swipeRefreshLayout.setRefreshing(false);
-    }
-
-    @Override
-    public void onFailed() {
-        progressDialog.dismiss();
-        Toast.makeText(getContext(), "Network Failure in Vote List", Toast.LENGTH_SHORT).show();
-        swipeRefreshLayout.setRefreshing(false);
-    }
-
-    @Override
-    public void onTimeout() {
-
-    }
-
     public void visible() {
-        networkService = new NetworkService(getContext());
-        networkService.getAllVote(HomeActivity.token, "false", VoteList.this);
-
-        progressDialog.setMessage("Please Wait...");
-        progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.show();
+        presenter.callGetAllVote(HomeActivity.token, false);
+        showProgress();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if (listItem.isEmpty()) {
-            visible();
-        }
+
+    }
+
+    @Override
+    public void showProgress() {
+        progressDialog.setMessage("Please Wait ...");
+        progressDialog.show();
+    }
+
+    @Override
+    public void hideProgress() {
+        progressDialog.dismiss();
+        swipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void setCredentialError() {
+        Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onNetworkFailure() {
+        hideProgress();
+        Toast.makeText(getContext(), "Network Failure Votelist", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onSuccedeed() {
+        listItem = presenter.homeItemList;
+        HomeActivity.homeAdapter = new HomeAdapter(listItem, getContext());
+        listViewVote.setAdapter(HomeActivity.homeAdapter);
+        swipeRefreshLayout.setRefreshing(false);
     }
 }

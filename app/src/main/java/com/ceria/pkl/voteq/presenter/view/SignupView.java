@@ -55,14 +55,13 @@ public class SignupView implements SignupCallBack {
                     editor.putString("token", signupObject.user.authToken);
                     editor.apply();
                     token = signupObject.user.authToken;
-                    signupInterface.onSuccedeed();
                     signupInterface.hideProgress();
                     signupInterface.navigateToHome();
                 } else if(response.code() == 422) {
                     try {
                         JSONObject jsonObject = new JSONObject(response.errorBody().string());
                         JSONObject data = jsonObject.getJSONObject("data");
-                        Log.d("haniyahVo", "data : " + jsonObject);
+                        Log.d("logJson", "data : " + jsonObject);
                         try {
                             JSONArray er = data.getJSONArray("email");
                             signupInterface.onEmailSame();
@@ -105,7 +104,7 @@ public class SignupView implements SignupCallBack {
 
     @Override
     public void onDestroy() {
-        signupInterface.onNetworkFailure();
+        signupInterface = null;
     }
 
 }
