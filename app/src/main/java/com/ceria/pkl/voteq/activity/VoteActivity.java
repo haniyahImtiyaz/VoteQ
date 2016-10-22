@@ -289,7 +289,7 @@ public class VoteActivity extends AppCompatActivity implements VotingInterface, 
         gridView.setAdapter(listAdapterResult);
 
         //getDateFormat from network Service
-        textDate.setText("Since " + presenter.getDate());
+        textDate.setText("Since " + presenter.date);
 
         //Create Radio Button to populate vote options
         for (int i = 0; i < resultItemList.size(); i++) {

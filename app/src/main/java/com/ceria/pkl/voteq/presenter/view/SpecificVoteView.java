@@ -1,7 +1,5 @@
 package com.ceria.pkl.voteq.presenter.view;
 
-import android.util.Log;
-
 import com.ceria.pkl.voteq.itemAdapter.ResultItem;
 import com.ceria.pkl.voteq.models.network.ApiClient;
 import com.ceria.pkl.voteq.models.network.SpecificVoteClient;
@@ -17,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,24 +27,25 @@ import retrofit2.Response;
 public class SpecificVoteView implements SpecificVoteCallBack {
     public String voted_option_id;
     public List<ResultItem> resultItemList = new ArrayList<>();
-    private String date;
+    public String date;
     private VotingInterface votingInterface;
 
     public SpecificVoteView(VotingInterface votingInterface) {
         this.votingInterface = votingInterface;
     }
 
-    public String getDate() {
-        SimpleDateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy hh:mm:ss Z");
-        Date dateText = new Date();
+    public void setDate(String date) {
+      //  SimpleDateFormat formatDate = new SimpleDateFormat("EEE, dd MMM yyyy hh:mm:ss Z");
+        SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US);
+        String dateNew = null;
         try {
-            dateText = format.parse(date);
+            Date dateText = formatDate.parse(date);
+            formatDate = new SimpleDateFormat("MMMM dd, yyyy");
+            dateNew = formatDate.format(dateText);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        format = new SimpleDateFormat("MMMM dd, yyyy");
-        String dateNew = format.format(dateText);
-        return dateNew;
+        this.date = dateNew;
     }
 
     @Override
@@ -64,30 +64,26 @@ public class SpecificVoteView implements SpecificVoteCallBack {
                     Vote vote = voteUser.vote;
                     Vote vote2 = vote.vote;
                     if (vote2 == null) {
-                        date = vote.created_at;
+                        setDate(vote.created_at);
                         Option[] options = vote.options;
-                        Log.d("logd", date);
                         for (int i = 0; i < options.length; i++) {
                             String id = options[i].id;
                             String title = options[i].title;
                             String value = options[i].count;
                             String percen = options[i].percentage;
-                            Log.d("logd", id);
                             resultItemList.add(new ResultItem(id, title, value, percen));
                         }
                     } else {
-                        date = vote2.created_at;
+                        setDate(vote2.created_at);
                         Option[] options = vote2.options;
                         for (int i = 0; i < options.length; i++) {
                             String id = options[i].id;
                             String title = options[i].title;
                             String value = options[i].count;
                             String percen = options[i].percentage;
-                            Log.d("logd", id);
                             resultItemList.add(new ResultItem(id, title, value, percen));
                         }
                         Option choosenOption = vote.choosenOption;
-                        Log.d("logd", "hais" + choosenOption.toString());
                         voted_option_id = choosenOption.id;
                     }
 
