@@ -2,6 +2,7 @@ package com.ceria.pkl.voteq.models;
 
 import android.content.Context;
 import android.util.Log;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -15,13 +16,14 @@ import com.ceria.pkl.voteq.ClientCallback;
 import com.ceria.pkl.voteq.ClientCallbackCancel;
 import com.ceria.pkl.voteq.ClientCallbackDelete;
 import com.ceria.pkl.voteq.ClientCallbackSignIn;
-import com.ceria.pkl.voteq.HomeItem;
 import com.ceria.pkl.voteq.R;
-import com.ceria.pkl.voteq.ResultItem;
+import com.ceria.pkl.voteq.itemAdapter.HomeItem;
+import com.ceria.pkl.voteq.itemAdapter.ResultItem;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -36,9 +38,9 @@ import java.util.Map;
 public class NetworkService {
     private final RequestQueue requestQueue;
     private final Context context;
-    private String auth_token;
     private final List<HomeItem> homeItemList = new ArrayList<>();
     private final List<ResultItem> resultItemList = new ArrayList<>();
+    private String auth_token;
     private String date;
     private boolean is_voted;
     private int voted_option_id;
@@ -86,7 +88,7 @@ public class NetworkService {
         return voted_option_id;
     }
 
-    public boolean is_voted(){
+    public boolean is_voted() {
         return is_voted;
     }
 
@@ -99,14 +101,14 @@ public class NetworkService {
                     JSONObject logResponse = new JSONObject(response);
                     Log.d("signUpPost", "response " + logResponse.toString(2));
                     String status = logResponse.getString("status");
-                        JSONObject dataResponse = logResponse.getJSONObject("data");
-                        JSONObject user = dataResponse.getJSONObject("user");
-                        auth_token = user.getString("auth_token");
-                        if (status.equals("success")) {
-                            clientCallback.onSucceeded();
-                        }else{
-                            clientCallback  .onFailed();
-                        }
+                    JSONObject dataResponse = logResponse.getJSONObject("data");
+                    JSONObject user = dataResponse.getJSONObject("user");
+                    auth_token = user.getString("auth_token");
+                    if (status.equals("success")) {
+                        clientCallback.onSucceeded();
+                    } else {
+                        clientCallback.onFailed();
+                    }
                 } catch (JSONException e) {
                     Log.d("signUpPost", "response " + response);
                     e.printStackTrace();
@@ -293,8 +295,7 @@ public class NetworkService {
                         clientCallback.onFailed();
                     }
 
-                }
-                catch (JSONException e) {
+                } catch (JSONException e) {
                     e.printStackTrace();
                     clientCallback.onFailed();
                 }
@@ -540,7 +541,7 @@ public class NetworkService {
         requestQueue.add(resetRequest);
     }
 
-    public void resetPassword(final String code,final String password, final String password_confirmation, final String email, final ClientCallbackSignIn clientCallback) {
+    public void resetPassword(final String code, final String password, final String password_confirmation, final String email, final ClientCallbackSignIn clientCallback) {
         String url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.forgot_password);
         StringRequest resetPwdRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
@@ -552,7 +553,7 @@ public class NetworkService {
                     Log.d("stat", "response " + status);
                     if (status == 200) {
                         clientCallback.onSucceded();
-                    } else{
+                    } else {
                         clientCallback.onFailed();
                     }
 
@@ -585,7 +586,7 @@ public class NetworkService {
         requestQueue.add(resetPwdRequest);
     }
 
-    public void cancelVoted(final String token,final String vote_id, final ClientCallbackCancel clientCallback) {
+    public void cancelVoted(final String token, final String vote_id, final ClientCallbackCancel clientCallback) {
         String url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.cancel_vote) + "?vote_id=" + vote_id;
         StringRequest cancelVoteRequest = new StringRequest(Request.Method.DELETE, url, new Response.Listener<String>() {
             @Override
@@ -609,7 +610,7 @@ public class NetworkService {
         requestQueue.add(cancelVoteRequest);
     }
 
-    public void deleteVotes(final String token,final String vote_id, final ClientCallbackDelete clientCallback) {
+    public void deleteVotes(final String token, final String vote_id, final ClientCallbackDelete clientCallback) {
         String url = context.getResources().getString(R.string.base_url) + context.getResources().getString(R.string.create_vote) + "/" + vote_id;
         StringRequest deteleVoteRequest = new StringRequest(Request.Method.DELETE, url, new Response.Listener<String>() {
             @Override

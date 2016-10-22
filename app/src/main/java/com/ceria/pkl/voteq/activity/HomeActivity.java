@@ -17,9 +17,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.ceria.pkl.voteq.AddVoteActivity;
-import com.ceria.pkl.voteq.HomeAdapter;
 import com.ceria.pkl.voteq.R;
+import com.ceria.pkl.voteq.adapter.HomeAdapter;
 
 public class HomeActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
     public static String token;
@@ -45,7 +44,7 @@ public class HomeActivity extends AppCompatActivity implements SearchView.OnQuer
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pagerHome);
 
-        final PagerAdapter pagerAdapter = new com.ceria.pkl.voteq.PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+        final PagerAdapter pagerAdapter = new com.ceria.pkl.voteq.adapter.PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(pagerAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -64,7 +63,7 @@ public class HomeActivity extends AppCompatActivity implements SearchView.OnQuer
             }
         });
 
-      //  SharedPreferences sharedPrefernces = getSharedPreferences("TOKEN_USER", Context.MODE_PRIVATE);
+        //  SharedPreferences sharedPrefernces = getSharedPreferences("TOKEN_USER", Context.MODE_PRIVATE);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(HomeActivity.this);
         token = sharedPreferences.getString("token", "");
 

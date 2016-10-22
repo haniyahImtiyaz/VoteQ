@@ -19,13 +19,13 @@ import retrofit2.Response;
 /**
  * Created by root on 23/09/16.
  */
-public class LoginView implements LoginCallBack{
+public class LoginView implements LoginCallBack {
     public static String token;
     private SharedPreferences sharedPreferences;
     private LoginInterface loginInterface;
     private Context signInContext;
 
-    public LoginView(LoginInterface loginInterface, Context context){
+    public LoginView(LoginInterface loginInterface, Context context) {
         this.loginInterface = loginInterface;
         this.signInContext = context;
     }
@@ -39,33 +39,33 @@ public class LoginView implements LoginCallBack{
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(signInContext);
 
-            LoginClient loginClientModel = ApiClient.getClient().create(LoginClient.class);
-            Call<LoginResponse> call = loginClientModel.signIn(email, password);
-            call.enqueue(new Callback<LoginResponse>() {
-                @Override
-                public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                    if (response.code() == 200) {
-                        Login loginObject = response.body().data;
-                        Log.d("LOG login", "Body Respnse: " + loginObject.authToken);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString("token", loginObject.authToken);
-                        editor.apply();
-                        token = loginObject.authToken;
-                        loginInterface.hideProgress();
-                        loginInterface.navigateToHome();
-                    } else {
-                        Log.d("log", "response code: " + response.code());
-                        loginInterface.hideProgress();
-                        loginInterface.setCredentialError();
-                    }
+        LoginClient loginClientModel = ApiClient.getClient().create(LoginClient.class);
+        Call<LoginResponse> call = loginClientModel.signIn(email, password);
+        call.enqueue(new Callback<LoginResponse>() {
+            @Override
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                if (response.code() == 200) {
+                    Login loginObject = response.body().data;
+                    Log.d("LOG login", "Body Respnse: " + loginObject.authToken);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("token", loginObject.authToken);
+                    editor.apply();
+                    token = loginObject.authToken;
+                    loginInterface.hideProgress();
+                    loginInterface.navigateToHome();
+                } else {
+                    Log.d("log", "response code: " + response.code());
+                    loginInterface.hideProgress();
+                    loginInterface.setCredentialError();
                 }
+            }
 
 
-                @Override
-                public void onFailure(Call<LoginResponse> call, Throwable t) {
-                    loginInterface.onNetworkFailure();
-                }
-            });
+            @Override
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
+                loginInterface.onNetworkFailure();
+            }
+        });
 
     }
 

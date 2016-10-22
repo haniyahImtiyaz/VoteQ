@@ -80,11 +80,13 @@ public class SignUp extends AppCompatActivity implements SignupInterface, View.O
     public void onClick(View v) {
         presenter.signUpAuth(edtEmail.getText().toString(), edtPassword.getText().toString(), edtConfirmPassword.getText().toString());
     }
+
     @Override
     protected void onDestroy() {
         presenter.onDestroy();
         super.onDestroy();
     }
+
     @Override
     protected void onPause() {
         progressDialog.dismiss();

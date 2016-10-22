@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ceria.pkl.voteq.adapter.ListAdapterResult;
+import com.ceria.pkl.voteq.itemAdapter.ResultItem;
 import com.ceria.pkl.voteq.models.NetworkService;
 import com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView;
 

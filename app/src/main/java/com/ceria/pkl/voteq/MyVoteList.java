@@ -15,6 +15,9 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.ceria.pkl.voteq.activity.HomeActivity;
+import com.ceria.pkl.voteq.activity.VoteActivity;
+import com.ceria.pkl.voteq.adapter.HomeAdapter;
+import com.ceria.pkl.voteq.itemAdapter.HomeItem;
 import com.ceria.pkl.voteq.models.NetworkService;
 
 import java.util.ArrayList;

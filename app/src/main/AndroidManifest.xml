@@ -11,11 +11,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".AddVoteActivity"
-            android:label="@string/title_activity_add_vote"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateVisible|adjustResize" />
-        <activity
             android:name=".activity.SignIn"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
@@ -42,13 +37,17 @@
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".VoteActivity"
+            android:name=".activity.AddVoteActivity"
+            android:label="@string/title_activity_home"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.VoteActivity"
             android:label="@string/title_activity_vote"
-            android:parentActivityName=".HomeActivity"
+            android:parentActivityName=".activity.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.ceria.pkl.voteq.HomeActivity" />
+                android:value="com.ceria.pkl.voteq.activity.HomeActivity" />
         </activity>
         <activity
             android:name=".ResetActivity"

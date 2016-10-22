@@ -13,11 +13,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.ceria.pkl.voteq.HomeAdapter;
-import com.ceria.pkl.voteq.HomeItem;
 import com.ceria.pkl.voteq.R;
 import com.ceria.pkl.voteq.ResultActivity;
-import com.ceria.pkl.voteq.VoteActivity;
+import com.ceria.pkl.voteq.adapter.HomeAdapter;
+import com.ceria.pkl.voteq.itemAdapter.HomeItem;
 import com.ceria.pkl.voteq.presenter.view.GetAllVoteView;
 import com.ceria.pkl.voteq.presenter.viewinterface.GetAllVoteInterface;
 
@@ -29,9 +28,9 @@ import java.util.List;
  */
 public class VoteLists extends Fragment implements GetAllVoteInterface {
 
-    private ListView listViewVote;
     static List<HomeItem> listItem = new ArrayList<>();
     ProgressDialog progressDialog;
+    private ListView listViewVote;
     private SwipeRefreshLayout swipeRefreshLayout;
     private GetAllVoteView presenter;
 
@@ -44,15 +43,15 @@ public class VoteLists extends Fragment implements GetAllVoteInterface {
 
         presenter = new GetAllVoteView(this);
 
-        if (listItem.isEmpty()) {
-            visible();
-       }
+        //   if (listItem.isEmpty()) {
+        visible();
+        //  }
 
         listViewVote.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.d("tokenVote", HomeActivity.token);
-                Log.d("tokenVote",listItem.get(position).getIdCreator());
+                Log.d("tokenVote", listItem.get(position).getIdCreator());
                 if (listItem.get(position).getLabel().equals("Open") || (listItem.get(position).getLabel().equals("Closed") && listItem.get(position).getIdCreator().equals(HomeActivity.token))) {
                     Intent intent = new Intent(getContext(), VoteActivity.class);
                     intent.putExtra("fragment", "voteList");

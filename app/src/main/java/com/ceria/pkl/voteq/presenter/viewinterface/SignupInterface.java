@@ -5,11 +5,17 @@ package com.ceria.pkl.voteq.presenter.viewinterface;
  */
 public interface SignupInterface {
     void showProgress();
+
     void hideProgress();
+
     void onEmailSame();
+
     void onPasswordLess();
+
     void onConfirmPassNotMatch();
+
     void navigateToHome();
+
     void onNetworkFailure();
 
 }

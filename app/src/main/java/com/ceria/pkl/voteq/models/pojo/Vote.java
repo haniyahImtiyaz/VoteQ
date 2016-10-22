@@ -20,4 +20,8 @@ public class Vote {
     public Option[] options;
     @SerializedName("created_at")
     public String created_at;
+    @SerializedName("vote")
+    public Vote vote;
+    @SerializedName("choosen_option")
+    public Option choosenOption;
 }

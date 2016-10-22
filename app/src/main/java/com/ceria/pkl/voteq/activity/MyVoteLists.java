@@ -12,10 +12,9 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.ceria.pkl.voteq.HomeAdapter;
-import com.ceria.pkl.voteq.HomeItem;
 import com.ceria.pkl.voteq.R;
-import com.ceria.pkl.voteq.VoteActivity;
+import com.ceria.pkl.voteq.adapter.HomeAdapter;
+import com.ceria.pkl.voteq.itemAdapter.HomeItem;
 import com.ceria.pkl.voteq.presenter.view.GetAllVoteView;
 import com.ceria.pkl.voteq.presenter.viewinterface.GetAllVoteInterface;
 
@@ -27,9 +26,9 @@ import java.util.List;
  */
 public class MyVoteLists extends Fragment implements GetAllVoteInterface {
 
-    private ListView listViewVote;
     static List<HomeItem> listItem = new ArrayList<>();
     ProgressDialog progressDialog;
+    private ListView listViewVote;
     private SwipeRefreshLayout swipeRefreshLayout;
     private GetAllVoteView presenter;
 
@@ -43,7 +42,7 @@ public class MyVoteLists extends Fragment implements GetAllVoteInterface {
         presenter = new GetAllVoteView(this);
 
         if (listItem.isEmpty()) {
-        visible();
+            visible();
         }
 
         listViewVote.setOnItemClickListener(new AdapterView.OnItemClickListener() {

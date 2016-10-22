@@ -13,5 +13,5 @@ public interface LoginInterface {
     void navigateToHome();
 
     void onNetworkFailure();
-    
+
 }

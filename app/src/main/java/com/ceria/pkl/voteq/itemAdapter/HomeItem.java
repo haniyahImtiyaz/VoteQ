@@ -1,4 +1,4 @@
-package com.ceria.pkl.voteq;
+package com.ceria.pkl.voteq.itemAdapter;
 
 /**
  * Created by pandhu on 11/07/16.

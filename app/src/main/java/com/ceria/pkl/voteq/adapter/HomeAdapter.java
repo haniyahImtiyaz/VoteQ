@@ -1,4 +1,4 @@
-package com.ceria.pkl.voteq;
+package com.ceria.pkl.voteq.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -8,6 +8,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.ceria.pkl.voteq.itemAdapter.HomeItem;
+import com.ceria.pkl.voteq.R;
 
 import java.util.ArrayList;
 import java.util.List;

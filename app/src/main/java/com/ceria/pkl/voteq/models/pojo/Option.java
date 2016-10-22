@@ -11,9 +11,9 @@ public class Option {
     @SerializedName("title")
     public String title;
     @SerializedName("count")
-    public int count;
+    public String count;
     @SerializedName("percentage")
-    public double percentage;
+    public String percentage;
     @SerializedName("vote_id")
     public String vote_id;
 }

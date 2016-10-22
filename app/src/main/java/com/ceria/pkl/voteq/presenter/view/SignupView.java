@@ -26,15 +26,16 @@ import retrofit2.Response;
  * Created by win 8 on 9/30/2016.
  */
 public class SignupView implements SignupCallBack {
+    public String token;
     private SharedPreferences sharedPreferences;
     private SignupInterface signupInterface;
     private Context signupContext;
-    public String token;
 
-    public SignupView(SignupInterface signupInterface, Context context){
+    public SignupView(SignupInterface signupInterface, Context context) {
         this.signupInterface = signupInterface;
         this.signupContext = context;
     }
+
     @Override
     public void signUpAuth(String email, String pwd, String pwdConfirm) {
         if (signupInterface != null) {
@@ -57,7 +58,7 @@ public class SignupView implements SignupCallBack {
                     token = signupObject.user.authToken;
                     signupInterface.hideProgress();
                     signupInterface.navigateToHome();
-                } else if(response.code() == 422) {
+                } else if (response.code() == 422) {
                     try {
                         JSONObject jsonObject = new JSONObject(response.errorBody().string());
                         JSONObject data = jsonObject.getJSONObject("data");
@@ -65,15 +66,15 @@ public class SignupView implements SignupCallBack {
                         try {
                             JSONArray er = data.getJSONArray("email");
                             signupInterface.onEmailSame();
-                        }catch (JSONException e) {
+                        } catch (JSONException e) {
                             try {
                                 JSONArray er = data.getJSONArray("password");
                                 signupInterface.onPasswordLess();
-                            }catch (JSONException e1) {
+                            } catch (JSONException e1) {
                                 try {
                                     JSONArray er = data.getJSONArray("password_confirmation");
                                     signupInterface.onConfirmPassNotMatch();
-                                }catch (JSONException e2) {
+                                } catch (JSONException e2) {
                                     e2.printStackTrace();
                                 }
                                 e1.printStackTrace();

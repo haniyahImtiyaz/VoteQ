@@ -2,7 +2,7 @@ package com.ceria.pkl.voteq.presenter.view;
 
 import android.util.Log;
 
-import com.ceria.pkl.voteq.HomeItem;
+import com.ceria.pkl.voteq.itemAdapter.HomeItem;
 import com.ceria.pkl.voteq.models.network.ApiClient;
 import com.ceria.pkl.voteq.models.network.GetAllVoteClient;
 import com.ceria.pkl.voteq.models.pojo.GetAllVote;
@@ -32,9 +32,6 @@ public class GetAllVoteView implements GetAllVoteCallBack {
 
     @Override
     public void callGetAllVote(String token, Boolean current_user) {
-        if (getAllVoteInterface != null) {
-            getAllVoteInterface.showProgress();
-        }
         final GetAllVoteClient getAllVoteClient = ApiClient.getClient().create(GetAllVoteClient.class);
         Call<GetAllVoteResponse> call = getAllVoteClient.getAllVote(token, current_user);
         call.enqueue(new Callback<GetAllVoteResponse>() {
@@ -69,7 +66,7 @@ public class GetAllVoteView implements GetAllVoteCallBack {
 
             @Override
             public void onFailure(Call<GetAllVoteResponse> call, Throwable t) {
-                Log.d("logGetVote", "eror: "+t);
+                Log.d("logGetVote", "eror: " + t);
                 getAllVoteInterface.hideProgress();
                 getAllVoteInterface.onNetworkFailure();
             }

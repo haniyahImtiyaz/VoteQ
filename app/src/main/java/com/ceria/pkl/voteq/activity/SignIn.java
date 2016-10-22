@@ -20,6 +20,7 @@ import com.ceria.pkl.voteq.presenter.viewinterface.LoginInterface;
 
 public class SignIn extends AppCompatActivity implements LoginInterface, View.OnClickListener {
 
+    public static String token;
     EditText edtEmail;
     EditText edtPassword;
     TextView account;
@@ -27,34 +28,33 @@ public class SignIn extends AppCompatActivity implements LoginInterface, View.On
     Intent i;
     ProgressDialog progressDialog;
     private LoginView presenter;
-    public static String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_sign_in);
-            progressDialog = new ProgressDialog(this);
-            edtEmail = (EditText) findViewById(R.id.txt_email);
-            edtPassword = (EditText) findViewById(R.id.txt_password);
-            account = (TextView) findViewById(R.id.newAccount);
-            forgotPassword = (TextView) findViewById(R.id.forgotPassword);
-            findViewById(R.id.butSignIn).setOnClickListener(this);
-            forgotPassword.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    i = new Intent(SignIn.this, ForgotPassword.class);
-                    startActivity(i);
-                }
-            });
-            account.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    i = new Intent(SignIn.this, SignUp.class);
-                    startActivity(i);
-                }
-            });
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_sign_in);
+        progressDialog = new ProgressDialog(this);
+        edtEmail = (EditText) findViewById(R.id.txt_email);
+        edtPassword = (EditText) findViewById(R.id.txt_password);
+        account = (TextView) findViewById(R.id.newAccount);
+        forgotPassword = (TextView) findViewById(R.id.forgotPassword);
+        findViewById(R.id.butSignIn).setOnClickListener(this);
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                i = new Intent(SignIn.this, ForgotPassword.class);
+                startActivity(i);
+            }
+        });
+        account.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                i = new Intent(SignIn.this, SignUp.class);
+                startActivity(i);
+            }
+        });
 
-            presenter = new LoginView(this, this.getApplicationContext());
+        presenter = new LoginView(this, this.getApplicationContext());
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         token = sharedPreferences.getString("token", "");

@@ -5,5 +5,6 @@ package com.ceria.pkl.voteq.presenter.callback;
  */
 public interface SignupCallBack {
     void signUpAuth(String email, String pwd, String pwdConfirm);
+
     void onDestroy();
 }
