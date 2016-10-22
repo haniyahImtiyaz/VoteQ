@@ -1,5 +1,7 @@
 package com.ceria.pkl.voteq.presenter.view;
 
+import android.util.Log;
+
 import com.ceria.pkl.voteq.models.network.ApiClient;
 import com.ceria.pkl.voteq.models.network.UpdateVotedClient;
 import com.ceria.pkl.voteq.models.network.VotingClient;
@@ -16,7 +18,7 @@ import retrofit2.Response;
  */
 public class VotingView implements VotingCallBack {
     private VotingInterface votingInterface;
-    private Boolean voted;
+    private Boolean voted = null;
 
     public VotingView(VotingInterface votingInterface, Boolean voted) {
         this.votingInterface = votingInterface;
@@ -43,6 +45,7 @@ public class VotingView implements VotingCallBack {
                     votingInterface.hideProgress();
                     votingInterface.navigateToHome();
                 } else {
+                    Log.d("LOG", "response code : " + response.code());
                     votingInterface.hideProgress();
                     votingInterface.setCredentialError();
                 }

@@ -51,7 +51,6 @@ public class SignupView implements SignupCallBack {
             public void onResponse(Call<SignupResponse> call, Response<SignupResponse> response) {
                 if (response.code() == 201) {
                     Signup signupObject = response.body().data;
-                    Log.d("LOG", "Body Respnse: " + signupObject.user.authToken);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("token", signupObject.user.authToken);
                     editor.apply();
@@ -62,7 +61,6 @@ public class SignupView implements SignupCallBack {
                     try {
                         JSONObject jsonObject = new JSONObject(response.errorBody().string());
                         JSONObject data = jsonObject.getJSONObject("data");
-                        Log.d("logJson", "data : " + jsonObject);
                         try {
                             JSONArray er = data.getJSONArray("email");
                             signupInterface.onEmailSame();

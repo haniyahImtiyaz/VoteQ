@@ -29,15 +29,15 @@
             android:label="@string/title_activity_result"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ResultActivity"
-            android:label="@string/title_activity_result"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".activity.HomeActivity"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.AddVoteActivity"
+            android:label="@string/title_activity_home"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.ResultActivity"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

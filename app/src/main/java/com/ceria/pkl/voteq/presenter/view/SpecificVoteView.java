@@ -1,5 +1,7 @@
 package com.ceria.pkl.voteq.presenter.view;
 
+import android.util.Log;
+
 import com.ceria.pkl.voteq.itemAdapter.ResultItem;
 import com.ceria.pkl.voteq.models.network.ApiClient;
 import com.ceria.pkl.voteq.models.network.SpecificVoteClient;
@@ -25,7 +27,7 @@ import retrofit2.Response;
  * Created by win 8 on 10/21/2016.
  */
 public class SpecificVoteView implements SpecificVoteCallBack {
-    public String voted_option_id;
+    public String voted_option_id = null;
     public List<ResultItem> resultItemList = new ArrayList<>();
     public String date;
     private VotingInterface votingInterface;
@@ -86,11 +88,10 @@ public class SpecificVoteView implements SpecificVoteCallBack {
                         Option choosenOption = vote.choosenOption;
                         voted_option_id = choosenOption.id;
                     }
-
                     votingInterface.hideProgress();
-                    votingInterface.onSuccedeedGetVote();
-
+                    votingInterface.onSucceededGetVote();
                 } else {
+                    Log.d("LOG", "response code : " + response.code());
                     votingInterface.hideProgress();
                     votingInterface.setCredentialError();
                 }

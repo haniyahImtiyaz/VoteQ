@@ -18,6 +18,10 @@ public class HomeItem {
         this.label = label;
     }
 
+    public void setTextCount(String textCount) {
+        this.textCount = textCount;
+    }
+
     public String getId() {
         return id;
     }
@@ -33,7 +37,6 @@ public class HomeItem {
     public String getLabel() {
         return label;
     }
-
 
     public String getIdCreator() {
         return idCreator;

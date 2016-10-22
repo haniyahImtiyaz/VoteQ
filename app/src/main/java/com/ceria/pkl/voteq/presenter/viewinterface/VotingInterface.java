@@ -14,5 +14,9 @@ public interface VotingInterface {
 
     void navigateToHome();
 
-    void onSuccedeedGetVote();
+    void onSucceededGetVote();
+
+    void onSucceededCancelVote();
+
+    void onSucceededUpdateStatus();
 }

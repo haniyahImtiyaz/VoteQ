@@ -212,6 +212,7 @@ public class VoteActivity extends AppCompatActivity implements ClientCallbackSig
         if (labelText.equals("Closed")) {
             seekStatusText.setBackgroundColor(Color.parseColor("#F44336"));
             switchCompat.setChecked(false);
+
         } else {
             seekStatusText.setBackgroundColor(Color.parseColor("#4CAF50"));
             switchCompat.setChecked(true);

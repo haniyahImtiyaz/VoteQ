@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.ceria.pkl.voteq.R;
-import com.ceria.pkl.voteq.ResultActivity;
 import com.ceria.pkl.voteq.adapter.HomeAdapter;
 import com.ceria.pkl.voteq.itemAdapter.HomeItem;
 import com.ceria.pkl.voteq.presenter.view.GetAllVoteView;
@@ -26,7 +24,7 @@ import java.util.List;
 /**
  * Created by pandhu on 11/07/16.
  */
-public class VoteLists extends Fragment implements GetAllVoteInterface {
+public class VoteList extends Fragment implements GetAllVoteInterface {
 
     static List<HomeItem> listItem = new ArrayList<>();
     ProgressDialog progressDialog;
@@ -50,8 +48,6 @@ public class VoteLists extends Fragment implements GetAllVoteInterface {
         listViewVote.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("tokenVote", HomeActivity.token);
-                Log.d("tokenVote", listItem.get(position).getIdCreator());
                 if (listItem.get(position).getLabel().equals("Open") || (listItem.get(position).getLabel().equals("Closed") && listItem.get(position).getIdCreator().equals(HomeActivity.token))) {
                     Intent intent = new Intent(getContext(), VoteActivity.class);
                     intent.putExtra("fragment", "voteList");
@@ -78,6 +74,7 @@ public class VoteLists extends Fragment implements GetAllVoteInterface {
             @Override
             public void onRefresh() {
                 presenter.callGetAllVote(HomeActivity.token, false);
+                listItem.clear();
             }
         });
 
@@ -104,6 +101,7 @@ public class VoteLists extends Fragment implements GetAllVoteInterface {
     public void showProgress() {
         progressDialog.setMessage("Please Wait ...");
         progressDialog.show();
+        progressDialog.setCanceledOnTouchOutside(false);
     }
 
     @Override
@@ -124,7 +122,7 @@ public class VoteLists extends Fragment implements GetAllVoteInterface {
     }
 
     @Override
-    public void onSuccedeed() {
+    public void onSucceeded() {
         listItem = presenter.homeItemList;
         HomeActivity.homeAdapter = new HomeAdapter(listItem, getContext());
         listViewVote.setAdapter(HomeActivity.homeAdapter);

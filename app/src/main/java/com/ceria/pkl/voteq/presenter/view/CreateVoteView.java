@@ -26,7 +26,6 @@ public class CreateVoteView implements CreateVoteCallBack {
 
     @Override
     public void callCreateVote(String token, final String title, final List<String> options, Boolean is_open) {
-        Log.d("logOp", options.toString());
         if (createVoteInterface != null) {
             createVoteInterface.showProgress();
         }
@@ -40,7 +39,7 @@ public class CreateVoteView implements CreateVoteCallBack {
                     createVoteInterface.onSuccedeed();
                     createVoteInterface.navigateToHome();
                 } else {
-                    Log.d("log", "response code: " + response.code());
+                    Log.d("LOG", "response code: " + response.code());
                     createVoteInterface.hideProgress();
                     createVoteInterface.setCredentialError();
                 }

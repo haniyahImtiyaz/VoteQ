@@ -46,7 +46,6 @@ public class LoginView implements LoginCallBack {
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 if (response.code() == 200) {
                     Login loginObject = response.body().data;
-                    Log.d("LOG login", "Body Respnse: " + loginObject.authToken);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("token", loginObject.authToken);
                     editor.apply();

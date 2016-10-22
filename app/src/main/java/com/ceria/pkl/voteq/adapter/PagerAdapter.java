@@ -4,8 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.ceria.pkl.voteq.activity.MyVoteLists;
-import com.ceria.pkl.voteq.activity.VoteLists;
+import com.ceria.pkl.voteq.activity.MyVoteList;
+import com.ceria.pkl.voteq.activity.VoteList;
 
 /**
  * Created by pandhu on 11/07/16.
@@ -27,10 +27,10 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
         //Returning the current tabs
         switch (position) {
             case 0:
-                VoteLists voteList = new VoteLists();
+                VoteList voteList = new VoteList();
                 return voteList;
             case 1:
-                MyVoteLists myVoteList = new MyVoteLists();
+                MyVoteList myVoteList = new MyVoteList();
                 return myVoteList;
             default:
                 return null;

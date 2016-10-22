@@ -12,6 +12,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -23,14 +24,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ceria.pkl.voteq.ClientCallBackLabel;
-import com.ceria.pkl.voteq.ClientCallbackCancel;
 import com.ceria.pkl.voteq.ClientCallbackSignIn;
 import com.ceria.pkl.voteq.R;
-import com.ceria.pkl.voteq.ResultActivity;
 import com.ceria.pkl.voteq.adapter.ListAdapterResult;
 import com.ceria.pkl.voteq.itemAdapter.ResultItem;
 import com.ceria.pkl.voteq.models.NetworkService;
+import com.ceria.pkl.voteq.presenter.view.CancelVoteView;
 import com.ceria.pkl.voteq.presenter.view.SpecificVoteView;
+import com.ceria.pkl.voteq.presenter.view.UpdateStatusView;
 import com.ceria.pkl.voteq.presenter.view.VotingView;
 import com.ceria.pkl.voteq.presenter.viewinterface.VotingInterface;
 import com.github.paolorotolo.expandableheightlistview.ExpandableHeightGridView;
@@ -39,7 +40,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class VoteActivity extends AppCompatActivity implements VotingInterface, View.OnClickListener,
-        ClientCallBackLabel, ClientCallbackCancel, ClientCallbackSignIn {
+        ClientCallBackLabel, ClientCallbackSignIn {
 
     ExpandableHeightGridView gridView;
     List<ResultItem> resultItemList;
@@ -62,6 +63,8 @@ public class VoteActivity extends AppCompatActivity implements VotingInterface, 
     private ListAdapterResult listAdapterResult;
     private SpecificVoteView presenter;
     private VotingView presenterVoting;
+    private CancelVoteView presenterCancelVote;
+    private UpdateStatusView presenterUpdateStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,6 +122,8 @@ public class VoteActivity extends AppCompatActivity implements VotingInterface, 
 
         progressDialog = new ProgressDialog(this);
         presenter = new SpecificVoteView(this);
+        presenterCancelVote = new CancelVoteView(this);
+        presenterUpdateStatus = new UpdateStatusView(this);
 
         option_id = 0;
         load();
@@ -126,28 +131,10 @@ public class VoteActivity extends AppCompatActivity implements VotingInterface, 
         switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                radioGroupVote.removeAllViews();
-                resultItemList.clear();
                 if (isChecked) {
-                    networkService.updateLabel(token, id, titleText, true, VoteActivity.this);
-                    labelText = "Open";
-                    if (fragment.equals("voteList")) {
-                        VoteLists.listItem.get(position).setLabel("Open");
-                        HomeActivity.homeAdapter.notifyDataSetChanged();
-                    } else {
-                        MyVoteLists.listItem.get(position).setLabel("Open");
-                        HomeActivity.homeAdapter2.notifyDataSetChanged();
-                    }
+                    presenterUpdateStatus.callUpdateStatus(id, token, titleText, true);
                 } else {
-                    networkService.updateLabel(token, id, titleText, false, VoteActivity.this);
-                    labelText = "Closed";
-                    if (fragment.equals("voteList")) {
-                        VoteLists.listItem.get(position).setLabel("Closed");
-                        HomeActivity.homeAdapter.notifyDataSetChanged();
-                    } else {
-                        MyVoteLists.listItem.get(position).setLabel("Closed");
-                        HomeActivity.homeAdapter2.notifyDataSetChanged();
-                    }
+                    presenterUpdateStatus.callUpdateStatus(id, token, titleText, false);
                 }
             }
         });
@@ -165,9 +152,8 @@ public class VoteActivity extends AppCompatActivity implements VotingInterface, 
         btnCancelVote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NetworkService networkService = new NetworkService(VoteActivity.this);
-                networkService.cancelVoted(token, id, VoteActivity.this);
-                progressDialog.show();
+                Log.d("voted", voted.toString());
+                presenterCancelVote.callCancelVote(token, id);
             }
         });
         btnReload.setOnClickListener(new View.OnClickListener() {
@@ -235,24 +221,6 @@ public class VoteActivity extends AppCompatActivity implements VotingInterface, 
     }
 
     @Override
-    public void onSuccessCancelVote() {
-        Toast.makeText(VoteActivity.this, "Success Cancel Your Votes", Toast.LENGTH_SHORT).show();
-        progressDialog.dismiss();
-        VoteLists.listItem = new ArrayList<>();
-        MyVoteLists.listItem = new ArrayList<>();
-        Intent i = new Intent(VoteActivity.this, HomeActivity.class);
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(i);
-
-    }
-
-    @Override
-    public void onFailedCancelVotes() {
-        Toast.makeText(VoteActivity.this, "Failur to cancel your Vote", Toast.LENGTH_SHORT).show();
-        progressDialog.dismiss();
-    }
-
-    @Override
     public void showProgress() {
         progressDialog.setMessage("Please Wait ...");
         progressDialog.show();
@@ -260,7 +228,7 @@ public class VoteActivity extends AppCompatActivity implements VotingInterface, 
 
     @Override
     public void hideProgress() {
-        progressDialog.hide();
+        progressDialog.dismiss();
     }
 
     @Override
@@ -275,20 +243,25 @@ public class VoteActivity extends AppCompatActivity implements VotingInterface, 
 
     @Override
     public void navigateToHome() {
-        VoteLists.listItem = new ArrayList<>();
-        MyVoteLists.listItem = new ArrayList<>();
+        VoteList.listItem = new ArrayList<>();
+        MyVoteList.listItem = new ArrayList<>();
         Intent i = new Intent(VoteActivity.this, HomeActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(i);
+        finish();
     }
 
     @Override
-    public void onSuccedeedGetVote() {
+    public void onSucceededGetVote() {
         resultItemList = presenter.resultItemList;
         listAdapterResult = new ListAdapterResult(resultItemList, VoteActivity.this);
         gridView.setAdapter(listAdapterResult);
-
-        //getDateFormat from network Service
+        if(presenter.voted_option_id == null){
+            voted = false;
+        }else{
+            voted = true;
+        }
+        presenterVoting = new VotingView(this, voted);
         textDate.setText("Since " + presenter.date);
 
         //Create Radio Button to populate vote options
@@ -300,21 +273,67 @@ public class VoteActivity extends AppCompatActivity implements VotingInterface, 
         }
 
         if (presenter.voted_option_id != null && labelText.equals("Open")) {
-            voted = true;
             option_id = Integer.parseInt(presenter.voted_option_id);
             radioGroupVote.clearCheck();
             radioGroupVote.check(option_id);
             btnCancelVote.setVisibility(View.VISIBLE);
         } else {
-            voted = false;
             btnCancelVote.setVisibility(View.INVISIBLE);
         }
-        presenterVoting = new VotingView(this, voted);
         btnReload.setVisibility(View.GONE);
     }
 
     @Override
+    public void onSucceededCancelVote() {
+        radioGroupVote.removeAllViews();
+        resultItemList.clear();
+        presenter = new SpecificVoteView(this);
+        presenter.callSpecificVote(token, id);
+        int count = Integer.parseInt(countText) - 1;
+        if(fragment == "voteList"){
+            VoteList.listItem.get(position).setTextCount(String.valueOf(count));
+            HomeActivity.homeAdapter.notifyDataSetChanged();
+        }else{
+            MyVoteList.listItem.get(position).setTextCount(String.valueOf(count));
+            HomeActivity.homeAdapter2.notifyDataSetChanged();
+        }
+        Toast.makeText(VoteActivity.this, "Success Cancel Your Votes", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onSucceededUpdateStatus() {
+        if (presenterUpdateStatus.is_open == false) {
+            seekStatusText.setText("Closed");
+            seekStatusText.setBackgroundColor(Color.parseColor("#F44336"));
+            switchCompat.setChecked(false);
+            radioGroupVote.setVisibility(View.GONE);
+            btnResult.setVisibility(View.VISIBLE);
+//            if (fragment.equals("voteList")) {
+//                VoteList.listItem.get(position).setLabel("Open");
+//                HomeActivity.homeAdapter.notifyDataSetChanged();
+//            } else {
+//                MyVoteList.listItem.get(position).setLabel("Open");
+//                HomeActivity.homeAdapter2.notifyDataSetChanged();
+//            }
+        } else {
+            seekStatusText.setText("Open");
+            seekStatusText.setBackgroundColor(Color.parseColor("#4CAF50"));
+            switchCompat.setChecked(true);
+            radioGroupVote.setVisibility(View.VISIBLE);
+            btnResult.setVisibility(View.GONE);
+//            if (fragment.equals("voteList")) {
+//                VoteList.listItem.get(position).setLabel("Closed");
+//                HomeActivity.homeAdapter.notifyDataSetChanged();
+//            } else {
+//                MyVoteList.listItem.get(position).setLabel("Closed");
+//                HomeActivity.homeAdapter2.notifyDataSetChanged();
+//            }
+        }
+    }
+
+    @Override
     public void onClick(View v) {
+        Log.d("voted", voted.toString());
         if (radioGroupVote.getCheckedRadioButtonId() == -1) {
             new AlertDialog.Builder(VoteActivity.this)
                     .setMessage("Please check one option to continue!")

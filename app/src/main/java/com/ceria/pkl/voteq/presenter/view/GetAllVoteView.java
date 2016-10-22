@@ -51,13 +51,13 @@ public class GetAllVoteView implements GetAllVoteCallBack {
                         } else {
                             label = "Closed";
                         }
-                        String idCreator = voteObject[i].user.id;
+                        String idCreator = voteObject[i].user.authToken;
                         homeItemList.add(new HomeItem(id, title, count, label, idCreator));
                     }
-                    getAllVoteInterface.onSuccedeed();
+                    getAllVoteInterface.onSucceeded();
                     getAllVoteInterface.hideProgress();
                 } else {
-                    Log.d("logGetVote", "response code: " + response.code());
+                    Log.d("LOG", "response code: " + response.code());
                     getAllVoteInterface.hideProgress();
                     getAllVoteInterface.setCredentialError();
                 }

@@ -12,5 +12,5 @@ public interface GetAllVoteInterface {
 
     void onNetworkFailure();
 
-    void onSuccedeed();
+    void onSucceeded();
 }
