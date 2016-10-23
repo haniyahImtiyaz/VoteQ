@@ -33,7 +33,7 @@ public class VoteList extends Fragment implements ClientCallbackSignIn {
     NetworkService networkService;
     private SwipeRefreshLayout swipeRefreshLayout;
 
-    @Override
+        @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, final Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.page_vote_list, container, false);
         listViewVote = (ListView) rootView.findViewById(R.id.list_vote);

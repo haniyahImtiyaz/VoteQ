@@ -3,12 +3,13 @@ package com.ceria.pkl.voteq.models.pojo;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by root on 23/09/16.
+ * Created by ayu on 23/10/16.
  */
 
-public class LoginResponse {
+public class Response {
+
     @SerializedName("status")
     public String status;
     @SerializedName("data")
-    public Login data;
+    public Response data;
 }

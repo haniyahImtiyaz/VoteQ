@@ -33,7 +33,16 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:hint="Full Name"
+        android:drawableLeft="@mipmap/user"
+        android:drawablePadding="10dp"
+        android:id="@+id/txt_fullname"
+        android:inputType="text"
+        android:layout_centerVertical="true" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:hint="Email"
         android:drawableLeft="@mipmap/mail"
         android:drawablePadding="10dp"
@@ -45,13 +54,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawableLeft="@mipmap/key"
-        android:layout_marginTop="5dp"
-        android:drawablePadding="10dp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
         android:hint="Password"
+        android:drawablePadding="10dp"
         android:inputType="textPassword"
         android:id="@+id/txt_password"
-        android:layout_below="@+id/txt_password" />
+        android:layout_centerVertical="true" />
 
     <EditText
         android:layout_width="match_parent"
@@ -60,10 +67,8 @@
         android:inputType="textPassword"
         android:drawablePadding="10dp"
         android:drawableLeft="@mipmap/key"
-        android:textAppearance="?android:attr/textAppearanceMedium"
         android:hint="Confirm Password"
-        android:id="@+id/txt_confirm_passoword"
-        android:layout_below="@+id/txt_password_confirm"/>
+        android:id="@+id/txt_confirm_passoword"/>
 
     <Button
         android:layout_width="match_parent"

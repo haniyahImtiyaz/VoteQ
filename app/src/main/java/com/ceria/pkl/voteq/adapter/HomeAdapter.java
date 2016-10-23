@@ -22,9 +22,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by pandhu on 11/07/16.
  */
 public class HomeAdapter extends BaseAdapter {
-    private List<HomeItem> homeItems;
-    private List<HomeItem> homeItemsArray;
-    private LayoutInflater inflater;
+        private List<HomeItem> homeItems;
+        private List<HomeItem> homeItemsArray;
+        private LayoutInflater inflater;
 
 
     public HomeAdapter(List<HomeItem> homeItems, Context context) {
