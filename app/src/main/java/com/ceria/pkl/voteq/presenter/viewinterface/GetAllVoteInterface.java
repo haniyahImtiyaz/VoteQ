@@ -13,4 +13,6 @@ public interface GetAllVoteInterface {
     void onNetworkFailure();
 
     void onSucceeded();
+
+    void onSucceededDelete();
 }

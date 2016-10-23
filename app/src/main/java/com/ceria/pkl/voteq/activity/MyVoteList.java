@@ -14,11 +14,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.ceria.pkl.voteq.ClientCallbackDelete;
 import com.ceria.pkl.voteq.R;
 import com.ceria.pkl.voteq.adapter.HomeAdapter;
 import com.ceria.pkl.voteq.itemAdapter.HomeItem;
-import com.ceria.pkl.voteq.models.NetworkService;
+import com.ceria.pkl.voteq.presenter.view.DeleteVoteView;
 import com.ceria.pkl.voteq.presenter.view.GetAllVoteView;
 import com.ceria.pkl.voteq.presenter.viewinterface.GetAllVoteInterface;
 
@@ -28,14 +27,14 @@ import java.util.List;
 /**
  * Created by pandhu on 11/07/16.
  */
-public class MyVoteList extends Fragment implements GetAllVoteInterface, ClientCallbackDelete{
+public class MyVoteList extends Fragment implements GetAllVoteInterface{
     private ListView listViewVote;
     static List<HomeItem> listItem = new ArrayList<>();
     ProgressDialog progressDialog;
-    NetworkService networkService;
     private SwipeRefreshLayout swipeRefreshLayout;
     private int position_id;
     private GetAllVoteView presenter;
+    private DeleteVoteView presenterDelete;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,6 +42,7 @@ public class MyVoteList extends Fragment implements GetAllVoteInterface, ClientC
         listViewVote = (ListView) rootView.findViewById(R.id.list_my_vote);
         swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh);
         presenter = new GetAllVoteView(this);
+        presenterDelete = new DeleteVoteView(this);
         progressDialog = new ProgressDialog(getContext());
 //        if (listItem.isEmpty()) {
             visible();
@@ -81,10 +81,8 @@ public class MyVoteList extends Fragment implements GetAllVoteInterface, ClientC
                             .setTitle("Delete")
                             .setPositiveButton("yes", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
-                                    networkService = new NetworkService(getContext());
-                                    networkService.deleteVotes(HomeActivity.token, listItem.get(position).getId(),MyVoteList.this);
-                                    position_id = position;
-                                    progressDialog.show();
+                                     presenterDelete.callDeleteVote(HomeActivity.token, listItem.get(position).getId());
+                                     position_id = position;
                                 }
                             })
                             .setNegativeButton("no", new DialogInterface.OnClickListener() {
@@ -112,26 +110,6 @@ public class MyVoteList extends Fragment implements GetAllVoteInterface, ClientC
                 android.R.color.holo_red_light);
 
         return rootView;
-    }
-
-    @Override
-    public void onSuccededDelete() {
-        progressDialog.dismiss();
-        listItem.remove(position_id);
-        HomeActivity.homeAdapter2.notifyDataSetChanged();
-        Toast.makeText(getContext(), "Your vote has been deleted", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onFailedDelete() {
-        progressDialog.dismiss();
-        Toast.makeText(getContext(), "Delete vote failed", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onTimeout() {
-        progressDialog.dismiss();
-        Toast.makeText(getContext(), "Network Failure", Toast.LENGTH_SHORT).show();
     }
 
     public void visible() {
@@ -173,5 +151,12 @@ public class MyVoteList extends Fragment implements GetAllVoteInterface, ClientC
         } else {
             listViewVote.setAdapter(HomeActivity.homeAdapter2);
         }
+    }
+
+    @Override
+    public void onSucceededDelete() {
+        listItem.remove(position_id);
+        HomeActivity.homeAdapter2.notifyDataSetChanged();
+        Toast.makeText(getContext(), "Your vote has been deleted", Toast.LENGTH_SHORT).show();
     }
 }

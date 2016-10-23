@@ -128,4 +128,9 @@ public class VoteList extends Fragment implements GetAllVoteInterface {
         listViewVote.setAdapter(HomeActivity.homeAdapter);
         swipeRefreshLayout.setRefreshing(false);
     }
+
+    @Override
+    public void onSucceededDelete() {
+
+    }
 }

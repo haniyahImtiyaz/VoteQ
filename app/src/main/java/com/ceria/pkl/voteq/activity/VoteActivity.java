@@ -23,8 +23,6 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ceria.pkl.voteq.ClientCallBackLabel;
-import com.ceria.pkl.voteq.ClientCallbackSignIn;
 import com.ceria.pkl.voteq.R;
 import com.ceria.pkl.voteq.adapter.ListAdapterResult;
 import com.ceria.pkl.voteq.itemAdapter.ResultItem;
@@ -39,8 +37,7 @@ import com.github.paolorotolo.expandableheightlistview.ExpandableHeightGridView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VoteActivity extends AppCompatActivity implements VotingInterface, View.OnClickListener,
-        ClientCallBackLabel, ClientCallbackSignIn {
+public class VoteActivity extends AppCompatActivity implements VotingInterface, View.OnClickListener {
 
     ExpandableHeightGridView gridView;
     List<ResultItem> resultItemList;
@@ -186,26 +183,21 @@ public class VoteActivity extends AppCompatActivity implements VotingInterface, 
         seekStatusText.setText(labelText);
     }
 
-    @Override
-    public void succes() {
-        if (seekStatusText.getText().toString().equals("Open")) {
-            seekStatusText.setText("Closed");
-            labelText = "Closed";
-            seekStatusText.setBackgroundColor(Color.parseColor("#F44336"));
-        } else {
-            seekStatusText.setText("Open");
-            labelText = "Open";
-            seekStatusText.setBackgroundColor(Color.parseColor("#4CAF50"));
-        }
-        visibleButton(labelText);
-        seekStatusText.setText(labelText);
-        presenter.callSpecificVote(token, id);
-    }
-
-    @Override
-    public void fail() {
-        Toast.makeText(VoteActivity.this, "Failure update status", Toast.LENGTH_SHORT).show();
-    }
+//    @Override
+//    public void succes() {
+//        if (seekStatusText.getText().toString().equals("Open")) {
+//            seekStatusText.setText("Closed");
+//            labelText = "Closed";
+//            seekStatusText.setBackgroundColor(Color.parseColor("#F44336"));
+//        } else {
+//            seekStatusText.setText("Open");
+//            labelText = "Open";
+//            seekStatusText.setBackgroundColor(Color.parseColor("#4CAF50"));
+//        }
+//        visibleButton(labelText);
+//        seekStatusText.setText(labelText);
+//        presenter.callSpecificVote(token, id);
+//    }
 
     private void visibleButton(String label) {
         if (label.equals("Open")) {
@@ -333,7 +325,6 @@ public class VoteActivity extends AppCompatActivity implements VotingInterface, 
 
     @Override
     public void onClick(View v) {
-        Log.d("voted", voted.toString());
         if (radioGroupVote.getCheckedRadioButtonId() == -1) {
             new AlertDialog.Builder(VoteActivity.this)
                     .setMessage("Please check one option to continue!")
@@ -354,21 +345,6 @@ public class VoteActivity extends AppCompatActivity implements VotingInterface, 
                 }
             });
         }
-
-    }
-
-    @Override
-    public void onSucceded() {
-
-    }
-
-    @Override
-    public void onFailed() {
-
-    }
-
-    @Override
-    public void onTimeout() {
 
     }
 }
