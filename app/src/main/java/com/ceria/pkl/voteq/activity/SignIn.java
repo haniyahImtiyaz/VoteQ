@@ -12,7 +12,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ceria.pkl.voteq.ForgotPassword;
 import com.ceria.pkl.voteq.R;
 import com.ceria.pkl.voteq.presenter.view.LoginView;
 import com.ceria.pkl.voteq.presenter.viewinterface.LoginInterface;
@@ -107,7 +106,18 @@ public class SignIn extends AppCompatActivity implements LoginInterface, View.On
     }
 
     @Override
-    public void onClick(View v) {
-        presenter.auth(edtEmail.getText().toString(), edtPassword.getText().toString());
+    public void setEmailError() {
+        edtEmail.setError("Email cannot be empty");
     }
+
+    @Override
+    public void setPasswordError() {
+        edtPassword.setError("Password cannot be empty");
+    }
+
+    @Override
+    public void onClick(View v) {
+            presenter.auth(edtEmail.getText().toString(), edtPassword.getText().toString());
+    }
+
 }

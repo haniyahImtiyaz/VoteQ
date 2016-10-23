@@ -14,4 +14,7 @@ public interface LoginInterface {
 
     void onNetworkFailure();
 
+    void setEmailError();
+
+    void setPasswordError();
 }

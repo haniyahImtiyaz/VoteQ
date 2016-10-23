@@ -25,7 +25,7 @@
             android:label="@string/title_activity_result"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ForgotPassword"
+            android:name=".activity.ForgotPassword"
             android:label="@string/title_activity_result"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
