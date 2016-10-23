@@ -9,7 +9,6 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -70,7 +69,7 @@ public class AddVoteActivity extends AppCompatActivity implements CreateVoteInte
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         token = sharedPreferences.getString("token", "");
-        presenter = new CreateVoteView(this);
+        presenter = new CreateVoteView(this, token);
 
         editTextOption.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -86,14 +85,7 @@ public class AddVoteActivity extends AppCompatActivity implements CreateVoteInte
         buttonAddOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (editTextTitle.getText().toString().length() == 0) {
-                    new AlertDialog.Builder(AddVoteActivity.this).setMessage("Please fill title to continue!")
-                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                }
-                            })
-                            .show();
-                } else if (editTextOption.getText().toString().trim().length() == 0) {
+               if (editTextOption.getText().toString().trim().length() == 0) {
                     new AlertDialog.Builder(AddVoteActivity.this)
                             .setMessage("please, fill this option value!")
                             .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
@@ -135,7 +127,7 @@ public class AddVoteActivity extends AppCompatActivity implements CreateVoteInte
 
     @Override
     public void hideProgress() {
-        progressDialog.hide();
+        progressDialog.dismiss();
     }
 
     @Override
@@ -159,48 +151,39 @@ public class AddVoteActivity extends AppCompatActivity implements CreateVoteInte
     }
 
     @Override
+    public void setTitleEmpty() {
+        editTextTitle.setError("Title Cannot be Empty");
+    }
+
+    @Override
+    public void setOptionsEmpty() {
+        editTextOption.setError("Option cannot less than 2, Please fill option again");
+    }
+
+    @Override
+    public void setOptionNotEmpty() {
+        final String option = editTextOption.getText().toString();
+        new AlertDialog.Builder(AddVoteActivity.this).setMessage("Option '" + option + "' haven't added in option list, Do you want add '" + option + "' to option list ?")
+                .setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        optionItemList.add(get("Option " + (listAdapterOption.getCount() + 1), option));
+                        listAdapterOption.notifyDataSetChanged();
+                        editTextOption.setText("");
+                        editTextOption.setHint("Option " + (listAdapterOption.getCount() + 1));
+                        presenter.callCreateVote(token, editTextTitle.getText().toString(), editTextOption.getText().toString(), listOption, true);
+                    }
+                })
+                .setNegativeButton("no", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        editTextOption.setText("");
+                        presenter.callCreateVote(token, editTextTitle.getText().toString(), editTextOption.getText().toString(), listOption, true);
+                    }
+                })
+                .show();
+    }
+
+    @Override
     public void onClick(View v) {
-        if (editTextTitle.getText().toString().length() == 0) {
-            new AlertDialog.Builder(AddVoteActivity.this).setMessage("Please fill title to continue!")
-                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                        }
-                    })
-                    .show();
-        } else if (editTextOption.getText().toString().length() != 0) {
-            final String option = editTextOption.getText().toString();
-            new AlertDialog.Builder(AddVoteActivity.this).setMessage("Option '" + option + "' haven't added in option list, Do you want add '" + option + "' to option list ?")
-                    .setPositiveButton("yes", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            optionItemList.add(get("Option " + (listAdapterOption.getCount() + 1), option));
-                            listAdapterOption.notifyDataSetChanged();
-                            editTextOption.setText("");
-                            editTextOption.setHint("Option " + (listAdapterOption.getCount() + 1));
-                        }
-                    })
-                    .setNegativeButton("no", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            editTextOption.setText("");
-                        }
-                    })
-                    .show();
-        } else if (optionItemList.size() == 0) {
-            new AlertDialog.Builder(AddVoteActivity.this).setMessage("Please fill the option list to continue!")
-                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                        }
-                    })
-                    .show();
-        } else if (optionItemList.size() < 2) {
-            new AlertDialog.Builder(AddVoteActivity.this).setMessage("List option can't only one item, Please add option to continue!")
-                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                        }
-                    })
-                    .show();
-        } else {
-            Log.d("logOp", listOption.toString());
-            presenter.callCreateVote(token, editTextTitle.getText().toString(), listOption, true);
-        }
+       presenter.callCreateVote(token, editTextTitle.getText().toString(), editTextOption.getText().toString(), listOption, true);
     }
 }

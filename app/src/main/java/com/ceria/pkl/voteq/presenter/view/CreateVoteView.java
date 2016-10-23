@@ -1,60 +1,71 @@
 package com.ceria.pkl.voteq.presenter.view;
 
-import android.util.Log;
-
-import com.ceria.pkl.voteq.models.network.ApiClient;
-import com.ceria.pkl.voteq.models.network.CreateVoteClient;
-import com.ceria.pkl.voteq.models.pojo.CreateVoteResponse;
 import com.ceria.pkl.voteq.presenter.callback.CreateVoteCallBack;
+import com.ceria.pkl.voteq.presenter.interactor.CreateVoteInteractor;
+import com.ceria.pkl.voteq.presenter.interactorImpl.CreateVoteInteractorImpl;
 import com.ceria.pkl.voteq.presenter.viewinterface.CreateVoteInterface;
 
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 /**
  * Created by win 8 on 10/21/2016.
  */
-public class CreateVoteView implements CreateVoteCallBack {
+public class CreateVoteView implements CreateVoteCallBack, CreateVoteInteractor.OnCreateVoteFinishedListener {
     private CreateVoteInterface createVoteInterface;
+    private CreateVoteInteractor createVoteInteractor;
 
-    public CreateVoteView(CreateVoteInterface createVoteInterface) {
+    public CreateVoteView(CreateVoteInterface createVoteInterface, String token) {
         this.createVoteInterface = createVoteInterface;
+        this.createVoteInteractor = new CreateVoteInteractorImpl(token);
     }
 
     @Override
-    public void callCreateVote(String token, final String title, final List<String> options, Boolean is_open) {
+    public void callCreateVote(String token, String title, String option, List<String> options, Boolean is_open) {
         if (createVoteInterface != null) {
             createVoteInterface.showProgress();
         }
-        final CreateVoteClient createVoteClient = ApiClient.getClient().create(CreateVoteClient.class);
-        Call<CreateVoteResponse> call = createVoteClient.createVote(token, title, options, is_open);
-        call.enqueue(new Callback<CreateVoteResponse>() {
-            @Override
-            public void onResponse(Call<CreateVoteResponse> call, Response<CreateVoteResponse> response) {
-                if (response.code() == 201) {
-                    createVoteInterface.hideProgress();
-                    createVoteInterface.onSuccedeed();
-                    createVoteInterface.navigateToHome();
-                } else {
-                    Log.d("LOG", "response code: " + response.code());
-                    createVoteInterface.hideProgress();
-                    createVoteInterface.setCredentialError();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<CreateVoteResponse> call, Throwable t) {
-                createVoteInterface.hideProgress();
-                createVoteInterface.onNetworkFailure();
-            }
-        });
+        createVoteInteractor.createVote(title, option, options, is_open, this);
     }
 
     @Override
     public void onDestroy() {
         createVoteInterface = null;
+    }
+
+    @Override
+    public void onTitleError() {
+        createVoteInterface.hideProgress();
+        createVoteInterface.setTitleEmpty();
+    }
+
+    @Override
+    public void onOptionError() {
+        createVoteInterface.hideProgress();
+        createVoteInterface.setOptionNotEmpty();
+    }
+
+    @Override
+    public void onOptionsError() {
+        createVoteInterface.hideProgress();
+        createVoteInterface.setOptionsEmpty();
+    }
+
+    @Override
+    public void onSuccess() {
+        createVoteInterface.hideProgress();
+        createVoteInterface.onSuccedeed();
+        createVoteInterface.navigateToHome();
+    }
+
+    @Override
+    public void onError() {
+        createVoteInterface.hideProgress();
+        createVoteInterface.setCredentialError();
+    }
+
+    @Override
+    public void onFailure() {
+        createVoteInterface.hideProgress();
+        createVoteInterface.onNetworkFailure();
     }
 }
