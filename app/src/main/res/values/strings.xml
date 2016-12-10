@@ -8,7 +8,7 @@
     <string name="title_activity_result">Result</string>
     <string name="title_activity_home">Home</string>
     <string name="title_activity_vote">Giving Vote</string>
-    <string name="base_url">https://voteq.herokuapp.com</string>
+    <string name="base_url">https://electa-engine.herokuapp.com/</string>
     <string name="sign_up">/user/users</string>
     <string name="sign_in">/user/session</string>
     <string name="create_vote">/user/votes</string>
