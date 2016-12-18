@@ -7,7 +7,7 @@
     android:background="@color/colorToolbar"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.ceria.pkl.voteq.ResultActivity"
+    tools:context="com.ceria.pkl.voteq.activity.ResultActivity"
     tools:showIn="@layout/activity_result">
 
     <RelativeLayout

@@ -89,7 +89,7 @@ public class HomeAdapter extends BaseAdapter {
         String lowerTitle = homeItem.getTextTitle().toLowerCase();
         char lowerTitleFirst = lowerTitle.charAt(0);
         if(Character.isDigit(lowerTitleFirst)){
-            String imageHold = "a"+String.valueOf(lowerTitleFirst);
+            String imageHold = "activity_card"+String.valueOf(lowerTitleFirst);
             image = convertView.getResources().getIdentifier(imageHold, "drawable", inflater.getContext().getPackageName());
         }else{
            image = convertView.getResources().getIdentifier(String.valueOf(lowerTitleFirst), "drawable", inflater.getContext().getPackageName());

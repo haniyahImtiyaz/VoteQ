@@ -36,6 +36,7 @@ public class HomeActivity extends AppCompatActivity implements SearchView.OnQuer
         getSupportActionBar().setDisplayUseLogoEnabled(true);
 
         final TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayoutHome);
+        tabLayout.addTab(tabLayout.newTab().setText("Card"));
         tabLayout.addTab(tabLayout.newTab().setText("Vote List"));
         tabLayout.addTab(tabLayout.newTab().setText("My Vote List"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);

@@ -30,7 +30,7 @@ public class LoginInteractorImpl implements LoginInteractor{
 
     @Override
     public void login(final String email, final String password, final OnLoginFinishedListener listener) {
-        // Mock login. I'm creating a handler to delay the answer a couple of seconds
+        // Mock login. I'm creating activity_card handler to delay the answer activity_card couple of seconds
         new Handler().postDelayed(new Runnable() {
             @Override public void run() {
                 boolean error = false;

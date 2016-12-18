@@ -17,17 +17,17 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" >
+            app:popupTheme="@style/AppTheme.PopupOverlay">
 
             <Button
                 android:id="@+id/btn_cancel_vote"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
                 android:layout_gravity="right"
                 android:layout_marginRight="10dp"
                 android:background="@color/colorAccent"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
                 android:text="CANCEL VOTE"
                 android:textColor="#ffffff"
                 android:textSize="15sp"
@@ -37,6 +37,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_vote"/>
+    <include layout="@layout/content_vote" />
 
 </android.support.design.widget.CoordinatorLayout>

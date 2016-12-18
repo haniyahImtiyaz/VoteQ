@@ -18,4 +18,15 @@
     <string name="request_forgot_password">/user/request_forgot_password</string>
     <string name="forgot_password">/user/forgot_password</string>
     <string name="cancel_vote">/user/user_votes</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="gender">Gender</string>
+    <string-array name="gender_list">
+        <item>Female</item>
+        <item>Male</item>
+    </string-array>
+    <string name="title_activity_card">CardActivity</string>
+    <string name="title_activity_main4">Main4Activity</string>
+    <string name="title_activity_profile">ProfileActivity</string>
+
+
 </resources>
