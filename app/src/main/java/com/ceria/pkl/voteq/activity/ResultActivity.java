@@ -15,7 +15,7 @@ import android.widget.Toast;
 import com.ceria.pkl.voteq.R;
 import com.ceria.pkl.voteq.adapter.ListAdapterResult;
 import com.ceria.pkl.voteq.itemAdapter.ResultItem;
-import com.ceria.pkl.voteq.presenter.view.SpecificVoteView;
+import com.ceria.pkl.voteq.presenter.view.DetailVoteView;
 import com.ceria.pkl.voteq.presenter.viewinterface.VotingInterface;
 import com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView;
 
@@ -31,7 +31,7 @@ public class ResultActivity extends AppCompatActivity implements VotingInterface
     List<ResultItem> resultItemList;
     ProgressDialog progressDialog;
     String token, id;
-    private SpecificVoteView presenter;
+    private DetailVoteView presenter;
 
 
     @Override
@@ -72,8 +72,8 @@ public class ResultActivity extends AppCompatActivity implements VotingInterface
         token = sharedPreferences.getString("token", "");
 
         progressDialog = new ProgressDialog(this);
-        presenter = new SpecificVoteView(this);
-        presenter.callSpecificVote(token, id);
+        presenter = new DetailVoteView(this);
+        presenter.callDetailVote(id);
 
     }
 
@@ -106,7 +106,7 @@ public class ResultActivity extends AppCompatActivity implements VotingInterface
 
     @Override
     public void onSucceededGetVote() {
-        resultItemList = presenter.resultItemList;
+      //  resultItemList = presenter.resultItemList;
         listAdapterResult = new ListAdapterResult(resultItemList, this);
         expandableListView.setAdapter(listAdapterResult);
 

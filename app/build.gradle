@@ -53,6 +53,7 @@ dependencies {
     compile 'com.squareup.retrofit2:retrofit:2.0.2'
     compile 'com.squareup.retrofit2:converter-gson:2.0.2'
 
+    compile 'com.github.bumptech.glide:glide:3.5.2'
 
     compile 'id.zelory.benih:benih:0.2.0'
 }

@@ -4,7 +4,7 @@ import android.util.Log;
 
 import com.ceria.pkl.voteq.models.network.ApiClient;
 import com.ceria.pkl.voteq.models.network.UpdatingStatusClient;
-import com.ceria.pkl.voteq.models.pojo.SpecificVoteResponse;
+import com.ceria.pkl.voteq.models.pojo.DetailVoteResponse;
 import com.ceria.pkl.voteq.presenter.callback.UpdateStatusCallBack;
 import com.ceria.pkl.voteq.presenter.viewinterface.VotingInterface;
 
@@ -30,10 +30,10 @@ public class UpdateStatusView implements UpdateStatusCallBack {
             votingInterface.showProgress();
         }
         UpdatingStatusClient updatingStatusClient = ApiClient.getClient().create(UpdatingStatusClient.class);
-        Call<SpecificVoteResponse> call = updatingStatusClient.updateStatus(vote_id, token, title, is_open);
-        call.enqueue(new Callback<SpecificVoteResponse>() {
+        Call<DetailVoteResponse> call = updatingStatusClient.updateStatus(vote_id, token, title, is_open);
+        call.enqueue(new Callback<DetailVoteResponse>() {
             @Override
-            public void onResponse(Call<SpecificVoteResponse> call, Response<SpecificVoteResponse> response) {
+            public void onResponse(Call<DetailVoteResponse> call, Response<DetailVoteResponse> response) {
                 if (response.code() == 200){
                     votingInterface.hideProgress();
                     votingInterface.onSucceededUpdateStatus();
@@ -45,7 +45,7 @@ public class UpdateStatusView implements UpdateStatusCallBack {
             }
 
             @Override
-            public void onFailure(Call<SpecificVoteResponse> call, Throwable t) {
+            public void onFailure(Call<DetailVoteResponse> call, Throwable t) {
                 votingInterface.hideProgress();
                 votingInterface.onNetworkFailure();
             }

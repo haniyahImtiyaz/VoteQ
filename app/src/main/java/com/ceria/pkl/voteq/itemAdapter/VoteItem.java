@@ -5,10 +5,10 @@ package com.ceria.pkl.voteq.itemAdapter;
  */
 
 public class VoteItem {
-    private String id, username, started, ended, title, category, description, status, responder;
-    private int userImage, voteImage;
+    private String id, username, started, ended, title, category, description, status, userImage, voteImage;
+    private int responder;
 
-    public VoteItem(String id, String username, String started, String ended, String title, String category, String description, String status, String responder, int userImage, int voteImage) {
+    public VoteItem(String id, String username, String started, String ended, String title, String category, String description, String status, int responder, String userImage, String voteImage) {
         this.id = id;
         this.username = username;
         this.started = started;
@@ -21,6 +21,8 @@ public class VoteItem {
         this.userImage = userImage;
         this.voteImage = voteImage;
     }
+
+    public VoteItem() {  }
 
     public String getId() {
         return id;
@@ -86,27 +88,27 @@ public class VoteItem {
         this.status = status;
     }
 
-    public String getResponder() {
+    public int getResponder() {
         return responder;
     }
 
-    public void setResponder(String responder) {
+    public void setResponder(int responder) {
         this.responder = responder;
     }
 
-    public int getUserImage() {
+    public String getUserImage() {
         return userImage;
     }
 
-    public void setUserImage(int userImage) {
+    public void setUserImage(String userImage) {
         this.userImage = userImage;
     }
 
-    public int getVoteImage() {
+    public String getVoteImage() {
         return voteImage;
     }
 
-    public void setVoteImage(int voteImage) {
+    public void setVoteImage(String voteImage) {
         this.voteImage = voteImage;
     }
 

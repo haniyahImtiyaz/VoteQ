@@ -41,7 +41,7 @@ public class MyVoteList extends Fragment implements GetAllVoteInterface{
         View rootView = inflater.inflate(R.layout.page_my_vote_list, container, false);
         listViewVote = (ListView) rootView.findViewById(R.id.list_my_vote);
         swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh);
-        presenter = new GetAllVoteView(this);
+        presenter = new GetAllVoteView(this, getContext(), HomeActivity.token);
         presenterDelete = new DeleteVoteView(this);
         progressDialog = new ProgressDialog(getContext());
 //        if (listItem.isEmpty()) {
@@ -99,7 +99,7 @@ public class MyVoteList extends Fragment implements GetAllVoteInterface{
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                presenter.callGetAllVote(HomeActivity.token, true);
+                presenter.callGetAllVote();
                 listItem.clear();
             }
         });
@@ -113,7 +113,7 @@ public class MyVoteList extends Fragment implements GetAllVoteInterface{
     }
 
     public void visible() {
-        presenter.callGetAllVote(HomeActivity.token, true);
+        presenter.callGetAllVote();
     }
 
     @Override
@@ -142,11 +142,11 @@ public class MyVoteList extends Fragment implements GetAllVoteInterface{
 
     @Override
     public void onSucceeded() {
-        listItem = presenter.homeItemList;
+       // listItem = presenter.homeItemList;
         HomeActivity.homeAdapter2 = new HomeAdapter(listItem, getContext());
         swipeRefreshLayout.setRefreshing(false);
 
-        if (presenter.homeItemList.size() == 0) {
+        if (presenter.voteItemList.size() == 0) {
             getView().setBackgroundResource(R.drawable.background);
         } else {
             listViewVote.setAdapter(HomeActivity.homeAdapter2);

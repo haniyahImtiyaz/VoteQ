@@ -28,8 +28,8 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/image_circle"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
                     android:layout_gravity="center_vertical"
                     android:src="@mipmap/ic_launcher"
                     app:civ_border_color="@color/colorDividerBlue"
@@ -39,7 +39,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginLeft="6dp"
                     android:orientation="vertical">
 
                     <TextView
@@ -47,6 +47,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Username"
+                        android:textColor="@color/colorTextUsername"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
                         android:textStyle="bold" />
 
@@ -71,27 +72,26 @@
 
             <TextView
                 android:id="@+id/voteTitle"
-                android:layout_width="wrap_content"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/userProfile"
-                android:layout_marginTop="6dp"
                 android:text="Vote Title"
+                android:layout_marginBottom="5dp"
+                android:textColor="@color/colorTextBlack"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textSize="28dp"
-                android:textStyle="bold" />
+                />
 
             <TextView
                 android:id="@+id/labelStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/voteTitle"
-                android:layout_marginTop="6dp"
-                android:background="#7dd48a"
+                android:background="#34d487"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:text="OPEN"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-                android:textColor="#ffffff" />
+                android:textColor="#ffffff"
+                android:layout_below="@+id/voteTitle" />
 
             <ImageView
                 android:id="@+id/overflow"
@@ -101,36 +101,22 @@
                 android:scaleType="centerCrop" />
 
             <TextView
-                android:id="@+id/voteCategory"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/voteTitle"
-                android:layout_marginLeft="5dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="6dp"
-                android:layout_toEndOf="@+id/labelStatus"
-                android:layout_toRightOf="@+id/labelStatus"
-                android:text="Category"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-                android:textColor="#939292" />
-
-            <TextView
                 android:id="@+id/voteDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/labelStatus"
                 android:layout_marginTop="6dp"
                 android:text="Text here about spoiler detail vote. Let the voter write some explanation here ......"
-                android:textColor="#505050" />
+                android:textColor="@color/colorTextDescription" />
 
             <View
                 android:id="@+id/line"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_below="@id/voteDescription"
-                android:layout_marginBottom="16dp"
                 android:layout_marginTop="16dp"
-                android:background="#616161" />
+                android:layout_marginBottom="16dp"
+                android:background="@color/colorTextCategory" />
 
             <TextView
                 android:id="@+id/voteResponder"
@@ -141,15 +127,30 @@
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                 android:textColor="#9e9d9d" />
 
-            <TextView
+            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_below="@+id/line"
-                android:background="#ffffff"
+                android:background="?android:attr/selectableItemBackground"
+                android:id="@+id/btnVote"
                 android:text="VOTE"
-                android:textColor="@color/colorPrimaryDarkBlue"
-                android:textSize="32px" />
+                android:textColor="@color/colorTextBlue"
+                android:textSize="32px"
+                android:layout_below="@+id/line"
+                android:layout_alignBottom="@+id/voteResponder" />
+
+            <TextView
+                android:id="@+id/voteCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Category"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                android:textColor="@color/colorTextCategory"
+                android:layout_below="@+id/voteTitle"
+                android:layout_marginLeft="6dp"
+                android:layout_toRightOf="@+id/labelStatus"
+                android:layout_toEndOf="@+id/labelStatus" />
+
         </RelativeLayout>
 
 

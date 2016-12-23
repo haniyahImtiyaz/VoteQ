@@ -5,8 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.ceria.pkl.voteq.itemAdapter.OptionItem;
 import com.ceria.pkl.voteq.R;
 
@@ -18,6 +21,7 @@ import java.util.List;
 public class ListAdapterOption extends BaseAdapter {
     private List<OptionItem> optionItemList;
     private LayoutInflater inflater;
+    int selectedIndex = -1;
 
     public ListAdapterOption(List<OptionItem> optionItemList, Context context) {
         this.optionItemList = optionItemList;
@@ -45,8 +49,8 @@ public class ListAdapterOption extends BaseAdapter {
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.option_item, parent, false);
             holder = new Holder();
-            holder.textViewOption = (TextView) convertView.findViewById(R.id.text_option);
-            holder.textViewValue = (TextView) convertView.findViewById(R.id.text_option_value);
+            holder.title = (TextView) convertView.findViewById(R.id.titleOption);
+            holder.image = (ImageView) convertView.findViewById(R.id.imageOption);
             convertView.setTag(holder);
         } else {
             holder = (Holder) convertView.getTag();
@@ -54,15 +58,33 @@ public class ListAdapterOption extends BaseAdapter {
 
         OptionItem optionItem = optionItemList.get(position);
 
-        holder.textViewOption.setText(optionItem.getOption());
-        holder.textViewValue.setText(optionItem.getOptionValue());
+        holder.title.setText(optionItem.getTitle());
+        if(optionItem.getImage() == ""){
+            holder.image.setImageResource(R.mipmap.ic_launcher);
+        }else {
+            Glide.with(convertView.getContext())
+                    .load(optionItem.getImage())
+                    .into(holder.image);
+        }
+
+        RadioButton rbSelect = (RadioButton) convertView.findViewById(R.id.radioButton);
+        if(selectedIndex == position){  // check the position to update correct radio button.
+            rbSelect.setChecked(true);
+        }
+        else{
+            rbSelect.setChecked(false);
+        }
 
         return convertView;
     }
 
     static class Holder {
-        TextView textViewOption;
-        TextView textViewValue;
+        TextView title;
+        ImageView image;
+    }
+
+    public void setSelectedIndex(int index) {
+        selectedIndex = index;
     }
 }
 

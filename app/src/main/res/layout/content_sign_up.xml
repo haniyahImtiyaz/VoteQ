@@ -8,7 +8,10 @@
     android:orientation="vertical"
     tools:context="com.ceria.pkl.voteq.activity.SignUp"
     tools:showIn="@layout/activity_sign_up">
-
+<View
+    android:layout_width="match_parent"
+    android:layout_height="2dp"
+    android:background="#d7d6d6"/>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">

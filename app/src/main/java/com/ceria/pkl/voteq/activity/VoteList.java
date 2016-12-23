@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.ceria.pkl.voteq.R;
 import com.ceria.pkl.voteq.adapter.HomeAdapter;
 import com.ceria.pkl.voteq.itemAdapter.HomeItem;
+import com.ceria.pkl.voteq.itemAdapter.VoteItem;
 import com.ceria.pkl.voteq.presenter.view.GetAllVoteView;
 import com.ceria.pkl.voteq.presenter.viewinterface.GetAllVoteInterface;
 
@@ -39,7 +40,7 @@ public class VoteList extends Fragment implements GetAllVoteInterface {
         swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh);
         progressDialog = new ProgressDialog(getContext());
 
-        presenter = new GetAllVoteView(this);
+        presenter = new GetAllVoteView(this, getContext(), HomeActivity.token);
 
         //   if (listItem.isEmpty()) {
         visible();
@@ -73,7 +74,7 @@ public class VoteList extends Fragment implements GetAllVoteInterface {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                presenter.callGetAllVote(HomeActivity.token, false);
+                presenter.callGetAllVote();
                 listItem.clear();
             }
         });
@@ -87,7 +88,7 @@ public class VoteList extends Fragment implements GetAllVoteInterface {
     }
 
     public void visible() {
-        presenter.callGetAllVote(HomeActivity.token, false);
+        presenter.callGetAllVote();
         showProgress();
     }
 
@@ -123,8 +124,8 @@ public class VoteList extends Fragment implements GetAllVoteInterface {
 
     @Override
     public void onSucceeded() {
-        listItem = presenter.homeItemList;
-        HomeActivity.homeAdapter = new HomeAdapter(listItem, getContext());
+     //   listItem = presenter.voteItemList;
+     //   HomeActivity.homeAdapter = new HomeAdapter(listItem, getContext());
         listViewVote.setAdapter(HomeActivity.homeAdapter);
         swipeRefreshLayout.setRefreshing(false);
     }

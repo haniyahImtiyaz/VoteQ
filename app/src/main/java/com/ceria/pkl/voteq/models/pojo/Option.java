@@ -8,12 +8,12 @@ import com.google.gson.annotations.SerializedName;
 public class Option {
     @SerializedName("id")
     public String id;
-    @SerializedName("title")
+    @SerializedName("options")
     public String title;
-    @SerializedName("count")
-    public String count;
     @SerializedName("percentage")
     public String percentage;
-    @SerializedName("vote_id")
-    public String vote_id;
+    @SerializedName("total_voter")
+    public int total_voter;
+    @SerializedName("image")
+    public String image;
 }
