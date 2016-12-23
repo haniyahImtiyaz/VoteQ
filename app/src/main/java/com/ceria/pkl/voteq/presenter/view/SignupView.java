@@ -37,7 +37,7 @@ public class SignupView implements SignupCallBack {
     }
 
     @Override
-    public void signUpAuth(String email, String pwd, String pwdConfirm) {
+    public void signUpAuth(String name, String email, String job, String pwd, String pwdConfirm, String date, String gender, Double latitude, Double longitude) {
         if (signupInterface != null) {
             signupInterface.showProgress();
         }
@@ -45,16 +45,16 @@ public class SignupView implements SignupCallBack {
 
 
         SignupClient signupClient = ApiClient.getClient().create(SignupClient.class);
-        Call<SignupResponse> call = signupClient.signUp(email, pwd, pwdConfirm);
+        Call<SignupResponse> call = signupClient.signUp(name, email,job, pwd, pwdConfirm, date, gender, latitude, longitude);
         call.enqueue(new Callback<SignupResponse>() {
             @Override
             public void onResponse(Call<SignupResponse> call, Response<SignupResponse> response) {
                 if (response.code() == 201) {
                     Signup signupObject = response.body().data;
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("token", signupObject.user.authToken);
-                    editor.apply();
-                    token = signupObject.user.authToken;
+                 //   SharedPreferences.Editor editor = sharedPreferences.edit();
+                   // editor.putString("token", signupObject.user.authToken);
+                //    editor.apply();
+                 //   token = signupObject.user.authToken;
                     signupInterface.hideProgress();
                     signupInterface.navigateToHome();
                 } else if (response.code() == 422) {

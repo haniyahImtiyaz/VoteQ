@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class ApiClient {
 
-    public static final String BASE_URL = "http://voteq.herokuapp.com/";
+    public static final String BASE_URL = "https://electa-engine.herokuapp.com/";
     private static Retrofit retrofit = null;
 
 

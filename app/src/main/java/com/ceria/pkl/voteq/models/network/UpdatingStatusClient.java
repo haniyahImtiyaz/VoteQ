@@ -1,6 +1,6 @@
 package com.ceria.pkl.voteq.models.network;
 
-import com.ceria.pkl.voteq.models.pojo.SpecificVoteResponse;
+import com.ceria.pkl.voteq.models.pojo.DetailVoteResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Header;
@@ -13,5 +13,5 @@ import retrofit2.http.Query;
  */
 public interface UpdatingStatusClient {
     @PUT("user/votes/{vote_id}")
-    Call<SpecificVoteResponse> updateStatus(@Path("vote_id") String vote_id, @Header("Authorization") String authorization, @Query("title") String title, @Query("is_open") Boolean is_open);
+    Call<DetailVoteResponse> updateStatus(@Path("vote_id") String vote_id, @Header("Authorization") String authorization, @Query("title") String title, @Query("is_open") Boolean is_open);
 }

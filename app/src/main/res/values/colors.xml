@@ -10,6 +10,13 @@
     <color name="colorPrimaryTextBlue">#212121</color>
     <color name="colorSecondaryTextBlue">#727272</color>
     <color name="colorDividerBlue">#B6B6B6</color>
+    <color name="colorTextBlue">#4f94e3</color>
+    <color name="colorTextBlack">#000000</color>
+    <color name="colorTextDescription">#6d6d6d</color>
+    <color name="colorTextUsername">#4a4a4a</color>
+    <color name="colorTextCategory">#a1a1a1</color>
+    <color name="colorLineGrey">#9b9b9b</color>
+
 
     <color name="labelOpen">#4CAF50</color>
     <color name="labelClosed">#F44336</color>

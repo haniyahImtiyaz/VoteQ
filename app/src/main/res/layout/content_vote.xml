@@ -2,232 +2,150 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/layout_vote_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorToolbar"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".activity.VoteActivity">
-    <LinearLayout
+    android:layout_marginTop="50dp"
+    tools:showIn="@layout/activity_vote">
+    <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="#dedddd"></LinearLayout>
+        android:background="#d7d6d6"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="35dp">
+        android:layout_marginBottom="24dp">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:padding="16dp">
 
-            <FrameLayout
-                android:id="@+id/layout_top"
+            <LinearLayout
+                android:id="@+id/userProfile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/activity_vertical_margin"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="20dp">
+                android:orientation="horizontal">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/image_circle"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@mipmap/ic_launcher"
+                    app:civ_border_color="@color/colorDividerBlue"
+                    app:civ_border_width="1dp" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="6dp"
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/txt_vote_count"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:text="1200 Peoples Voted"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="@color/colorPrimaryBlue"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/txt_date_vote"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/txt_vote_date"
-                        android:text="Since February, 21 2016" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/layout_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical|right"
-                    android:orientation="vertical"
-                    android:paddingBottom="2dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:paddingTop="2dp">
-
-                    <TextView
-                        android:id="@+id/txt_stat"
+                        android:id="@+id/user"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Open"
-                        android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:textColor="@android:color/white"
+                        android:text="Username"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:textColor="@color/colorTextUsername"
                         android:textStyle="bold" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/layout_seekbar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical|right"
-                    android:orientation="vertical"
-                    android:paddingBottom="2dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:paddingTop="2dp">
-
-                    <android.support.v7.widget.SwitchCompat
-                        android:id="@+id/compatSwitch"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
 
                     <TextView
-                        android:id="@+id/seek_status_text"
-                        android:layout_width="65dp"
-                        android:layout_height="22dp"
-                        android:layout_marginTop="2dp"
-                        android:gravity="center_horizontal"
-                        android:text="Open"
-                        android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:textColor="@android:color/white"
-                        android:textStyle="bold" />
-
+                        android:id="@+id/date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/user"
+                        android:text="17 Des 2016"
+                        android:textSize="10dp" />
                 </LinearLayout>
 
-            </FrameLayout>
+            </LinearLayout>
 
-            <View
-                android:id="@+id/div_1"
+            <TextView
+                android:id="@+id/voteTitle"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/userProfile"
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="6dp"
+                android:text="Vote Title"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="@color/colorTextBlack" />
+
+            <TextView
+                android:id="@+id/labelStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/voteTitle"
+                android:background="#34d487"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="OPEN"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                android:textColor="#ffffff" />
+
+            <TextView
+                android:id="@+id/voteDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/labelStatus"
+                android:layout_marginTop="16dp"
+                android:text="Text here about spoiler detail vote. Let the voter write some explanation here ......"
+                android:textColor="#4a4a4a" />
+
+            <TextView
+                android:id="@+id/voteCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/voteTitle"
+                android:layout_marginLeft="6dp"
+                android:layout_toEndOf="@+id/labelStatus"
+                android:layout_toRightOf="@+id/labelStatus"
+                android:text="Category"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                android:textColor="@color/colorTextCategory" />
+
+            <ImageView
+                android:id="@+id/voteImage"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_below="@+id/layout_top"
-                android:background="@color/colorDividerBlue" />
+                android:layout_height="200dp"
+                android:layout_below="@id/voteDescription"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="14dp"
+                android:padding="@dimen/activity_vertical_margin"
+                android:layout_marginTop="16dp"
 
-            <FrameLayout
-                android:id="@+id/layout_mid"
+                android:src="@mipmap/ic_launcher" />
+
+            <TextView
+                android:id="@+id/voteResponder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/div_1"
-                android:paddingBottom="@dimen/activity_vertical_margin"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="20dp">
+                android:layout_below="@+id/voteImage"
+                android:text="30 Responder"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                android:textColor="#9e9d9d" />
 
-            <ScrollView
+            <com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView
+                android:id="@+id/listOption"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/scrollExpand">
+                android:layout_below="@id/voteResponder"></com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+        </RelativeLayout>
 
-                    <TextView
-                        android:id="@+id/txt_title_sementara"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:text="Hasil Vote Sementara"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="@color/colorPrimaryBlue"
-                        android:textStyle="bold" />
-
-                        <com.github.paolorotolo.expandableheightlistview.ExpandableHeightGridView
-                            android:id="@+id/grid_sementara_count"
-                            android:layout_width="match_parent"
-                            android:layout_height="100dp"
-                            android:numColumns="2" />
-
-                </LinearLayout>
-            </ScrollView>
-
-            </FrameLayout>
-
-            <View
-                android:id="@+id/div_2"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_below="@+id/layout_mid"
-                android:background="@color/colorDividerBlue" />
-
-            <ScrollView
-                android:id="@+id/layout_below"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/div_2"
-                android:paddingBottom="@dimen/activity_vertical_margin"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin">
-
-                <LinearLayout
-                    android:id="@+id/layout_radio_vote"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/txt_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:text="Warna Baju Untuk Piknik"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:textColor="@color/colorPrimaryTextBlue"
-                        android:textStyle="bold" />
-
-                    <Button
-                        android:id="@+id/btn_reload"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="40dp"
-                        android:background="@color/colorToolbar"
-                        android:text="RELOAD"
-                        android:textColor="@color/colorAccent" />
-
-                    <Button
-                        android:id="@+id/btn_result"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="40dp"
-                        android:background="@color/colorAccent"
-                        android:text="RESULT"
-                        android:textColor="@android:color/white" />
-
-
-                    <RadioGroup
-                        android:id="@+id/radio_group_vote"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"></RadioGroup>
-                </LinearLayout>
-            </ScrollView>
-        </LinearLayout>
     </ScrollView>
 
     <Button
         android:id="@+id/btn_submit_vote"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorAccent"
+        android:layout_marginTop="5dp"
+        android:background="@color/colorPrimaryDarkBlue"
         android:text="VOTE"
         android:textColor="@android:color/white" />
-
 </RelativeLayout>

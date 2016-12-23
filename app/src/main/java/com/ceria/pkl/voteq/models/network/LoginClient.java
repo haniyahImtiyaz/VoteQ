@@ -10,6 +10,6 @@ import retrofit2.http.Query;
  * Created by root on 22/09/16.
  */
 public interface LoginClient {
-    @POST("user/session")
-    Call<LoginResponse> signIn(@Query("session[email]") String email, @Query("session[password]") String password);
+    @POST("users/sessions")
+    Call<LoginResponse> signIn(@Query("email") String email, @Query("password") String password);
 }

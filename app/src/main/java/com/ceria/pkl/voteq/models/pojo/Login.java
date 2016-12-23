@@ -14,6 +14,6 @@ public class Login {
     public String createdAt;
     @SerializedName("updated_at")
     public String updatedAt;
-    @SerializedName("auth_token")
+    @SerializedName("authentication_token")
     public String authToken;
 }

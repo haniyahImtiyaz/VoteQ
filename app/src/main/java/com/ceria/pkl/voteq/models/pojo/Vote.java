@@ -10,18 +10,24 @@ public class Vote {
     public String id;
     @SerializedName("title")
     public String title;
-    @SerializedName("voter_count")
-    public String voter_count;
-    @SerializedName("user")
+    @SerializedName("image")
+    public String image;
+    @SerializedName("description")
+    public String description;
+    @SerializedName("category")
+    public String category;
+    @SerializedName("started_at")
+    public String started_at;
+    @SerializedName("ended_at")
+    public String ended_at;
+    @SerializedName("vote_pict_url")
+    public String vote_pict_url;
+    @SerializedName("creator")
     public User user;
-    @SerializedName("status")
-    public String status;
-    @SerializedName("options")
-    public Option[] options;
+    @SerializedName("total_participant")
+    public int participant;
     @SerializedName("created_at")
     public String created_at;
-    @SerializedName("vote")
-    public Vote vote;
-    @SerializedName("choosen_option")
-    public Option choosenOption;
+    @SerializedName("options")
+    public Option[] options;
 }

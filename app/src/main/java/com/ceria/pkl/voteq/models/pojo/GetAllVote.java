@@ -8,6 +8,6 @@ import com.google.gson.annotations.SerializedName;
 public class GetAllVote {
     @SerializedName("total")
     public int total;
-    @SerializedName("vote")
+    @SerializedName("votes")
     public Vote[] vote;
 }

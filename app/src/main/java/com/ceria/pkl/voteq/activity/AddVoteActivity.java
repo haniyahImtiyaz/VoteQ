@@ -95,7 +95,7 @@ public class AddVoteActivity extends AppCompatActivity implements CreateVoteInte
                             .show();
                 } else {
                     String option = editTextOption.getText().toString();
-                    optionItemList.add(get("Option " + (listAdapterOption.getCount() + 1), option));
+                  //  optionItemList.add(get("Option " + (listAdapterOption.getCount() + 1), option));
                     listAdapterOption.notifyDataSetChanged();
                     editTextOption.setText("");
                     editTextOption.setHint("Option " + (listAdapterOption.getCount() + 1));
@@ -108,10 +108,10 @@ public class AddVoteActivity extends AppCompatActivity implements CreateVoteInte
 
     }
 
-    private OptionItem get(String option, String optionValue) {
-        listOption.add(optionValue);
-        return new OptionItem(option, optionValue);
-    }
+//    private OptionItem get(String option, String optionValue) {
+//        listOption.add(optionValue);
+//        return new OptionItem(option, optionValue);
+//    }
 
     @Override
     protected void onResume() {
@@ -166,7 +166,7 @@ public class AddVoteActivity extends AppCompatActivity implements CreateVoteInte
         new AlertDialog.Builder(AddVoteActivity.this).setMessage("Option '" + option + "' haven't added in option list, Do you want add '" + option + "' to option list ?")
                 .setPositiveButton("yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        optionItemList.add(get("Option " + (listAdapterOption.getCount() + 1), option));
+                     //   optionItemList.add(get("Option " + (listAdapterOption.getCount() + 1), option));
                         listAdapterOption.notifyDataSetChanged();
                         editTextOption.setText("");
                         editTextOption.setHint("Option " + (listAdapterOption.getCount() + 1));

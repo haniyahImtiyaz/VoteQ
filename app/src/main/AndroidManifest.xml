@@ -3,6 +3,8 @@
     package="com.ceria.pkl.voteq">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -52,6 +54,11 @@
         <activity
             android:name=".ResetActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activity.MyActivity" />
+        <activity
+            android:name=".activity.ProfileActivity"
+            android:label="@string/title_activity_profile"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

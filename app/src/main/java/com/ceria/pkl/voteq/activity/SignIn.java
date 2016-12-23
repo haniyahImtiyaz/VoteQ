@@ -3,18 +3,26 @@ package com.ceria.pkl.voteq.activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ceria.pkl.voteq.R;
+import com.ceria.pkl.voteq.presenter.view.GetImageView;
 import com.ceria.pkl.voteq.presenter.view.LoginView;
 import com.ceria.pkl.voteq.presenter.viewinterface.LoginInterface;
+
+import java.io.File;
 
 
 public class SignIn extends AppCompatActivity implements LoginInterface, View.OnClickListener {
@@ -33,8 +41,9 @@ public class SignIn extends AppCompatActivity implements LoginInterface, View.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
         progressDialog = new ProgressDialog(this);
-        edtEmail = (EditText) findViewById(R.id.txt_email);
-        edtPassword = (EditText) findViewById(R.id.txt_password);
+        edtEmail = (EditText) findViewById(R.id.textEmail);
+        edtPassword = (EditText) findViewById(R.id.textPassword);
+        edtPassword.setTransformationMethod(new PasswordTransformationMethod());
         account = (TextView) findViewById(R.id.newAccount);
         forgotPassword = (TextView) findViewById(R.id.forgotPassword);
         findViewById(R.id.butSignIn).setOnClickListener(this);
@@ -63,6 +72,7 @@ public class SignIn extends AppCompatActivity implements LoginInterface, View.On
         }
 
     }
+
 
     @Override
     protected void onPause() {

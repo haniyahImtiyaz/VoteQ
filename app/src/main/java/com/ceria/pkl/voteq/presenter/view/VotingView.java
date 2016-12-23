@@ -26,17 +26,17 @@ public class VotingView implements VotingCallBack {
     }
 
     @Override
-    public void callVoting(String token, String id, String voted_option_id) {
+    public void callVoting(String token, String id, int option_id) {
         if (votingInterface != null) {
             votingInterface.showProgress();
         }
         Call<VotingResponse> call;
         if (voted == true) {
             UpdateVotedClient votingClient = ApiClient.getClient().create(UpdateVotedClient.class);
-            call = votingClient.voting(token, id, voted_option_id);
+            call = votingClient.voting(token, "1", "1");
         } else {
             VotingClient votingClient = ApiClient.getClient().create(VotingClient.class);
-            call = votingClient.voting(token, id, voted_option_id);
+            call = votingClient.voting(token, id, option_id);
         }
         call.enqueue(new Callback<VotingResponse>() {
             @Override
