@@ -39,23 +39,85 @@
                 android:textSize="24dp"
                 android:textStyle="bold"/>
 
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/titleWrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/textTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Title"
+                    android:inputType="text"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            </android.support.design.widget.TextInputLayout>
+
+
             <TextView
-                android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:text="Insert a title"
-                android:textColor="@color/colorSecondaryTextBlue" />
+                android:text="Select Image Vote"
+                android:textColor="@color/colorPrimaryDarkBlue"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:padding="5dp"
+                android:id="@+id/btnSelectImage"/>
 
-            <EditText
-                android:id="@+id/editTextTitle"
+            <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:imeOptions="actionNext"
-                android:singleLine="true"
-                android:hint="Title"
-                android:textColorHint="@color/colorPrimaryTextBlue" />
+                android:layout_height="150dp"
+                android:padding="5dp"
+                android:src="@mipmap/ic_launcher"
+                android:id="@+id/imageVote"/>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/startedWrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/textStarted"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusableInTouchMode="false"
+                    android:hint="Started At"
+                    android:inputType="text"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/endedWrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/textEnded"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusableInTouchMode="false"
+                    android:hint="Ended At"
+                    android:inputType="text"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/descriptionWrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/textDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Description"
+                    android:inputType="text"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            </android.support.design.widget.TextInputLayout>
+
 
             <TextView
                 android:id="@+id/textView3"
@@ -70,27 +132,24 @@
                 android:id="@+id/expandable_listview"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:padding="8dp"></com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView>
+                android:divider="@null"
+                android:dividerHeight="0dp"
+                android:paddingLeft="2dp"></com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView>
 
-            <TextView
-                android:id="@+id/textViewOption"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/list_item"
-                android:layout_marginTop="10dp"
-                android:text="Insert option"
-                android:textColor="@color/colorSecondaryTextBlue" />
-
-            <EditText
-                android:id="@+id/editTextOption"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/optionWrapper"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textViewOption"
-                android:layout_marginTop="5dp"
-                android:imeOptions="actionGo"
-                android:singleLine="true"
-                android:hint="Option 1"
-                android:textColorHint="@color/colorPrimaryTextBlue" />
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/textOption"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Insert Option"
+                    android:inputType="text"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            </android.support.design.widget.TextInputLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">

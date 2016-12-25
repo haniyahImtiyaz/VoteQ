@@ -8,7 +8,10 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
@@ -32,6 +35,7 @@ public class SignIn extends AppCompatActivity implements LoginInterface, View.On
     EditText edtPassword;
     TextView account;
     TextView forgotPassword;
+    TextInputLayout layoutEmail, layoutPassword;
     Intent i;
     ProgressDialog progressDialog;
     private LoginView presenter;
@@ -46,12 +50,14 @@ public class SignIn extends AppCompatActivity implements LoginInterface, View.On
         edtPassword.setTransformationMethod(new PasswordTransformationMethod());
         account = (TextView) findViewById(R.id.newAccount);
         forgotPassword = (TextView) findViewById(R.id.forgotPassword);
+        layoutEmail = (TextInputLayout)findViewById(R.id.emailWrapper);
+        layoutPassword = (TextInputLayout)findViewById(R.id.passwordWrapper);
         findViewById(R.id.butSignIn).setOnClickListener(this);
         forgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 i = new Intent(SignIn.this, ForgotPassword.class);
-                startActivity(i);
+             //   startActivity(i);
             }
         });
         account.setOnClickListener(new View.OnClickListener() {
@@ -59,6 +65,52 @@ public class SignIn extends AppCompatActivity implements LoginInterface, View.On
             public void onClick(View view) {
                 i = new Intent(SignIn.this, SignUp.class);
                 startActivity(i);
+            }
+        });
+
+        edtEmail.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String email = edtEmail.getText().toString();
+                if (email.isEmpty()) {
+                    layoutEmail.setError("Enter Your Email");
+                    edtEmail.requestFocus();
+                } else {
+                    layoutEmail.setErrorEnabled(false);
+                }
+            }
+        });
+
+        edtPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String pwd = edtPassword.getText().toString();
+                if (pwd.isEmpty()) {
+                    layoutPassword.setError("Enter Your Password");
+                    edtPassword.requestFocus();
+                } else {
+                    layoutPassword.setErrorEnabled(false);
+                }
             }
         });
 
@@ -117,12 +169,12 @@ public class SignIn extends AppCompatActivity implements LoginInterface, View.On
 
     @Override
     public void setEmailError() {
-        edtEmail.setError("Email cannot be empty");
+        layoutEmail.setError("Email cannot be empty");
     }
 
     @Override
     public void setPasswordError() {
-        edtPassword.setError("Password cannot be empty");
+        layoutPassword.setError("Password cannot be empty");
     }
 
     @Override

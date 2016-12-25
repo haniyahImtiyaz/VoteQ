@@ -2,51 +2,69 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="@color/colorToolbar" android:layout_marginTop="50dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorToolbar"
+    android:layout_marginTop="50dp"
     tools:showIn="@layout/activity_vote">
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="#d7d6d6"/>
+
     <ScrollView
-        android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:layout_alignParentTop="true" android:layout_alignParentLeft="true"
-        android:layout_marginBottom="50dp" android:layout_alignParentStart="true">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="50dp"
+        android:layout_alignParentStart="true">
+
         <RelativeLayout
-            android:layout_width="match_parent" android:layout_height="match_parent"
-            android:layout_marginBottom="20dp" android:padding="16dp">
-            <LinearLayout android:id="@+id/userProfile" android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:orientation="horizontal">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:id="@+id/userProfile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/image_circle"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@mipmap/ic_launcher"
                     android:layout_gravity="center_vertical"
                     app:civ_border_color="@color/colorDividerBlue"
                     app:civ_border_width="1dp" />
+
                 <LinearLayout
-                    android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:layout_gravity="center" android:layout_marginLeft="6dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="6dp"
                     android:orientation="vertical">
+
                     <TextView
                         android:id="@+id/user"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="username"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
                         android:textColor="@color/colorTextUsername"
                         android:textStyle="bold" />
+
                     <TextView
                         android:id="@+id/date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/user"
-                        android:text="23 Des 206 - 23 Jan 2017"
                         android:textSize="10dp" />
                 </LinearLayout>
+
             </LinearLayout>
+
             <TextView
                 android:id="@+id/voteTitle"
                 android:layout_width="match_parent"
@@ -57,7 +75,6 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_marginTop="10dp"
-                android:text="Vote Title"
                 android:layout_marginBottom="5dp"/>
             <TextView
                 android:id="@+id/labelStatus"
@@ -66,18 +83,18 @@
                 android:layout_below="@+id/voteTitle"
                 android:background="#34d487"
                 android:paddingLeft="10dp"
-                android:text="Open"
                 android:paddingRight="10dp"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                 android:textColor="#ffffff" />
+
             <TextView
                 android:id="@+id/voteDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/labelStatus"
                 android:layout_marginTop="10dp"
-                android:text="Text here about spoiler detail vote. Let the voter write some explanation here ......"
                 android:textColor="#4a4a4a" />
+
             <TextView
                 android:id="@+id/voteCategory"
                 android:layout_width="wrap_content"
@@ -88,15 +105,16 @@
                 android:layout_toRightOf="@+id/labelStatus"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                 android:textColor="@color/colorTextCategory" />
+
             <ImageView
                 android:id="@+id/voteImage"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
-                android:src="@drawable/v"
                 android:layout_below="@id/voteDescription"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="16dp"
                 android:layout_marginTop="16dp" />
+
             <TextView
                 android:id="@+id/voteResponder"
                 android:layout_width="match_parent"
@@ -104,14 +122,19 @@
                 android:layout_below="@+id/voteImage"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                 android:textColor="#9e9d9d" />
+
             <com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView
                 android:id="@+id/listOption"
                 android:layout_marginTop="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/voteResponder"></com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView>
+
+
         </RelativeLayout>
+
     </ScrollView>
+
     <Button
         android:id="@+id/btn_submit_vote"
         android:layout_width="match_parent"

@@ -30,7 +30,6 @@ public class LoginInteractorImpl implements LoginInteractor{
 
     @Override
     public void login(final String email, final String password, final OnLoginFinishedListener listener) {
-        // Mock login. I'm creating activity_card handler to delay the answer activity_card couple of seconds
         new Handler().postDelayed(new Runnable() {
             @Override public void run() {
                 boolean error = false;
@@ -42,7 +41,6 @@ public class LoginInteractorImpl implements LoginInteractor{
                     listener.onPasswordError();
                     error = true;
                 }
-
             if (!error){
                 sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
 
@@ -63,8 +61,6 @@ public class LoginInteractorImpl implements LoginInteractor{
                             listener.onError();
                         }
                     }
-
-
                     @Override
                     public void onFailure(Call<LoginResponse> call, Throwable t) {
                         listener.onFailure();

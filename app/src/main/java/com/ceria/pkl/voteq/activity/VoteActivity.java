@@ -1,31 +1,19 @@
 package com.ceria.pkl.voteq.activity;
 
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
-import android.widget.RelativeLayout.LayoutParams;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,9 +22,7 @@ import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.LazyHeaders;
 import com.ceria.pkl.voteq.R;
 import com.ceria.pkl.voteq.adapter.ListAdapterOption;
-import com.ceria.pkl.voteq.adapter.ListAdapterResult;
 import com.ceria.pkl.voteq.itemAdapter.OptionItem;
-import com.ceria.pkl.voteq.itemAdapter.ResultItem;
 import com.ceria.pkl.voteq.itemAdapter.VoteItem;
 import com.ceria.pkl.voteq.models.NetworkService;
 import com.ceria.pkl.voteq.presenter.view.CancelVoteView;
@@ -50,14 +36,10 @@ import com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VoteActivity
-        extends AppCompatActivity implements VotingInterface, View.OnClickListener
-{
+public class VoteActivity extends AppCompatActivity implements VotingInterface {
 
-    ExpandableHeightGridView gridView;
     List<OptionItem> optionItemList;
     VoteItem voteItem = new VoteItem();
-    NetworkService networkService;
     ProgressDialog progressDialog;
     int position, option_id;
     TextView voteUsername, voteDate, voteTitle, voteStatus, voteCategory, voteDescription, voteResponder;
@@ -89,16 +71,16 @@ public class VoteActivity
             }
         });
 
-        voteUsername = (TextView)findViewById(R.id.user);
-        voteDate = (TextView)findViewById(R.id.date);
-        voteTitle = (TextView)findViewById(R.id.voteTitle);
-        voteStatus = (TextView)findViewById(R.id.labelStatus);
-        voteCategory = (TextView)findViewById(R.id.voteCategory);
-        voteDescription = (TextView)findViewById(R.id.voteDescription);
-        voteResponder = (TextView)findViewById(R.id.voteResponder);
-        btnVote = (Button)findViewById(R.id.btn_submit_vote);
-        voteImage = (ImageView)findViewById(R.id.voteImage);
-        userImage = (ImageView)findViewById(R.id.image_circle);
+        voteUsername = (TextView) findViewById(R.id.user);
+        voteDate = (TextView) findViewById(R.id.date);
+        voteTitle = (TextView) findViewById(R.id.voteTitle);
+        voteStatus = (TextView) findViewById(R.id.labelStatus);
+        voteCategory = (TextView) findViewById(R.id.voteCategory);
+        voteDescription = (TextView) findViewById(R.id.voteDescription);
+        voteResponder = (TextView) findViewById(R.id.voteResponder);
+        btnVote = (Button) findViewById(R.id.btn_submit_vote);
+        voteImage = (ImageView) findViewById(R.id.voteImage);
+        userImage = (ImageView) findViewById(R.id.image_circle);
 
         listViewOption = (ExpandableHeightListView) findViewById(R.id.listOption);
         listViewOption.setExpanded(true);
@@ -114,12 +96,12 @@ public class VoteActivity
 
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
-        titleText = intent.getStringExtra("title");
-        countText = intent.getStringExtra("count");
-        labelText = intent.getStringExtra("status");
-        creator_id = intent.getStringExtra("creator_id");
-        position = intent.getIntExtra("position", 0);
-        fragment = intent.getStringExtra("fragment");
+//        titleText = intent.getStringExtra("title");
+//        countText = intent.getStringExtra("count");
+//        labelText = intent.getStringExtra("status");
+//        creator_id = intent.getStringExtra("creator_id");
+//        position = intent.getIntExtra("position", 0);
+//        fragment = intent.getStringExtra("fragment");
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         token = sharedPreferences.getString("token", "");
@@ -131,8 +113,41 @@ public class VoteActivity
         presenterUpdateStatus = new UpdateStatusView(this);
 
         presenter.callDetailVote(id);
+        View parentLayout = findViewById(R.id.root_view);
+        snackbar = Snackbar.make(parentLayout, "Network Failure", Snackbar.LENGTH_INDEFINITE);
+        snackbar.setAction("Try Again", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                snackbar.dismiss();
+                presenter.callDetailVote(id);
+                voteUsername.setVisibility(View.VISIBLE);
+                voteDate.setVisibility(View.VISIBLE);
+                voteTitle.setVisibility(View.VISIBLE);
+                voteImage.setVisibility(View.VISIBLE);
+                voteDescription.setVisibility(View.VISIBLE);
+                voteStatus.setVisibility(View.VISIBLE);
+                voteResponder.setVisibility(View.VISIBLE);
+                voteCategory.setVisibility(View.VISIBLE);
+                userImage.setVisibility(View.VISIBLE);
+                btnVote.setVisibility(View.VISIBLE);
 
+            }
+        });
 
+        btnVote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenterVoting.callVoting("Token token=" + token, voteItem.getId(), option_id);
+                snackbar = Snackbar.make(v, "Network Failure", Snackbar.LENGTH_INDEFINITE);
+                snackbar.setAction("Try Again", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        snackbar.dismiss();
+                        presenterVoting.callVoting(token, voteItem.getId(), option_id);
+                    }
+                });
+            }
+        });
     }
 
 
@@ -165,13 +180,19 @@ public class VoteActivity
     }
 
     @Override
-    public void setCredentialError() {
-        Toast.makeText(VoteActivity.this, "Error", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
     public void onNetworkFailure() {
-        Toast.makeText(VoteActivity.this, "Network Failure", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(VoteActivity.this, "Network Failure", Toast.LENGTH_SHORT).show();
+        snackbar.show();
+        voteUsername.setVisibility(View.GONE);
+        voteDate.setVisibility(View.GONE);
+        voteTitle.setVisibility(View.GONE);
+        voteImage.setVisibility(View.GONE);
+        voteDescription.setVisibility(View.GONE);
+        voteStatus.setVisibility(View.GONE);
+        voteResponder.setVisibility(View.GONE);
+        voteCategory.setVisibility(View.GONE);
+        userImage.setVisibility(View.GONE);
+        btnVote.setVisibility(View.GONE);
     }
 
     @Override
@@ -188,7 +209,6 @@ public class VoteActivity
     public void onSucceededGetVote() {
         optionItemList = presenter.getOptionItemList();
         voteItem = presenter.getVoteItem();
-        Log.d("hai", voteItem.toString());
         listAdapterOption = new ListAdapterOption(presenter.getOptionItemList(), this);
         listViewOption.setAdapter(listAdapterOption);
         voteUsername.setText(voteItem.getUsername());
@@ -197,14 +217,12 @@ public class VoteActivity
         voteCategory.setText(voteItem.getCategory());
         voteStatus.setText(voteItem.getStatus());
         voteDescription.setText(voteItem.getDescription());
-        voteResponder.setText(voteItem.getResponder() + "responder");
+        voteResponder.setText(voteItem.getResponder() + " responder");
+
         LazyHeaders.Builder builder = new LazyHeaders.Builder()
                 .addHeader("Authorization", "Token token=" + token);
         GlideUrl glideUrl = new GlideUrl("https://electa-engine.herokuapp.com" + voteItem.getUserImage(), builder.build());
-
-        Glide.with(this)
-                .load(glideUrl)
-                .into(userImage);
+        Glide.with(this).load(glideUrl).into(userImage);
 
         if (voteItem.getVoteImage() == "") {
             String lowerTitle = voteItem.getTitle().toLowerCase();
@@ -213,44 +231,18 @@ public class VoteActivity
                 String imageHold = "activity_card" + String.valueOf(lowerTitleFirst);
                 voteImage.setImageResource(this.getResources().getIdentifier(imageHold, "drawable", this.getPackageName()));
             } else {
-                voteImage.setImageResource(this.getResources().getIdentifier(String.valueOf(lowerTitleFirst), "drawable", this.getPackageName()));
+                voteImage.setImageResource(this.getResources().getIdentifier(String.valueOf(lowerTitleFirst), "drawable",
+                        this.getPackageName()));
             }
         } else {
             Glide.with(this)
-                    .load(voteItem.getVoteImage())
-                    .into(voteImage);
+                    .load(voteItem.getVoteImage()).into(voteImage);
         }
-//        //listAdapterResult = new ListAdapterResult(resultItemList, VoteActivity.this);
-        //gridView.setAdapter(listAdapterResult);
-//        if(presenter.voted_option_id == null){
-//            voted = false;
-//        }else{
-//            voted = true;
-//        }
-//        presenterVoting = new VotingView(this, voted);
-//        textDate.setText("Since " + presenter.date);
-
-//        //Create Radio Button to populate vote options
-//        for (int i = 0; i < optionItemList.size(); i++) {
-//            RadioButton radioButtonVote = new RadioButton(this);
-//            radioButtonVote.setId(i+1);
-//            radioButtonVote.setText(optionItemList.get(i).getTitle());
-//            ImageView imageView = new ImageView(this);
-//            imageView.setImageResource(R.mipmap.ic_launcher);
-//            radioGroupVote.addView(radioButtonVote);
-//        }
-
-//        if (presenter.voted_option_id != null && labelText.equals("Open")) {
-//            option_id = Integer.parseInt(presenter.voted_option_id);
-//            radioGroupVote.clearCheck();
-//            radioGroupVote.check(option_id);
-//            btnCancelVote.setVisibility(View.VISIBLE);
-//        } else {
-//            btnCancelVote.setVisibility(View.INVISIBLE);
-//        }
-//        btnReload.setVisibility(View.GONE);
     }
-
+    @Override
+    public void setCredentialError() {
+        Toast.makeText(VoteActivity.this, "Error", Toast.LENGTH_SHORT).show();
+    }
     @Override
     public void onSucceededCancelVote() {
 //        radioGroupVote.removeAllViews();
@@ -297,20 +289,5 @@ public class VoteActivity
 //                HomeActivity.homeAdapter2.notifyDataSetChanged();
 //            }
 //        }
-    }
-
-    @Override
-    public void onClick(View v) {
-            presenterVoting.callVoting("Token token="+token, voteItem.getId(),option_id);
-            snackbar = Snackbar.make(v, "Network Failure", Snackbar.LENGTH_INDEFINITE);
-            snackbar.setAction("Try Again", new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    snackbar.dismiss();
-                  //  presenterVoting.callVoting(token, id, String.valueOf(radioGroupVote.getCheckedRadioButtonId()));
-                }
-            });
-
-
     }
 }

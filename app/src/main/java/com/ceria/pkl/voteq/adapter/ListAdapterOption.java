@@ -59,13 +59,13 @@ public class ListAdapterOption extends BaseAdapter {
         OptionItem optionItem = optionItemList.get(position);
 
         holder.title.setText(optionItem.getTitle());
-        if(optionItem.getImage() == ""){
-            holder.image.setImageResource(R.mipmap.ic_launcher);
-        }else {
+//        if(optionItem.getImage() == ""){
+//            holder.image.setImageResource(R.mipmap.ic_launcher);
+//        }else {
             Glide.with(convertView.getContext())
                     .load(optionItem.getImage())
                     .into(holder.image);
-        }
+//        }
 
         RadioButton rbSelect = (RadioButton) convertView.findViewById(R.id.radioButton);
         if(selectedIndex == position){  // check the position to update correct radio button.

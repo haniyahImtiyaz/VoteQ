@@ -23,17 +23,10 @@
             android:layout_height="100dp"
             android:src="@mipmap/logo"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="10dp"
             app:civ_border_width="1dp"
             android:id="@+id/image_circle"
             app:civ_border_color="@color/colorDividerBlue"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Enter your email and password"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -45,8 +38,8 @@
 
             <ImageView
                 android:id="@+id/imageEmail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_gravity="center"
                 android:layout_marginRight="24dp"
                 android:src="@drawable/email" />
@@ -76,8 +69,8 @@
 
         <ImageView
             android:id="@+id/imagePassword"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_gravity="center"
             android:layout_marginRight="24dp"
             android:src="@drawable/password" />
@@ -146,8 +139,8 @@
             android:id="@+id/text1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="16sp"
             android:text="Don't have an account? "
-            android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/colorPrimaryTextBlue" />
 
         <TextView
@@ -159,7 +152,7 @@
             android:layout_toRightOf="@+id/text1"
             android:text="Sign up now"
             android:textAlignment="center"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="16sp"
             android:textColor="@color/colorPrimaryDarkBlue"
             android:textStyle="bold" />
     </RelativeLayout>

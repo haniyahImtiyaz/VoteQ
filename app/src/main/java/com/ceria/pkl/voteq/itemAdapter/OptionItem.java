@@ -10,6 +10,10 @@ public class OptionItem {
     private int total_voter;
     private RadioButton radioButton;
 
+    public OptionItem(String title) {
+        this.title = title;
+    }
+
     public OptionItem(String id, String title, String percentage, int total_voter, String image) {
         this.id = id;
         this.title = title;

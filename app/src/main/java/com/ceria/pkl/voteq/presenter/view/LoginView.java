@@ -22,7 +22,6 @@ public class LoginView implements LoginCallBack, LoginInteractor.OnLoginFinished
 
     @Override
     public void auth(String email, String password) {
-        Log.d("Detect", "email :" + email + ",pass :" + password);
         if (loginInterface != null) {
             loginInterface.showProgress();
         }

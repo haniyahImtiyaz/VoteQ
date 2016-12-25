@@ -76,7 +76,7 @@ public class SignUp extends AppCompatActivity implements SignupInterface, View.O
             }
         });
 
-        cityName = (TextView)findViewById(R.id.location);
+        //cityName = (TextView)findViewById(R.id.location);
         edtEmail = (EditText) findViewById(R.id.textEmail);
         edtPassword = (EditText) findViewById(R.id.textPassword);
         edtPassword.setTransformationMethod(new PasswordTransformationMethod());
@@ -87,7 +87,7 @@ public class SignUp extends AppCompatActivity implements SignupInterface, View.O
         edtName = (EditText) findViewById(R.id.textUsername);
         edtGender = (EditText) findViewById(R.id.textGender);
         btnSignUp = (Button) findViewById(R.id.butSignUp);
-        btnCurrentLocation = (Button) findViewById(R.id.btnCurrentLocation);
+//        btnCurrentLocation = (Button) findViewById(R.id.btnCurrentLocation);
         login = (TextView)findViewById(R.id.login);
 
         login.setOnClickListener(new View.OnClickListener() {
@@ -95,6 +95,7 @@ public class SignUp extends AppCompatActivity implements SignupInterface, View.O
             public void onClick(View v) {
                 Intent i = new Intent(SignUp.this, SignIn.class);
                 startActivity(i);
+                finish();
             }
         });
 
@@ -108,6 +109,7 @@ public class SignUp extends AppCompatActivity implements SignupInterface, View.O
                 showDatePickerDialog(v);
             }
         });
+
         list = new String[]{"Female", "Male"};
         lpw = new ListPopupWindow(this);
         lpw.setAdapter(new ArrayAdapter<String>(this,
@@ -130,55 +132,55 @@ public class SignUp extends AppCompatActivity implements SignupInterface, View.O
             }
         });
 
-        btnCurrentLocation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-                Criteria criteria = new Criteria();
-                mprovider = locationManager.getBestProvider(criteria, false);
-
-                if (mprovider != null && !mprovider.equals("")) {
-                    if (ActivityCompat.checkSelfPermission(SignUp.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(SignUp.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-                    }
-                    if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
-                            !locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-                        {
-
-                        }
-                    }
-                    Location location = locationManager.getLastKnownLocation(mprovider);
-                    locationManager.requestLocationUpdates(mprovider, 15000, 1, SignUp.this);
-
-                    if (location != null){
-                        onLocationChanged(location);}
-                    else {
-                        Toast.makeText(getBaseContext(), "No Location Provider Found Check Your Code", Toast.LENGTH_SHORT).show();
-                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(SignUp.this);
-                        alertDialogBuilder
-                                .setMessage("GPS is disabled in your device. Enable it?")
-                                .setCancelable(false)
-                                .setPositiveButton("Enable GPS",
-                                        new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog,
-                                                                int id) {
-                                                Intent callGPSSettingIntent = new Intent(
-                                                        android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                                                startActivity(callGPSSettingIntent);
-                                            }
-                                        });
-                        alertDialogBuilder.setNegativeButton("Cancel",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        dialog.cancel();
-                                    }
-                                });
-                        AlertDialog alert = alertDialogBuilder.create();
-                        alert.show();
-                    }
-                }
-            }
-        });
+//        btnCurrentLocation.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+//                Criteria criteria = new Criteria();
+//                mprovider = locationManager.getBestProvider(criteria, false);
+//
+//                if (mprovider != null && !mprovider.equals("")) {
+//                    if (ActivityCompat.checkSelfPermission(SignUp.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(SignUp.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//
+//                    }
+//                    if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
+//                            !locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+//                        {
+//
+//                        }
+//                    }
+//                    Location location = locationManager.getLastKnownLocation(mprovider);
+//                    locationManager.requestLocationUpdates(mprovider, 15000, 1, SignUp.this);
+//
+//                    if (location != null){
+//                        onLocationChanged(location);}
+//                    else {
+//                        Toast.makeText(getBaseContext(), "No Location Provider Found Check Your Code", Toast.LENGTH_SHORT).show();
+//                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(SignUp.this);
+//                        alertDialogBuilder
+//                                .setMessage("GPS is disabled in your device. Enable it?")
+//                                .setCancelable(false)
+//                                .setPositiveButton("Enable GPS",
+//                                        new DialogInterface.OnClickListener() {
+//                                            public void onClick(DialogInterface dialog,
+//                                                                int id) {
+//                                                Intent callGPSSettingIntent = new Intent(
+//                                                        android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+//                                                startActivity(callGPSSettingIntent);
+//                                            }
+//                                        });
+//                        alertDialogBuilder.setNegativeButton("Cancel",
+//                                new DialogInterface.OnClickListener() {
+//                                    public void onClick(DialogInterface dialog, int id) {
+//                                        dialog.cancel();
+//                                    }
+//                                });
+//                        AlertDialog alert = alertDialogBuilder.create();
+//                        alert.show();
+//                    }
+//                }
+//            }
+//        });
     }
 
     @Override
@@ -310,6 +312,7 @@ public class SignUp extends AppCompatActivity implements SignupInterface, View.O
 
         public void onDateSet(DatePicker view, int year, int month, int day) {
             // Do something with the date chosen by the user
+            month = month + 1;
             edtBirth.setText(year+"-"+month+"-"+day);
         }
     }

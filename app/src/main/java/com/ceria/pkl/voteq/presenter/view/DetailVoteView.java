@@ -34,23 +34,17 @@ public class DetailVoteView implements DetailVoteCallBack {
     private VoteItem voteItem;
     private VotingInterface votingInterface;
 
-    private String setStatus(String started_at, String ended_at){
+    private String setDate(String date){
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+        SimpleDateFormat sdf1 = new SimpleDateFormat("dd MMMM yyyy", Locale.US);
         try {
-            Date started = sdf.parse(started_at);
-            Date ended = sdf.parse(ended_at);
-            Date current = new Date();
-            if((started.equals(current) || started.before(current)) && (ended.after(current)|| ended.equals(current))){
-                Log.d("dteail", current.toString());
-                return "Open";
-            }
-            else{
-                return "Closed";
-            }
+            String dateText = String.valueOf(sdf.parse(date));
+            Date dateFix = sdf1.parse(dateText);
+            return String.valueOf(dateFix);
         } catch (ParseException e) {
             e.printStackTrace();
             Log.d("error", e.toString());
-            return "Closed";
+            return date;
         }
     }
 
@@ -83,13 +77,15 @@ public class DetailVoteView implements DetailVoteCallBack {
             public void onResponse(Call<DetailVoteResponse> call, Response<DetailVoteResponse> response) {
                 if (response.code() == 200) {
                   Vote vote = response.body().data;
-                    String status = "Closed";
-                    if(!vote.started_at.isEmpty() && !vote.ended_at.isEmpty()){
-                        status = setStatus(vote.started_at, vote.ended_at);
+                    String category;
+                    try {
+                        category = vote.category.category;
+                    }catch (Exception e){
+                        category = "Uncategorized";
                     }
-                    VoteItem voteObject = new VoteItem(vote.id, vote.user.name, vote.started_at,
-                            vote.ended_at, vote.title, vote.category, vote.description,
-                            status, vote.participant, vote.user.image, vote.image);
+                    VoteItem voteObject = new VoteItem(vote.id, vote.user.name, setDate(vote.started_at),
+                            setDate(vote.ended_at), vote.title, category, vote.description,
+                            vote.status, vote.participant, vote.user.image, vote.image);
                     setVoteItem(voteObject);
                     Option[] options = vote.options;
                         for (int i = 0; i < options.length; i++) {

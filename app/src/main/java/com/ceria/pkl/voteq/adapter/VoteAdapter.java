@@ -37,10 +37,9 @@ public class VoteAdapter extends RecyclerView.Adapter<VoteAdapter.MyViewHolder> 
     private String token;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView username, started, title, category, description, status, responder;
+        public TextView username, started, title, category, description, status, responder, btnVote;
         public ImageView voteImage;
         public CircleImageView userImage;
-        public Button btn;
 
 
         public MyViewHolder(View view) {
@@ -54,7 +53,7 @@ public class VoteAdapter extends RecyclerView.Adapter<VoteAdapter.MyViewHolder> 
             responder = (TextView) view.findViewById(R.id.voteResponder);
             voteImage = (ImageView) view.findViewById(R.id.voteImage);
             userImage = (CircleImageView) view.findViewById(R.id.image_circle);
-            btn = (Button) view.findViewById(R.id.btnVote);
+            btnVote = (TextView) view.findViewById(R.id.btnVote);
 
         }
     }
@@ -84,7 +83,7 @@ public class VoteAdapter extends RecyclerView.Adapter<VoteAdapter.MyViewHolder> 
         holder.description.setText(voteItem.getDescription());
         holder.responder.setText(voteItem.getResponder() + " responder");
 
-        holder.btn.setOnClickListener(new View.OnClickListener() {
+        holder.btnVote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(mContext, VoteActivity.class);

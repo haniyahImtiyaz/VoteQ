@@ -21,5 +21,5 @@ public interface CreateVoteInteractor {
         void onFailure();
     }
 
-    void createVote(String title, String option, List<String> options, Boolean is_open, OnCreateVoteFinishedListener listener);
+    void createVote(String title, String description, String started, String ended, List<String> options, OnCreateVoteFinishedListener listener);
 }

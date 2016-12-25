@@ -27,6 +27,7 @@
     <string name="title_activity_card">CardActivity</string>
     <string name="title_activity_main4">Main4Activity</string>
     <string name="title_activity_profile">ProfileActivity</string>
+    <string name="title_activity_image">ImageActivity</string>
 
 
 </resources>

@@ -10,12 +10,14 @@ public class Vote {
     public String id;
     @SerializedName("title")
     public String title;
+    @SerializedName("status")
+    public String status;
     @SerializedName("image")
     public String image;
     @SerializedName("description")
     public String description;
     @SerializedName("category")
-    public String category;
+    public Category category;
     @SerializedName("started_at")
     public String started_at;
     @SerializedName("ended_at")

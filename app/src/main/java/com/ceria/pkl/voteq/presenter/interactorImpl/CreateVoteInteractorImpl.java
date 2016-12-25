@@ -18,14 +18,20 @@ import retrofit2.Response;
  * Created by win 8 on 10/23/2016.
  */
 public class CreateVoteInteractorImpl implements CreateVoteInteractor {
-    private String token;
+    private String token, id;
+
+    public String getId() {
+        return id;
+    }
 
     public CreateVoteInteractorImpl(String token) {
         this.token = token;
     }
 
     @Override
-    public void createVote(final String title, final String option, final List<String> options, final Boolean is_open, final OnCreateVoteFinishedListener listener) {
+    public void createVote(final String title, final String description,
+                           final String started, final String ended, final List<String> options,
+                           final OnCreateVoteFinishedListener listener) {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -38,17 +44,19 @@ public class CreateVoteInteractorImpl implements CreateVoteInteractor {
                     listener.onOptionsError();
                     error = true;
                 }
-                if (!option.isEmpty()) {
-                    listener.onOptionError();
-                    error = true;
-                }
+//                if (!option.isEmpty()) {
+//                   error = true;
+//                    listener.onOptionError();
+//                }
                 if (!error) {
                     final CreateVoteClient createVoteClient = ApiClient.getClient().create(CreateVoteClient.class);
-                    Call<CreateVoteResponse> call = createVoteClient.createVote(token, title, options, is_open);
+                    Call<CreateVoteResponse> call = createVoteClient.createVote("Token token="+token, title, description, started, ended, options);
                     call.enqueue(new Callback<CreateVoteResponse>() {
                         @Override
                         public void onResponse(Call<CreateVoteResponse> call, Response<CreateVoteResponse> response) {
                             if (response.code() == 201) {
+                                id = response.body().data.id;
+                                Log.d("idnya", "a"+id);
                                 listener.onSuccess();
                             } else {
                                 Log.d("LOG", "response code: " + response.code());
@@ -65,6 +73,7 @@ public class CreateVoteInteractorImpl implements CreateVoteInteractor {
 
             }
         }, 2000);
+
     }
 
 }

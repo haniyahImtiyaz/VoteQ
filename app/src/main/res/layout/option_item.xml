@@ -1,23 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:descendantFocusability="blocksDescendants"
     android:orientation="horizontal">
-<RadioButton
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:id="@+id/radioButton"/>
 
-    <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:id="@+id/imageOption"
-        android:padding="10dp"/>
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/radioButton"/>
+
     <TextView
         android:id="@+id/titleOption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="10dp"
+        android:layout_marginLeft="0dp"
+        android:layout_gravity="center_vertical"
         android:text="Option Title" />
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageOption"
+        android:layout_marginLeft="10dp"
+        android:layout_gravity="center"
+        android:padding="10dp"/>
 </LinearLayout>

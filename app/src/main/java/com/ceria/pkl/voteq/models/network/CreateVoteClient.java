@@ -13,6 +13,7 @@ import retrofit2.http.Query;
  * Created by win 8 on 10/21/2016.
  */
 public interface CreateVoteClient {
-    @POST("user/votes")
-    Call<CreateVoteResponse> createVote(@Header("Authorization") String authorization, @Query("title") String title, @Query("options[]") List<String> options, @Query("is_open") Boolean is_open);
+    @POST("users/vote")
+    Call<CreateVoteResponse> createVote(@Header("Authorization") String authorization, @Query("title") String title, @Query("description") String description,@Query("started_at") String started,
+                                        @Query("ended_at") String ended, @Query("options[]") List<String> options);
 }

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.PagerAdapter;
@@ -89,11 +90,6 @@ public class HomeActivity extends AppCompatActivity implements SearchView.OnQuer
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(HomeActivity.this);
         token = sharedPreferences.getString("token", "");
 
-        if (android.os.Build.VERSION.SDK_INT > 9) {
-            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-            StrictMode.setThreadPolicy(policy);
-        }
-
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
         progressDialog = new ProgressDialog(this);
@@ -104,6 +100,7 @@ public class HomeActivity extends AppCompatActivity implements SearchView.OnQuer
         recyclerView.setAdapter(adapter);
         presenter = new GetAllVoteView(this, this, token);
         presenter.callGetAllVote();
+        showProgress();
 
         swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
@@ -115,6 +112,15 @@ public class HomeActivity extends AppCompatActivity implements SearchView.OnQuer
             public void onRefresh() {
                 presenter.callGetAllVote();
                 voteItemList.clear();
+            }
+        });
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               Intent i = new Intent(HomeActivity.this, AddVoteActivity.class);
+                startActivity(i);
             }
         });
     }
@@ -140,7 +146,7 @@ public class HomeActivity extends AppCompatActivity implements SearchView.OnQuer
     @Override
     public void onNetworkFailure() {
         hideProgress();
-        Toast.makeText(this, "Network Failure Votelist", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Network Failure", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -191,8 +197,8 @@ public class HomeActivity extends AppCompatActivity implements SearchView.OnQuer
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        homeAdapter.filter(newText);
-        homeAdapter2.filter(newText);
+//        homeAdapter.filter(newText);
+//        homeAdapter2.filter(newText);
         return false;
     }
 }
