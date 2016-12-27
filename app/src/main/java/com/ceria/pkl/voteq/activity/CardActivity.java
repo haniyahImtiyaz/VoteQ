@@ -47,7 +47,7 @@ public class CardActivity extends Fragment implements GetAllVoteInterface {
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
-        presenter = new GetAllVoteView(this, getContext(), HomeActivity.token);
+        presenter = new GetAllVoteView(this);
         presenter.callGetAllVote();
        // prepareAlbums();
 

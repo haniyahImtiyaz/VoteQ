@@ -9,17 +9,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.ceria.pkl.voteq.ClientCallbackSignIn;
 import com.ceria.pkl.voteq.R;
 import com.ceria.pkl.voteq.ResetActivity;
-import com.ceria.pkl.voteq.models.NetworkService;
 
-public class ForgotPassword extends AppCompatActivity implements ClientCallbackSignIn {
+public class ForgotPassword extends AppCompatActivity  {
 
     EditText email;
     Button submit;
     Intent i;
-    NetworkService networkService;
+//    NetworkService networkService;
     ProgressDialog progressDialog;
     private String emailText;
     @Override
@@ -36,8 +34,8 @@ public class ForgotPassword extends AppCompatActivity implements ClientCallbackS
             @Override
             public void onClick(View view) {
                 emailText = email.getText().toString();
-                networkService = new NetworkService(ForgotPassword.this);
-                networkService.resetRequest(emailText, ForgotPassword.this);
+             //   networkService = new NetworkService(ForgotPassword.this);
+             //   networkService.resetRequest(emailText, ForgotPassword.this);
                 progressDialog.show();
                 progressDialog.setCanceledOnTouchOutside(false);
             }
@@ -45,7 +43,7 @@ public class ForgotPassword extends AppCompatActivity implements ClientCallbackS
         });
     }
 
-    @Override
+//    @Override
     public void onSucceded() {
         progressDialog.dismiss();
         Toast.makeText(ForgotPassword.this, "Please check your email", Toast.LENGTH_SHORT).show();
@@ -54,13 +52,13 @@ public class ForgotPassword extends AppCompatActivity implements ClientCallbackS
         startActivity(i);
     }
 
-    @Override
+//    @Override
     public void onFailed() {
         progressDialog.dismiss();
         Toast.makeText(ForgotPassword.this, "Email invalid", Toast.LENGTH_SHORT).show();
     }
 
-    @Override
+//    @Override
     public void onTimeout() {
         progressDialog.dismiss();
         Toast.makeText(ForgotPassword.this, "Network Failure", Toast.LENGTH_SHORT).show();

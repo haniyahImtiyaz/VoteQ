@@ -68,51 +68,9 @@ public class SignIn extends AppCompatActivity implements LoginInterface, View.On
             }
         });
 
-        edtEmail.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        edtEmail.addTextChangedListener(setErrorEditText(layoutEmail, edtEmail, "Please, Enter Your Email"));
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                String email = edtEmail.getText().toString();
-                if (email.isEmpty()) {
-                    layoutEmail.setError("Enter Your Email");
-                    edtEmail.requestFocus();
-                } else {
-                    layoutEmail.setErrorEnabled(false);
-                }
-            }
-        });
-
-        edtPassword.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                String pwd = edtPassword.getText().toString();
-                if (pwd.isEmpty()) {
-                    layoutPassword.setError("Enter Your Password");
-                    edtPassword.requestFocus();
-                } else {
-                    layoutPassword.setErrorEnabled(false);
-                }
-            }
-        });
+        edtPassword.addTextChangedListener(setErrorEditText(layoutPassword, edtPassword,"Please, Enter Your Password"));
 
         presenter = new LoginView(this, this.getApplicationContext());
 
@@ -122,9 +80,7 @@ public class SignIn extends AppCompatActivity implements LoginInterface, View.On
         if (!token.isEmpty()) {
             navigateToHome();
         }
-
     }
-
 
     @Override
     protected void onPause() {
@@ -161,7 +117,6 @@ public class SignIn extends AppCompatActivity implements LoginInterface, View.On
         finish();
     }
 
-
     @Override
     public void onNetworkFailure() {
         Toast.makeText(SignIn.this, "Network Failure Login", Toast.LENGTH_LONG).show();
@@ -182,4 +137,26 @@ public class SignIn extends AppCompatActivity implements LoginInterface, View.On
             presenter.auth(edtEmail.getText().toString(), edtPassword.getText().toString());
     }
 
+    TextWatcher setErrorEditText(TextInputLayout til, EditText et, String message) {
+        return new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {  }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String email = et.getText().toString();
+                if (email.isEmpty()) {
+                    til.setError(message);
+                    et.requestFocus();
+                } else {
+                    til.setErrorEnabled(false);
+                }
+            }
+
+        };
+    }
 }
+

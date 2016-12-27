@@ -34,22 +34,18 @@ import retrofit2.Response;
 public class GetAllVoteView implements GetAllVoteCallBack {
     public List<VoteItem> voteItemList = new ArrayList<>();
     private GetAllVoteInterface getAllVoteInterface;
-    private Context context;
-    String token;
 
-    public GetAllVoteView(GetAllVoteInterface getAllVoteInterface, Context context, String token) {
+    public GetAllVoteView(GetAllVoteInterface getAllVoteInterface) {
         this.getAllVoteInterface = getAllVoteInterface;
-        this.context = context;
-        this.token = token;
     }
 
     private String setDate(String date){
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
-        SimpleDateFormat sdf1 = new SimpleDateFormat("dd MMMM yyyy", Locale.US);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdf1 = new SimpleDateFormat("dd MMM yyyy");
         try {
-            String dateText = String.valueOf(sdf.parse(date));
-            Date dateFix = sdf1.parse(dateText);
-            return String.valueOf(dateFix);
+            Date dateParse = sdf.parse(date);
+            String dateText = sdf1.format(dateParse);
+            return dateText;
         } catch (ParseException e) {
             e.printStackTrace();
             Log.d("error", e.toString());
@@ -68,14 +64,15 @@ public class GetAllVoteView implements GetAllVoteCallBack {
                     GetAllVote getAllVoteObject = response.body().data;
                     Vote[] voteObject = getAllVoteObject.vote;
                     for (int i = 0; i < voteObject.length; i++) {
-                        String category;
-                        try {
-                            category = voteObject[i].category.category;
-                        }catch (Exception e){
-                            category = "Uncategorized";
+                        String started = "", ended = "";
+                        if(voteObject[i].started_at != ""){
+                            started = setDate(voteObject[i].started_at);
                         }
-                        voteItemList.add(new VoteItem(voteObject[i].id, voteObject[i].user.name, setDate(voteObject[i].started_at),
-                                setDate(voteObject[i].ended_at), voteObject[i].title, category, voteObject[i].description,
+                        if(voteObject[i].ended_at != ""){
+                            ended = setDate(voteObject[i].ended_at);
+                        }
+                        voteItemList.add(new VoteItem(voteObject[i].id, voteObject[i].user.name, started,
+                                ended, voteObject[i].title, voteObject[i].category, voteObject[i].description,
                                 voteObject[i].status, voteObject[i].participant, voteObject[i].user.image,
                                 voteObject[i].vote_pict_url));
                     }

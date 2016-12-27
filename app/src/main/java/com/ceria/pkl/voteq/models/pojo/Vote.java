@@ -17,7 +17,7 @@ public class Vote {
     @SerializedName("description")
     public String description;
     @SerializedName("category")
-    public Category category;
+    public String category;
     @SerializedName("started_at")
     public String started_at;
     @SerializedName("ended_at")

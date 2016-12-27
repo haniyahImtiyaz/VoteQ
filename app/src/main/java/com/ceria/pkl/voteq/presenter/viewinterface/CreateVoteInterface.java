@@ -15,10 +15,5 @@ public interface CreateVoteInterface {
     void navigateToHome();
 
     void onSuccedeed();
-
-    void setTitleEmpty();
-
-    void setOptionsEmpty();
-
-    void setOptionNotEmpty();
 }
+

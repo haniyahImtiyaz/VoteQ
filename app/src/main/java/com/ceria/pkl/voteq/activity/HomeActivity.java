@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -97,8 +96,7 @@ public class HomeActivity extends AppCompatActivity implements SearchView.OnQuer
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 1);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(adapter);
-        presenter = new GetAllVoteView(this, this, token);
+        presenter = new GetAllVoteView(this);
         presenter.callGetAllVote();
         showProgress();
 
@@ -202,3 +200,4 @@ public class HomeActivity extends AppCompatActivity implements SearchView.OnQuer
         return false;
     }
 }
+

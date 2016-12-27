@@ -40,7 +40,7 @@ public class VoteList extends Fragment implements GetAllVoteInterface {
         swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh);
         progressDialog = new ProgressDialog(getContext());
 
-        presenter = new GetAllVoteView(this, getContext(), HomeActivity.token);
+        presenter = new GetAllVoteView(this);
 
         //   if (listItem.isEmpty()) {
         visible();

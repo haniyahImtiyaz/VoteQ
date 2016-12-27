@@ -80,7 +80,11 @@ public class VoteAdapter extends RecyclerView.Adapter<VoteAdapter.MyViewHolder> 
         holder.title.setText(voteItem.getTitle());
         holder.status.setText(voteItem.getStatus());
         holder.category.setText(voteItem.getCategory());
-        holder.description.setText(voteItem.getDescription());
+        if(voteItem.getDescription().length() > 200){
+            holder.description.setText(voteItem.getDescription().substring(0, 200)+"...");
+        }else{
+            holder.description.setText(voteItem.getDescription());
+        }
         holder.responder.setText(voteItem.getResponder() + " responder");
 
         holder.btnVote.setOnClickListener(new View.OnClickListener() {

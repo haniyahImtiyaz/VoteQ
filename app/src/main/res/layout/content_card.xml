@@ -20,8 +20,8 @@
                 android:layout_height="wrap_content" android:orientation="horizontal">
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/image_circle"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_gravity="center_vertical"
                     android:src="@mipmap/ic_launcher"
                     app:civ_border_color="@color/colorDividerBlue"
@@ -56,13 +56,13 @@
                 android:src="@mipmap/ic_launcher" />
             <TextView
                 android:id="@+id/voteTitle"
-                android:layout_width="250dp"
+                android:layout_width="230dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/userProfile"
                 android:text="Vote Title"
                 android:layout_marginBottom="5dp"
                 android:textColor="@color/colorTextBlack"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textSize="20sp"
                 />
             <TextView
                 android:id="@+id/labelStatus"

@@ -41,7 +41,7 @@ public class MyVoteList extends Fragment implements GetAllVoteInterface{
         View rootView = inflater.inflate(R.layout.page_my_vote_list, container, false);
         listViewVote = (ListView) rootView.findViewById(R.id.list_my_vote);
         swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh);
-        presenter = new GetAllVoteView(this, getContext(), HomeActivity.token);
+        presenter = new GetAllVoteView(this);
         presenterDelete = new DeleteVoteView(this);
         progressDialog = new ProgressDialog(getContext());
 //        if (listItem.isEmpty()) {

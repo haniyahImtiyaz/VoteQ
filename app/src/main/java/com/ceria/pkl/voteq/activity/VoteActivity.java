@@ -8,7 +8,6 @@ import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
@@ -24,13 +23,11 @@ import com.ceria.pkl.voteq.R;
 import com.ceria.pkl.voteq.adapter.ListAdapterOption;
 import com.ceria.pkl.voteq.itemAdapter.OptionItem;
 import com.ceria.pkl.voteq.itemAdapter.VoteItem;
-import com.ceria.pkl.voteq.models.NetworkService;
 import com.ceria.pkl.voteq.presenter.view.CancelVoteView;
 import com.ceria.pkl.voteq.presenter.view.DetailVoteView;
 import com.ceria.pkl.voteq.presenter.view.UpdateStatusView;
 import com.ceria.pkl.voteq.presenter.view.VotingView;
 import com.ceria.pkl.voteq.presenter.viewinterface.VotingInterface;
-import com.github.paolorotolo.expandableheightlistview.ExpandableHeightGridView;
 import com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView;
 
 import java.util.ArrayList;
@@ -239,10 +236,12 @@ public class VoteActivity extends AppCompatActivity implements VotingInterface {
                     .load(voteItem.getVoteImage()).into(voteImage);
         }
     }
+
     @Override
     public void setCredentialError() {
         Toast.makeText(VoteActivity.this, "Error", Toast.LENGTH_SHORT).show();
     }
+
     @Override
     public void onSucceededCancelVote() {
 //        radioGroupVote.removeAllViews();

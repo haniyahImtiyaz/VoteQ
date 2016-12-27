@@ -10,13 +10,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.ceria.pkl.voteq.activity.SignIn;
-import com.ceria.pkl.voteq.models.NetworkService;
 
-public class ResetActivity extends AppCompatActivity implements ClientCallbackSignIn {
+public class ResetActivity extends AppCompatActivity  {
 
     EditText edtCode,edtPassword,edtPasswordConfirm;
     Button btnReset;
-    NetworkService networkService;
+//    NetworkService networkService;
     ProgressDialog progressDialog;
     String emailText;
 
@@ -39,7 +38,7 @@ public class ResetActivity extends AppCompatActivity implements ClientCallbackSi
         btnReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                networkService = new NetworkService(ResetActivity.this);
+              //  networkService = new NetworkService(ResetActivity.this);
                 String codeText = edtCode.getText().toString();
                 String pwdtext = edtPassword.getText().toString();
                 String pwdConfirText = edtPasswordConfirm.getText().toString();
@@ -48,7 +47,7 @@ public class ResetActivity extends AppCompatActivity implements ClientCallbackSi
                 }else{
                     if (pwdtext.equals(pwdConfirText)){
 
-                        networkService.resetPassword(codeText,pwdtext,pwdConfirText, emailText, ResetActivity.this);
+                       // networkService.resetPassword(codeText,pwdtext,pwdConfirText, emailText, ResetActivity.this);
                         progressDialog.show();
                         progressDialog.setCanceledOnTouchOutside(false);
                     }else{
@@ -60,7 +59,7 @@ public class ResetActivity extends AppCompatActivity implements ClientCallbackSi
             }
         });
     }
-    @Override
+//    @Override
     public void onSucceded() {
         progressDialog.dismiss();
         Toast.makeText(ResetActivity.this, "Successful password changed", Toast.LENGTH_SHORT).show();
@@ -68,13 +67,13 @@ public class ResetActivity extends AppCompatActivity implements ClientCallbackSi
         startActivity(i);
     }
 
-    @Override
+//    @Override
     public void onFailed() {
         progressDialog.dismiss();
         Toast.makeText(ResetActivity.this, "Failed password changed", Toast.LENGTH_SHORT).show();
     }
 
-    @Override
+//    @Override
     public void onTimeout() {
         Toast.makeText(ResetActivity.this, "Network Failure", Toast.LENGTH_SHORT).show();
     }

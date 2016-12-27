@@ -6,8 +6,6 @@ import com.ceria.pkl.voteq.models.network.ApiClient;
 import com.ceria.pkl.voteq.models.network.CreateVoteClient;
 import com.ceria.pkl.voteq.models.pojo.CreateVoteResponse;
 import com.ceria.pkl.voteq.presenter.callback.CreateVoteCallBack;
-import com.ceria.pkl.voteq.presenter.interactor.CreateVoteInteractor;
-import com.ceria.pkl.voteq.presenter.interactorImpl.CreateVoteInteractorImpl;
 import com.ceria.pkl.voteq.presenter.viewinterface.CreateVoteInterface;
 
 import java.util.List;
